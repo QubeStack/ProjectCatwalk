@@ -1,8 +1,8 @@
 import React from 'react';
-import QuestionsView from './QuestionsView.jsx';
-import AnswerQuestion from './AnswerQuestion.jsx';
-import AskQuestion from './AskQuestion.jsx';
-import SearchQuestions from './SearchQuestions.jsx';
+import QuestionsView from './QuestionsView';
+import AnswerQuestion from './AnswerQuestion';
+import AskQuestion from './AskQuestion';
+import SearchQuestions from './SearchQuestions';
 
 class QABody extends React.Component {
   constructor(props) {
