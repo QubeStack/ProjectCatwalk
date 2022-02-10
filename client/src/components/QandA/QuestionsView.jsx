@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 
 class QuestionsView extends React.Component {
   constructor(props) {
@@ -9,9 +11,12 @@ class QuestionsView extends React.Component {
     };
   }
 
+  componentDidMount() {
+  }
+
   render() {
     return (
-      <div>Hello world</div>
+      <div>QuestionsView</div>
     );
   }
 }
