@@ -10,7 +10,7 @@ class OutfitItems extends React.Component {
 
   render() {
     return (
-      <div> </div>
+      <div>Complete the Outfit</div>
     );
   }
 }
