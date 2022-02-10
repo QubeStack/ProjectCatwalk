@@ -5,7 +5,7 @@
   "main": "index.jsx",
   "scripts": {
     "react-dev": "webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,9 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "global-jsdom": "^8.4.0",
+    "jest": "^27.5.1",
+    "jsdom": "^19.0.0",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2"
   },
