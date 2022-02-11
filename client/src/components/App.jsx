@@ -1,5 +1,6 @@
 import React from 'react';
 import QABody from './QandA/QABody';
+import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
 
 class App extends React.Component {
@@ -13,7 +14,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>Overview here</div>
+        <Overview />
         <div>Ratings and Reviews here</div>
         <QABody />
         <RelatedItems />
