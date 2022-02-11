@@ -1,6 +1,7 @@
 import React from 'react';
 import QABody from './QandA/QABody';
 import Overview from './Overview/Overview';
+import RelatedItems from './RelatedItems/RelatedItems';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends React.Component {
         <Overview />
         <div>Ratings and Reviews here</div>
         <QABody />
-        <div>Related Items Here</div>
+        <RelatedItems />
       </div>
     );
   }
