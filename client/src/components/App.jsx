@@ -1,5 +1,6 @@
 import React from 'react';
 import QABody from './QandA/QABody';
+import Overview from './Overview/Overview';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>Overview here</div>
+        <Overview />
         <div>Ratings and Reviews here</div>
         <QABody />
         <div>Related Items Here</div>
