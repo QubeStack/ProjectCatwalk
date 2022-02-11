@@ -10,7 +10,7 @@ class SimilarItems extends React.Component {
 
   render() {
     return (
-      <div> </div>
+      <div>Similar Items</div>
     );
   }
 }
