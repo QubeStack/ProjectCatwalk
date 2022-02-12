@@ -17,7 +17,8 @@ const ImageWrapper = styled.div`
   display: grid;
   border: solid;
   grid-column: span 8;
-  grid-column-format: repeat(10, 1fr);`;
+  grid-column-format: repeat(10, 1fr);
+  grid-gap: 5px;`;
 
 const ArrowButton = styled.img`
   width: 20px;
