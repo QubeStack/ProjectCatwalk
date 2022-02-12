@@ -12,17 +12,20 @@ class MultiDisplayCarousel extends React.Component {
   }
 
   doSlide = (direction, position) => {
+    if (position < 0) {
+      position = 0;
+    }
     this.setState({
       slide: true,
-      direction,
-      position
+      direction
     });
 
     setTimeout(() => {
       this.setState({
-        slide: false
+        direction: undefined,
+        position
       });
-    }, 25);
+    }, 100);
   }
 
 
@@ -51,9 +54,15 @@ class MultiDisplayCarousel extends React.Component {
 const CarouselContainer = styled.div`
   display: flex;
   margin: 0 0 20px 20px;
-  transition: 'transform 1s ease';
+  transition: 'transform 0.2s ease';
   transform: ${(props) => {
-    return "translateX(-" + (15 * props.position) + "%)";
+    if (props.direction === 'right') {
+      return "translateX(-" + (13.5 * props.position + 1) + "%)";
+    }
+    if (props.direction === 'left') {
+      return "translateX(-" + (13.5 * props.position - 1) + "%)";
+    }
+    return "translateX(-" + (13.5 * props.position) + "%)";
     }
   }};
 `;
