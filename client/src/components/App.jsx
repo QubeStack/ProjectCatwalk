@@ -3,6 +3,7 @@ import GlobalCSS from '../global.css';
 import QABody from './QandA/QABody';
 import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
+import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class App extends React.Component {
       <div>
         <GlobalCSS />
         <Overview />
-        <div>Ratings and Reviews here</div>
+        <RatingsAndReviews />
         <QABody />
         <RelatedItems />
       </div>

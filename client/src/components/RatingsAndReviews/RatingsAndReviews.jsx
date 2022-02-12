@@ -1,8 +1,9 @@
 import React from 'react';
 import data from './dummy_data';
-import ReviewItem from './ReviewItem';
+import ReviewsList from './ReviewsList';
+// import ReviewItem from './ReviewItem';
 
-class ReviewList extends React.Component {
+class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +14,11 @@ class ReviewList extends React.Component {
   render() {
     return (
       <div>
-        {data.results.map((review) => <ReviewItem />)}
+        <ReviewsList />
       </div>
+
     );
   }
 }
 
-export default ReviewList;
+export default RatingsAndReviews;
