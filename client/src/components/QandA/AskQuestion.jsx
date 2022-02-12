@@ -1,7 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const AskAQuestion = styled.div`
+  border-style: solid;
+  border-color: green;
+  padding: 10px;
+  width: 200px;
+`;
 
 const AskQuestion = (props) => (
-  <div>AskQuestion</div>
+  <AskAQuestion>AskQuestion</AskAQuestion>
 );
 
 export default AskQuestion;
