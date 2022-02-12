@@ -5,7 +5,7 @@ class MultiDisplayCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: 1,
+      position: 0,
       direction: 'right',
       slide: false
     };
@@ -35,13 +35,14 @@ class MultiDisplayCarousel extends React.Component {
           <CarouselSlot>Item 3</CarouselSlot>
           <CarouselSlot>Item 4</CarouselSlot>
           <CarouselSlot>Item 5</CarouselSlot>
-          <CarouselSlot>Item 1</CarouselSlot>
-          <CarouselSlot>Item 2</CarouselSlot>
-          <CarouselSlot>Item 3</CarouselSlot>
-          <CarouselSlot>Item 4</CarouselSlot>
-          <CarouselSlot>Item 5</CarouselSlot>
+          <CarouselSlot>Item 6</CarouselSlot>
+          <CarouselSlot>Item 7</CarouselSlot>
+          <CarouselSlot>Item 8</CarouselSlot>
+          <CarouselSlot>Item 9</CarouselSlot>
+          <CarouselSlot>Item 10</CarouselSlot>
         </CarouselContainer>
-        <button onClick={() => this.doSlide('right', this.position + 1)}>Next</button>
+        <button onClick={() => this.doSlide('left', this.state.position - 1)}>Prev</button>
+        <button onClick={() => this.doSlide('right', this.state.position + 1)}>Next</button>
       </>
     );
   }
@@ -50,11 +51,9 @@ class MultiDisplayCarousel extends React.Component {
 const CarouselContainer = styled.div`
   display: flex;
   margin: 0 0 20px 20px;
-  transition: ${(props) => (props.slide ? 'none' : 'transform 0.2s ease')};
+  transition: 'transform 1s ease';
   transform: ${(props) => {
-    if (props.slide){
-      if (props.direction === 'left') return 'translateX(calc(35%))';
-      if (props.direction === 'right') return 'translateX(calc(35%))';
+    return "translateX(-" + (15 * props.position) + "%)";
     }
   }};
 `;
