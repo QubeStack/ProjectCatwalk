@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+// import axios from 'axios';
 import ImageGallery from './components/ImageGallery';
 import ProductInformation from './components/ProductInformation';
 
@@ -17,8 +18,21 @@ class Overview extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      // productIDs: []
+    };
   }
+
+  // componentDidMount() {
+  //   fetch('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', { method: 'GET', headers: new Headers({Authorization: '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' }) })
+  //     .then((results) => {
+  //       const productIDs = [];
+  //       for (let i = 0; i < results.length; i += 1) {
+  //         productIDs.push(results[i].id);
+  //       }
+  //       console.log(results);
+  //     });
+  // }
 
   render() {
     return (
