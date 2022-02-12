@@ -5,7 +5,7 @@ class MultiDisplayCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: 0,
+      position: 1,
       direction: 'right',
       slide: false
     };
@@ -13,14 +13,14 @@ class MultiDisplayCarousel extends React.Component {
 
   doSlide = (direction, position) => {
     this.setState({
-      sliding: true,
+      slide: true,
       direction,
       position
     });
 
     setTimeout(() => {
       this.setState({
-        sliding: false
+        slide: false
       });
     }, 25);
   }
@@ -29,7 +29,7 @@ class MultiDisplayCarousel extends React.Component {
   render() {
     return (
       <>
-        <CarouselContainer>
+        <CarouselContainer slide={this.state.slide} direction={this.state.direction} position={this.state.position}>
           <CarouselSlot>Item 1</CarouselSlot>
           <CarouselSlot>Item 2</CarouselSlot>
           <CarouselSlot>Item 3</CarouselSlot>
@@ -50,11 +50,12 @@ class MultiDisplayCarousel extends React.Component {
 const CarouselContainer = styled.div`
   display: flex;
   margin: 0 0 20px 20px;
-  transition: ${(props) => (props.sliding ? 'none' : 'transform 0.2s ease')};
+  transition: ${(props) => (props.slide ? 'none' : 'transform 0.2s ease')};
   transform: ${(props) => {
-    if (!props.sliding) return 'translateX(calc(0%))';
-    if (props.direction === 'prev') return 'translateX(calc((-35%)))';
-    return 'translateX(35%)';
+    if (props.slide){
+      if (props.direction === 'left') return 'translateX(calc(35%))';
+      if (props.direction === 'right') return 'translateX(calc(35%))';
+    }
   }};
 `;
 
