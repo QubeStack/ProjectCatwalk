@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const app = express();
 const PORT = 3000 || process.env.PORT;
-const key = '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';
+const key = 'YOUR KEY HERE';
 
 app.use(express.static('client/dist'));
 app.use(express.json());
