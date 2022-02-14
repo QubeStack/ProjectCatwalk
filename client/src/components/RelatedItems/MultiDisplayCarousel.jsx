@@ -28,7 +28,7 @@ class MultiDisplayCarousel extends React.Component {
         direction: undefined,
         position: newPosition,
       });
-    }, 100);
+    }, 200);
   }
 
   render() {
@@ -61,12 +61,15 @@ const CarouselContainer = styled.div`
   transition: 'transform 0.2s ease';
   transform: ${(props) => {
     if (props.direction === 'right') {
-      return `translateX(-${13.5 * props.position + 1}%)`;
+      // return `translateX(-${13.5 * props.position + 1}%)`;
+      return `translateX(-${180 * props.position + 1}px)`;
     }
     if (props.direction === 'left') {
-      return `translateX(-${13.5 * props.position - 1}%)`;
+      // return `translateX(-${13.5 * props.position - 1}%)`;
+      return `translateX(-${180 * props.position - 1}px)`;
     }
-    return `translateX(-${13.5 * props.position}%)`;
+    // return `translateX(-${13.5 * props.position}%)`;
+    return `translateX(-${180 * props.position}px)`;
   }
 }};
 `;
