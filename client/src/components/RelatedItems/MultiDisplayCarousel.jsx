@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -48,8 +49,8 @@ class MultiDisplayCarousel extends React.Component {
           <CarouselSlot>Item 9</CarouselSlot>
           <CarouselSlot>Item 10</CarouselSlot>
         </CarouselContainer>
-        <button type='foo' onClick={() => this.doSlide('left', this.state.position - 1)}>Prev</button>
-        <button onClick={() => this.doSlide('right', this.state.position + 1)}>Next</button>
+        <button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}>Prev</button>
+        <button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}>Next</button>
       </HideOverflowContainer>
     );
   }
