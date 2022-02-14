@@ -20,27 +20,30 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      // productIDs: []
+      products: []
     };
   }
 
   componentDidMount() {
     axios.get('/api/products')
       .then((results) => {
-        const productIDs = [];
-        for (let i = 0; i < results.data.length; i += 1) {
-          productIDs.push(results.data[i].id);
-        }
-        console.log(productIDs);
+        // const productIDs = [];
+        // for (let i = 0; i < results.data.length; i += 1) {
+        //   productIDs.push(results.data[i].id);
+        // }
+        this.setState({ products: results.data[0] });
+        //  console.log(productIDs);
       });
   }
 
   render() {
+    const { products } = this.state;
+    console.log(products);
     return (
       <StyledContainer>
         <StyledH2>Product Overview</StyledH2>
         <ImageGallery />
-        <ProductInformation />
+        <ProductInformation products={products} />
       </StyledContainer>
     );
   }
