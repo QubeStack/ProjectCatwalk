@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 import ImageGallery from './components/ImageGallery';
 import ProductInformation from './components/ProductInformation';
 
@@ -8,6 +8,7 @@ const StyledContainer = styled.div`
   display: grid;
   border: solid;
   padding: 5px;
+  margin: 1em;
   gap: 1rem;
   grid-template-columns: repeat(5, 1fr);`;
 const StyledH2 = styled.h2`
@@ -23,16 +24,16 @@ class Overview extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   fetch('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', { method: 'GET', headers: new Headers({Authorization: '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' }) })
-  //     .then((results) => {
-  //       const productIDs = [];
-  //       for (let i = 0; i < results.length; i += 1) {
-  //         productIDs.push(results[i].id);
-  //       }
-  //       console.log(results);
-  //     });
-  // }
+  componentDidMount() {
+    axios.get('/api/products')
+      .then((results) => {
+        const productIDs = [];
+        for (let i = 0; i < results.data.length; i += 1) {
+          productIDs.push(results.data[i].id);
+        }
+        console.log(productIDs);
+      });
+  }
 
   render() {
     return (
