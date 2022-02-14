@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
+import CarouselItem from './CarouselItem';
 
 class MultiDisplayCarousel extends React.Component {
   constructor(props) {
@@ -38,16 +39,10 @@ class MultiDisplayCarousel extends React.Component {
           direction={this.state.direction}
           position={this.state.position}
         >
-          <CarouselSlot>Item 1</CarouselSlot>
-          <CarouselSlot>Item 2</CarouselSlot>
-          <CarouselSlot>Item 3</CarouselSlot>
-          <CarouselSlot>Item 4</CarouselSlot>
-          <CarouselSlot>Item 5</CarouselSlot>
-          <CarouselSlot>Item 6</CarouselSlot>
-          <CarouselSlot>Item 7</CarouselSlot>
-          <CarouselSlot>Item 8</CarouselSlot>
-          <CarouselSlot>Item 9</CarouselSlot>
-          <CarouselSlot>Item 10</CarouselSlot>
+          <CarouselItem />
+          <CarouselItem />
+          <CarouselItem />
+          <CarouselItem />
         </CarouselContainer>
         <button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}>Prev</button>
         <button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}>Next</button>
