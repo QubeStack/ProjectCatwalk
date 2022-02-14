@@ -29,7 +29,7 @@ class QAListEntry extends React.Component {
     axios({
       method: 'get',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${this.props.id}/answers`,
-      headers: { Authorization: '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' },
+      headers: { Authorization: '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' },
     })
       .then((response) => {
         this.setState({
