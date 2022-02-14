@@ -1,4 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
+import Stars from './ReviewStars';
+
+const Div = styled.div`
+border-style: solid;
+border-color: blue;
+padding: 3px;
+`;
+
+const Inline = styled.div`
+display: flex;
+border-style: solid;
+border-color: blue;
+padding: 3px;
+`;
 
 class ReviewItem extends React.Component {
   constructor(props) {
@@ -10,7 +25,23 @@ class ReviewItem extends React.Component {
 
   render() {
     return (
-      <div>Review Tile</div>
+      <>
+        <Div>{this.props.summary}</Div>
+        <Inline>
+          <Stars />
+          <Div>{this.props.username}</Div>
+          <Div>{this.props.date}</Div>
+        </Inline>
+        <Div>{this.props.body}</Div>
+        <button type="button">Show More</button>
+        <Inline>
+          <img src="http://placecorgi.com/60/60" />
+          <img src="http://placecorgi.com/60/60" />
+          <img src="http://placecorgi.com/60/60" />
+          <img src="http://placecorgi.com/60/60" />
+          <img src="http://placecorgi.com/60/60" />
+        </Inline>
+      </>
     );
   }
 }

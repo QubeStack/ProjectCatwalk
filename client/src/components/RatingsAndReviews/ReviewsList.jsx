@@ -13,7 +13,16 @@ class ReviewList extends React.Component {
   render() {
     return (
       <div>
-        {data.results.map((review) => <ReviewItem />)}
+        {data.results.map(
+          (review) => (
+            <ReviewItem
+              summary={review.summary}
+              username={review.reviewer_name}
+              date={review.date}
+              body={review.body}
+            />
+          ),
+        )}
       </div>
     );
   }
