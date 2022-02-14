@@ -12,35 +12,39 @@ class CarouselItem extends React.Component {
   render() {
     return (
       <Wrapper>
-        <CarouselSlot>
+        <Image>
           Image
-        </CarouselSlot>
+        </Image>
         <button type="button">
           add
         </button>
-        <div>
+        <Item>
           Name
-        </div>
-        <div>
+        </Item>
+        <Item>
           Category
-        </div>
-        <div>
+        </Item>
+        <Item>
           Cost
-        </div>
-        <div>
+        </Item>
+        <Item>
           Stars
-        </div>
+        </Item>
       </Wrapper>
     );
   }
 }
+
+export const Item = styled.div`
+  position: absolute;
+`;
 
 export const Wrapper = styled.div`
   display: grid;
   margin: 15px;
 `;
 
-export const CarouselSlot = styled.div`
+export const Image = styled.div`
   background: green;
   text-align: center;
   color: white;
