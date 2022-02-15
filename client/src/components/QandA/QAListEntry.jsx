@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import API_KEY from '../config';
 
 const QuestionDiv = styled.div`
   color: #1f513f;
@@ -20,6 +21,7 @@ const Question = styled.div`
   grid-column-start: 1;
   grid-row-start: 1;
   padding: 10px;
+  font-weight: bold;
 `;
 
 const HelpfulDiv = styled.div`
@@ -61,6 +63,11 @@ const YesButton = styled.button`
   background: none;
 `;
 
+const AnswerInfo = styled.div`
+  font-size: 10px;
+  padding-top: 10px;
+`;
+
 class QAListEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -73,10 +80,11 @@ class QAListEntry extends React.Component {
   }
 
   componentDidMount() {
+    const { id } = this.props;
     axios({
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${this.props.id}/answers`,
-      headers: { Authorization: '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' },
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${id}/answers`,
+      headers: { Authorization: API_KEY },
     })
       .then((response) => {
         this.setState({
@@ -97,7 +105,49 @@ class QAListEntry extends React.Component {
 
   render() {
     const { question, helpful } = this.props;
-    // console.log(this.props.id, this.state.answers);
+    const { answers } = this.state;
+    let answer;
+    let user;
+    let date;
+    let helpfulScore;
+    if (answers[0] === undefined) {
+      answer = '';
+      user = '';
+      date = '';
+      helpfulScore = '';
+    } else {
+      answer = answers[0].body;
+      user = answers[0].answerer_name;
+      date = `${answers[0].date.substring(6, 10)}-${answers[0].date.substring(0, 4)}`;
+      helpfulScore = answers[0].helpfulness;
+    }
+
+    if (answer === '') {
+      return (
+        <QuestionDiv>
+          <Question>
+            Q:&#160;
+            {question}
+          </Question>
+          <HelpfulDiv>
+            Helpful?
+            <YesButton onClick={this.handleHelpful}>
+              Yes
+              &#40;
+              {helpful}
+              &#41;
+            </YesButton>
+          </HelpfulDiv>
+          <AddAnswer onClick={this.handleAddAnswer}>
+            Add Answer!
+          </AddAnswer>
+          <AnswerDiv>
+            <strong>A:&#160;</strong>
+            No answers yet!
+          </AnswerDiv>
+        </QuestionDiv>
+      );
+    }
     return (
       <QuestionDiv>
         <Question>
@@ -117,7 +167,14 @@ class QAListEntry extends React.Component {
           Add Answer!
         </AddAnswer>
         <AnswerDiv>
-          Answer:
+          <strong>A:&#160;</strong>
+          {answer}
+          <AnswerInfo>
+            by:&#160;
+            {user}
+          &#160;on:&#160;
+            {date}
+          </AnswerInfo>
         </AnswerDiv>
       </QuestionDiv>
     );

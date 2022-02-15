@@ -14,6 +14,12 @@ padding: 10px;
 width: auto;
 background-color: white;
 margin-left: 1%;
+border-radius: 12px;
+&: active {
+  -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+   -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+        box-shadow: inset 0px 0px 15px #c1c1c1;
+};
 `;
 
 class SearchQuestions extends React.Component {
