@@ -12,10 +12,13 @@ class OutfitItems extends React.Component {
 
   componentDidMount() {
     const outfit = [];
+    const newOutfit = JSON.parse(localStorage.getItem('myOutfit'));
     outfit.push(JSON.parse(localStorage.getItem('myOutfit')));
-    this.setState({
-      products: outfit,
-    });
+    if (newOutfit !== null) {
+      this.setState({
+        products: outfit,
+      });
+    }
   }
 
   render() {
