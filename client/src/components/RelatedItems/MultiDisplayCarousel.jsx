@@ -28,7 +28,7 @@ class MultiDisplayCarousel extends React.Component {
         direction: undefined,
         position: newPosition,
       });
-    }, 200);
+    }, 100);
   }
 
   render() {
