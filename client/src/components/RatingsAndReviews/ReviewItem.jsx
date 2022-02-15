@@ -42,6 +42,7 @@ class ReviewItem extends React.Component {
           <img src="http://placecorgi.com/60/60" />
         </Inline>
         <Div>{this.props.recommend ? "I recommend this product ✔" : null}</Div>
+        <Div>{this.props.response ? `Response from Seller: ${this.props.response}` : null}</Div>
       </>
     );
   }
