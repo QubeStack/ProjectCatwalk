@@ -33,7 +33,7 @@ app.get('/api/product/questions', (req, res) => {
 });
 // get product answers
 app.get('/api/product/questions/answers', (req, res) => {
-  console.log(req.params);
+  console.log(res);
   axios({
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${426169}/answers`,
