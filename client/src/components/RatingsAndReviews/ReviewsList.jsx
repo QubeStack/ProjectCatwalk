@@ -20,6 +20,8 @@ class ReviewList extends React.Component {
               username={review.reviewer_name}
               date={review.date}
               body={review.body}
+              recommend={review.recommend}
+              response={review.response}
             />
           ),
         )}
