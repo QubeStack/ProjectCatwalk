@@ -55,6 +55,19 @@ app.put('/api/product/questions/helpful', (req, res) => {
     });
 });
 
+// increase helpful count of answer
+app.put('/api/product/questions/answers/helpful', (req, res) => {
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.query.answer_id}/helpful`,
+    headers: { Authorization: API_KEY },
+  })
+    .then(() => {
+      console.log('success');
+      res.sendStatus(200);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
