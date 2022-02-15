@@ -42,6 +42,23 @@ class CarouselItem extends React.Component {
   }
 }
 
+export const Wrapper = styled.div`
+  display: grid;
+  margin: 15px;
+  grid-template-columns: 30px 30px 30px 30px 30px;
+  grid-template-rows: auto;
+`;
+
+export const Image = styled.div`
+  background: green;
+  text-align: center;
+  color: white;
+  height: 150px;
+  width: 150px;
+  grid-column: 1/-1;
+  grid-row: 1/5;
+`;
+
 export const ActionButton = styled.button`
   grid-column: 5;
   grid-row: 1;
@@ -65,23 +82,6 @@ export const Price = styled.div`
 export const Stars = styled.div`
   grid-column: 1/-1;
   grid-row: 9;
-`;
-
-export const Wrapper = styled.div`
-  display: grid;
-  margin: 15px;
-  grid-template-columns: 30px 30px 30px 30px 30px;
-  grid-template-rows: auto;
-`;
-
-export const Image = styled.div`
-  background: green;
-  text-align: center;
-  color: white;
-  height: 150px;
-  width: 150px;
-  grid-column: 1/5;
-  grid-row: 1/5;
 `;
 
 export default CarouselItem;
