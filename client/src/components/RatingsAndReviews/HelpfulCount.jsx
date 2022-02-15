@@ -4,14 +4,14 @@ import styled from 'styled-components';
 const Div = styled.div`
 border-style: solid;
 border-color: blue;
-padding: 3px;
+padding: 1px;
 `;
 
 const Inline = styled.div`
 display: flex;
 border-style: solid;
-border-color: blue;
-padding: 3px;
+border-color: white;
+padding: 1px;
 `;
 
 class HelpfulCount extends React.Component {

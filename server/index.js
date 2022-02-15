@@ -33,7 +33,6 @@ app.get('/api/product/questions', (req, res) => {
 });
 // get product answers
 app.get('/api/product/questions/answers', (req, res) => {
-  console.log(res);
   axios({
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.product_id}/answers`,
@@ -43,6 +42,21 @@ app.get('/api/product/questions/answers', (req, res) => {
       res.send(results.data);
     });
 });
+
+
+app.get('/api/product/reviews', (req, res) => {
+  console.log(req.query);
+  axios({
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${req.query.product_id}`,
+    headers: { Authorization: API_KEY },
+  })
+    .then((results) => {
+      console.log(results.data.results);
+      res.send(results.data);
+    });
+});
+
 // increase helpful count of question
 app.put('/api/product/questions/helpful', (req, res) => {
   axios({

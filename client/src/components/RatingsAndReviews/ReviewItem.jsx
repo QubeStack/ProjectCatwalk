@@ -5,15 +5,15 @@ import HelpfulCount from './HelpfulCount';
 
 const Div = styled.div`
 border-style: solid;
-border-color: blue;
-padding: 3px;
+border-color: white;
+padding: 1px;
 `;
 
 const Inline = styled.div`
 display: flex;
 border-style: solid;
-border-color: blue;
-padding: 3px;
+border-color: white;
+padding: 1px;
 `;
 
 class ReviewItem extends React.Component {
