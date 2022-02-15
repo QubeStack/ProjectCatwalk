@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -19,13 +20,13 @@ class CarouselItem extends React.Component {
           add
         </button>
         <Item>
-          Name
+          {this.props.product.name}
         </Item>
         <Item>
-          Category
+          {this.props.product.category}
         </Item>
         <Item>
-          Cost
+          {this.props.product.default_price}
         </Item>
         <Item>
           Stars
@@ -36,7 +37,7 @@ class CarouselItem extends React.Component {
 }
 
 export const Item = styled.div`
-  position: absolute;
+  position: relative;
 `;
 
 export const Wrapper = styled.div`

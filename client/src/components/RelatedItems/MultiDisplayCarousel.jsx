@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import CarouselItem from './CarouselItem';
 
@@ -10,7 +11,21 @@ class MultiDisplayCarousel extends React.Component {
       position: 0,
       direction: 'right',
       slide: false,
+      products: [],
     };
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'get',
+      url: '/api/products',
+    })
+      .then((results) => {
+        console.log(results.data);
+        this.setState({
+          products: results.data,
+        });
+      });
   }
 
   doSlide(direction, position) {
@@ -39,10 +54,7 @@ class MultiDisplayCarousel extends React.Component {
           direction={this.state.direction}
           position={this.state.position}
         >
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
+          {this.state.products.map((product) => <CarouselItem product={product} />)}
         </CarouselContainer>
         <button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}>Prev</button>
         <button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}>Next</button>
