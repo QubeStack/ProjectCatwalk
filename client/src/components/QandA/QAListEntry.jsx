@@ -11,8 +11,8 @@ const QuestionDiv = styled.div`
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: auto;
   grid-template-areas:
-    "header header sidebar sidebar"
-    "footer footer footer sidebar";
+    'header header sidebar sidebar'
+    'footer footer footer sidebar';
 `;
 
 const Question = styled.div`
@@ -53,7 +53,6 @@ const AnswerDiv = styled.div`
 `;
 
 const YesButton = styled.button`
-  text-decoration: underline;
   color: #1f513f;
   margin-left: 1%;
   margin-right: 1%;
@@ -67,15 +66,20 @@ const AnswerInfo = styled.div`
   padding-top: 10px;
 `;
 
+const months = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 class QAListEntry extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       answers: [],
+      disabled: false,
+      helpful: this.props.helpful,
     };
     this.handleHelpful = this.handleHelpful.bind(this);
     this.handleAddAnswer = this.handleAddAnswer.bind(this);
+    this.handleReport = this.handleReport.bind(this);
   }
 
   componentDidMount() {
@@ -96,7 +100,29 @@ class QAListEntry extends React.Component {
 
   handleHelpful(e) {
     e.preventDefault();
-    console.log('clicked yes');
+    const { id } = this.props;
+    const { disabled } = this.state;
+    if (disabled) {
+      return;
+    }
+    // make axios req
+    axios({
+      method: 'put',
+      url: '/api/product/questions/helpful',
+      params: {
+        question_id: id,
+      },
+    })
+      .then(() => {
+        this.setState({
+          disabled: true,
+          helpful: this.state.helpful + 1,
+        });
+      });
+  }
+
+  handleReport(e) {
+    e.preventDefault();
   }
 
   handleAddAnswer(e) {
@@ -105,12 +131,13 @@ class QAListEntry extends React.Component {
   }
 
   render() {
-    const { question, helpful } = this.props;
-    const { answers } = this.state;
+    const { question } = this.props;
+    const { answers, disabled, helpful } = this.state;
     let answer;
     let user;
     let date;
     let helpfulScore;
+    let monthStr;
     if (answers[0] === undefined) {
       answer = '';
       user = '';
@@ -119,7 +146,8 @@ class QAListEntry extends React.Component {
     } else {
       answer = answers[0].body;
       user = answers[0].answerer_name;
-      date = `${answers[0].date.substring(6, 10)}-${answers[0].date.substring(0, 4)}`;
+      monthStr = Number(answers[0].date.substring(6, 7));
+      date = `${months[monthStr]} ${answers[0].date.substring(8, 10)},${answers[0].date.substring(0, 4)}`;
       helpfulScore = answers[0].helpfulness;
     }
 
@@ -132,8 +160,8 @@ class QAListEntry extends React.Component {
           </Question>
           <HelpfulDiv>
             Helpful?
-            <YesButton onClick={this.handleHelpful}>
-              Yes
+            <YesButton disabled={disabled} onClick={this.handleHelpful}>
+              <u>Yes</u>
               &#40;
               {helpful}
               &#41;
@@ -149,6 +177,40 @@ class QAListEntry extends React.Component {
         </QuestionDiv>
       );
     }
+    if (user === 'Seller') {
+      return (
+        <QuestionDiv>
+          <Question>
+            Q:&#160;
+            {question}
+          </Question>
+          <HelpfulDiv>
+            Helpful?
+            <YesButton onClick={this.handleHelpful}>
+              <u>Yes</u>
+              &#40;
+              {helpful}
+              &#41;
+            </YesButton>
+          </HelpfulDiv>
+          <AddAnswer onClick={this.handleAddAnswer}>
+            Add Answer!
+          </AddAnswer>
+          <AnswerDiv>
+            <strong>A:&#160;</strong>
+            {answer}
+            <AnswerInfo>
+              by:&#160;
+              <strong>{user}</strong>
+            &#160;on:&#160;
+              {date}
+              &#160;&#160;&#160;&#160;
+              Helpful?
+            </AnswerInfo>
+          </AnswerDiv>
+        </QuestionDiv>
+      );
+    }
     return (
       <QuestionDiv>
         <Question>
@@ -158,7 +220,7 @@ class QAListEntry extends React.Component {
         <HelpfulDiv>
           Helpful?
           <YesButton onClick={this.handleHelpful}>
-            Yes
+            <u>Yes</u>
             &#40;
             {helpful}
             &#41;
