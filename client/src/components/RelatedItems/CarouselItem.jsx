@@ -48,22 +48,22 @@ export const ActionButton = styled.button`
 `;
 
 export const Name = styled.div`
-  grid-column: 1/5;
+  grid-column: 1/-1;
   grid-row: 6;
 `;
 
 export const Category = styled.div`
-  grid-column: 1/5;
+  grid-column: 1/-1;
   grid-row: 7;
 `;
 
 export const Price = styled.div`
-  grid-column: 1/5;
+  grid-column: 1/-1;
   grid-row: 8;
 `;
 
 export const Stars = styled.div`
-  grid-column: 1/5;
+  grid-column: 1/-1;
   grid-row: 9;
 `;
 
