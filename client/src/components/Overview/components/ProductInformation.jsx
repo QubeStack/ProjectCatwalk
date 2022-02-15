@@ -41,27 +41,28 @@ class ProductInformation extends React.Component {
   }
 
   render() {
-    const { products } = this.props;
-    // console.log(products[0]);
+    const { product } = this.props;
+    // const product = products[0];
+    // console.log(product);
     return (
       <ProductContainer>
         <RatingsContainer>
           <div>⭐⭐⭐⭐⭐</div>
           <div role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { this.handleScrollTo(); }}>Read Reviews</div>
         </RatingsContainer>
-        <div>{products.category}</div>
-        <div>{products.name}</div>
+        <div>{product.category}</div>
+        <div>{product.name}</div>
         <div>
           $
-          {products.default_price}
+          {product.default_price}
         </div>
-        <div>{products.description}</div>
+        <div>{product.description}</div>
         <div>
           <Icon src={facebook} alt="" />
           <Icon src={twitter} alt="" />
           <Icon src={pinterest} alt="" />
         </div>
-        <StyleSelector />
+        <StyleSelector id={product.id} />
         <AddToCart />
       </ProductContainer>
     );
