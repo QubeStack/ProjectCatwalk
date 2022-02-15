@@ -22,9 +22,10 @@ app.get('/api/products', (req, res) => {
 });
 // get product questions
 app.get('/api/product/questions', (req, res) => {
+  console.log(req.query);
   axios({
     method: 'get',
-    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=40345',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/?product_id=${req.query.product_id}`,
     headers: { Authorization: API_KEY },
   })
     .then((results) => {
@@ -33,7 +34,6 @@ app.get('/api/product/questions', (req, res) => {
 });
 // get product answers
 app.get('/api/product/questions/answers', (req, res) => {
-  console.log(res);
   axios({
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.product_id}/answers`,

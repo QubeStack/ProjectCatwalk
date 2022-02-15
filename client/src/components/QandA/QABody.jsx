@@ -37,6 +37,9 @@ class QABody extends React.Component {
     axios({
       method: 'get',
       url: '/api/product/questions',
+      params: {
+        product_id: 40345,
+      },
     })
       .then((response) => {
         this.setState({
