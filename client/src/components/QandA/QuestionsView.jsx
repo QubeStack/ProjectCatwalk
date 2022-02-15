@@ -15,8 +15,15 @@ const MoreQuestions = styled.button`
   padding: 10px;
   width: 200px;
   grid-column-start: 2;
+  grid-column-end: 2;
   grid-row-start:4;
   background-color: white;
+  border-radius: 12px;
+  &: active {
+    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+          box-shadow: inset 0px 0px 15px #c1c1c1;
+  };
 `;
 
 const AskAQuestion = styled.button`
@@ -26,7 +33,14 @@ const AskAQuestion = styled.button`
   width: 200px;
   grid-row-start: 4;
   grid-column-start: 3;
+  grid-column-end: 3;
   background-color: white;
+  border-radius: 12px;
+  &: active {
+    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+          box-shadow: inset 0px 0px 15px #c1c1c1;
+  };
 `;
 
 class QuestionsView extends React.Component {
@@ -37,6 +51,7 @@ class QuestionsView extends React.Component {
       count: 2,
     };
     this.showMoreQuestions = this.showMoreQuestions.bind(this);
+    this.showLessQuestions = this.showLessQuestions.bind(this);
   }
 
   showMoreQuestions() {
@@ -46,10 +61,16 @@ class QuestionsView extends React.Component {
     });
   }
 
+  showLessQuestions() {
+    const { count } = this.state;
+    this.setState({
+      count: count - 2,
+    });
+  }
+
   render() {
     const { count } = this.state;
     const { questions } = this.props;
-
     if (questions.length > questions.slice(0, count).length) {
       return (
         <div>
@@ -87,6 +108,9 @@ class QuestionsView extends React.Component {
           ))}
         </div>
         <Container>
+          <MoreQuestions onClick={this.showLessQuestions}>
+            Less Answered Questions
+          </MoreQuestions>
           <AskAQuestion>
             Ask a Question
           </AskAQuestion>

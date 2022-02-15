@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import API_KEY from '../config';
 import QuestionsView from './QuestionsView';
 import SearchQuestions from './SearchQuestions';
 
@@ -37,10 +38,9 @@ class QABody extends React.Component {
     axios({
       method: 'get',
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=40345',
-      headers: { Authorization: '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' },
+      headers: { Authorization: API_KEY },
     })
       .then((response) => {
-        console.log(response.data);
         this.setState({
           questions: response.data.results,
         });
