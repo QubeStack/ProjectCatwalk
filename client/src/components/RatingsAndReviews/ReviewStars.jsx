@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Div = styled.div`
 border-style: solid;
-border-color: blue;
-padding: 3px;
+border-color: white;
+padding: 1px;
 `;
 
 class ReviewStars extends React.Component {

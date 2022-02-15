@@ -1,21 +1,40 @@
 import React from 'react';
-import data from './dummy_data';
+import styled from 'styled-components';
+import axios from 'axios';
 import ReviewsList from './ReviewsList';
-// import ReviewItem from './ReviewItem';
+
+const Div = styled.div`
+border-style: solid;
+border-color: white;
+padding: 1px;
+`;
 
 class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      // reviews: [],
     };
+  }
+
+  componentDidMount() {
+    const { id } = 40344;
+    axios({
+      method: 'get',
+      url: '/api/product/reviews',
+      params: { product_id: 40344 },
+    })
+      .then((results) => {
+        console.log("reviews results:", results.data.results);
+        // this.setState({reviews: results.data.results});
+      });
   }
 
   render() {
     return (
-      <div>
+      <Div>
         <ReviewsList />
-      </div>
+      </Div>
 
     );
   }
