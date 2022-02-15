@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import API_KEY from '../config';
 
 const QuestionDiv = styled.div`
   color: #1f513f;
@@ -83,8 +82,10 @@ class QAListEntry extends React.Component {
     const { id } = this.props;
     axios({
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${id}/answers`,
-      headers: { Authorization: API_KEY },
+      url: '/api/product/questions/answers',
+      params: {
+        product_id: id,
+      },
     })
       .then((response) => {
         this.setState({
