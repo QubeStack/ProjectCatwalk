@@ -89,8 +89,8 @@ class QAListEntry extends React.Component {
     };
     this.handleHelpfulQ = this.handleHelpfulQ.bind(this);
     this.handleHelpfulA = this.handleHelpfulA.bind(this);
-    this.handleAddAnswer = this.handleAddAnswer.bind(this);
-    this.handleReport = this.handleReport.bind(this);
+    // this.handleAddAnswer = this.handleAddAnswer.bind(this);
+    // this.handleReport = this.handleReport.bind(this);
   }
 
   componentDidMount() {
@@ -165,14 +165,14 @@ class QAListEntry extends React.Component {
       });
   }
 
-  handleReport(e) {
-    e.preventDefault();
-  }
+  // handleReport(e) {
+  //   e.preventDefault();
+  // }
 
-  handleAddAnswer(e) {
-    e.preventDefault();
-    console.log('clicked add answer');
-  }
+  // handleAddAnswer(e) {
+  //   e.preventDefault();
+  //   console.log('clicked add answer');
+  // }
 
   render() {
     const { question } = this.props;

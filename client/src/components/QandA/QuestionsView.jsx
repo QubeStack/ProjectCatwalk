@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import QAListEntry from './QAListEntry';
+import AskQuestion from './AskQuestion';
 
 const Container = styled.div`
   display:grid;
@@ -17,23 +18,6 @@ const MoreQuestions = styled.button`
   grid-column-start: 2;
   grid-column-end: 2;
   grid-row-start:4;
-  background-color: white;
-  border-radius: 12px;
-  &: active {
-    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
-     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
-          box-shadow: inset 0px 0px 15px #c1c1c1;
-  };
-`;
-
-const AskAQuestion = styled.button`
-  border-style: solid;
-  border-color: #1f513f;
-  padding: 10px;
-  width: 200px;
-  grid-row-start: 4;
-  grid-column-start: 3;
-  grid-column-end: 3;
   background-color: white;
   border-radius: 12px;
   &: active {
@@ -88,9 +72,7 @@ class QuestionsView extends React.Component {
             <MoreQuestions onClick={this.showMoreQuestions}>
               More Answered Questions
             </MoreQuestions>
-            <AskAQuestion>
-              Ask a Question
-            </AskAQuestion>
+            <AskQuestion />
           </Container>
         </div>
       );
@@ -111,9 +93,7 @@ class QuestionsView extends React.Component {
           <MoreQuestions onClick={this.showLessQuestions}>
             Less Answered Questions
           </MoreQuestions>
-          <AskAQuestion>
-            Ask a Question
-          </AskAQuestion>
+          <AskQuestion />
         </Container>
       </div>
     );
