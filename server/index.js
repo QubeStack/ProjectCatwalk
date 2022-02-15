@@ -33,14 +33,38 @@ app.get('/api/product/questions', (req, res) => {
 });
 // get product answers
 app.get('/api/product/questions/answers', (req, res) => {
-  console.log(req.params);
   axios({
     method: 'get',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${426169}/answers`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.product_id}/answers`,
     headers: { Authorization: API_KEY },
   })
     .then((results) => {
       res.send(results.data);
+    });
+});
+// increase helpful count of question
+app.put('/api/product/questions/helpful', (req, res) => {
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.question_id}/helpful`,
+    headers: { Authorization: API_KEY },
+  })
+    .then(() => {
+      console.log('success');
+      res.sendStatus(200);
+    });
+});
+
+// increase helpful count of answer
+app.put('/api/product/questions/answers/helpful', (req, res) => {
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.query.answer_id}/helpful`,
+    headers: { Authorization: API_KEY },
+  })
+    .then(() => {
+      console.log('success');
+      res.sendStatus(200);
     });
 });
 
