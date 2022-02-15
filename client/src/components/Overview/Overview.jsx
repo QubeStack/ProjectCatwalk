@@ -20,7 +20,7 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      products: []
+      products: [],
     };
   }
 
@@ -38,12 +38,12 @@ class Overview extends React.Component {
 
   render() {
     const { products } = this.state;
-    console.log(products);
+    // console.log(products.id);
     return (
       <StyledContainer>
         <StyledH2>Product Overview</StyledH2>
         <ImageGallery />
-        <ProductInformation products={products} />
+        <ProductInformation product={products} />
       </StyledContainer>
     );
   }

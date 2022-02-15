@@ -9,7 +9,7 @@ app.use(express.static('client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// gets the fitst 5 products
+// gets the first 5 products
 app.get('/api/products', (req, res) => {
   axios({
     method: 'get',
@@ -81,6 +81,18 @@ app.put('/api/product/questions/answers/helpful', (req, res) => {
     .then(() => {
       console.log('success');
       res.sendStatus(200);
+    });
+});
+
+// get product styles
+app.get('/api/product/styles', (req, res) => {
+  axios({
+    mathod: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.query.product_id}/styles`,
+    headers: { Authorization: API_KEY },
+  })
+    .then((results) => {
+      res.send(results.data);
     });
 });
 
