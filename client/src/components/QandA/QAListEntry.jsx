@@ -11,8 +11,8 @@ const QuestionDiv = styled.div`
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: auto;
   grid-template-areas:
-    "header header sidebar sidebar"
-    "footer footer footer sidebar";
+    'header header sidebar sidebar'
+    'footer footer footer sidebar';
 `;
 
 const Question = styled.div`
@@ -53,7 +53,6 @@ const AnswerDiv = styled.div`
 `;
 
 const YesButton = styled.button`
-  text-decoration: underline;
   color: #1f513f;
   margin-left: 1%;
   margin-right: 1%;
@@ -61,21 +60,37 @@ const YesButton = styled.button`
   border: none;
   background: none;
 `;
+const AnswerYesButton = styled.button`
+  color: #1f513f;
+  margin-left: 1%;
+  margin-right: 1%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 10px;
+`;
 
 const AnswerInfo = styled.div`
   font-size: 10px;
   padding-top: 10px;
 `;
 
+const months = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 class QAListEntry extends React.Component {
   constructor(props) {
     super(props);
-
+    const { helpful } = this.props;
     this.state = {
       answers: [],
+      disabledQ: false,
+      disabledA: false,
+      helpful,
     };
-    this.handleHelpful = this.handleHelpful.bind(this);
+    this.handleHelpfulQ = this.handleHelpfulQ.bind(this);
+    this.handleHelpfulA = this.handleHelpfulA.bind(this);
     this.handleAddAnswer = this.handleAddAnswer.bind(this);
+    this.handleReport = this.handleReport.bind(this);
   }
 
   componentDidMount() {
@@ -94,9 +109,64 @@ class QAListEntry extends React.Component {
       });
   }
 
-  handleHelpful(e) {
+  handleHelpfulQ(e) {
     e.preventDefault();
-    console.log('clicked yes');
+    const { id } = this.props;
+    const { disabledQ, helpful } = this.state;
+    if (disabledQ) {
+      return;
+    }
+    // make axios req
+    axios({
+      method: 'put',
+      url: '/api/product/questions/helpful',
+      params: {
+        question_id: id,
+      },
+    })
+      .then(() => {
+        this.setState({
+          disabledQ: true,
+          helpful: helpful + 1,
+        });
+      });
+  }
+
+  handleHelpfulA(e) {
+    e.preventDefault();
+    const { id } = this.props;
+    const { disabledA, answers } = this.state;
+    if (disabledA) {
+      return;
+    }
+    axios({
+      method: 'put',
+      url: '/api/product/questions/answers/helpful',
+      params: {
+        answer_id: answers[0].answer_id,
+      },
+    })
+      .then(() => {
+        this.setState({
+          disabledA: true,
+        });
+        axios({
+          method: 'get',
+          url: '/api/product/questions/answers',
+          params: {
+            product_id: id,
+          },
+        })
+          .then((response) => {
+            this.setState({
+              answers: response.data.results,
+            });
+          });
+      });
+  }
+
+  handleReport(e) {
+    e.preventDefault();
   }
 
   handleAddAnswer(e) {
@@ -105,24 +175,24 @@ class QAListEntry extends React.Component {
   }
 
   render() {
-    const { question, helpful } = this.props;
-    const { answers } = this.state;
+    const { question } = this.props;
+    const { answers, disabled, helpful } = this.state;
     let answer;
     let user;
     let date;
+    let monthStr;
     let helpfulScore;
     if (answers[0] === undefined) {
       answer = '';
       user = '';
       date = '';
-      helpfulScore = '';
     } else {
       answer = answers[0].body;
       user = answers[0].answerer_name;
-      date = `${answers[0].date.substring(6, 10)}-${answers[0].date.substring(0, 4)}`;
+      monthStr = Number(answers[0].date.substring(6, 7));
+      date = `${months[monthStr]} ${answers[0].date.substring(8, 10)},${answers[0].date.substring(0, 4)}`;
       helpfulScore = answers[0].helpfulness;
     }
-
     if (answer === '') {
       return (
         <QuestionDiv>
@@ -132,8 +202,8 @@ class QAListEntry extends React.Component {
           </Question>
           <HelpfulDiv>
             Helpful?
-            <YesButton onClick={this.handleHelpful}>
-              Yes
+            <YesButton disabled={disabled} onClick={this.handleHelpfulQ}>
+              <u>Yes</u>
               &#40;
               {helpful}
               &#41;
@@ -149,6 +219,46 @@ class QAListEntry extends React.Component {
         </QuestionDiv>
       );
     }
+    if (user === 'Seller') {
+      return (
+        <QuestionDiv>
+          <Question>
+            Q:&#160;
+            {question}
+          </Question>
+          <HelpfulDiv>
+            Helpful?
+            <YesButton onClick={this.handleHelpfulQ}>
+              <u>Yes</u>
+              &#40;
+              {helpful}
+              &#41;
+            </YesButton>
+          </HelpfulDiv>
+          <AddAnswer onClick={this.handleAddAnswer}>
+            Add Answer!
+          </AddAnswer>
+          <AnswerDiv>
+            <strong>A:&#160;</strong>
+            {answer}
+            <AnswerInfo>
+              by:&#160;
+              <strong>{user}</strong>
+            &#160;on:&#160;
+              {date}
+              &#160;&#160;&#160;&#160;
+              Helpful?
+              <AnswerYesButton onClick={this.handleHelpfulA}>
+                <u>Yes</u>
+                &#40;
+                {helpfulScore}
+                &#41;
+              </AnswerYesButton>
+            </AnswerInfo>
+          </AnswerDiv>
+        </QuestionDiv>
+      );
+    }
     return (
       <QuestionDiv>
         <Question>
@@ -157,8 +267,8 @@ class QAListEntry extends React.Component {
         </Question>
         <HelpfulDiv>
           Helpful?
-          <YesButton onClick={this.handleHelpful}>
-            Yes
+          <YesButton onClick={this.handleHelpfulQ}>
+            <u>Yes</u>
             &#40;
             {helpful}
             &#41;
@@ -175,6 +285,13 @@ class QAListEntry extends React.Component {
             {user}
           &#160;on:&#160;
             {date}
+            Helpful?
+            <AnswerYesButton onClick={this.handleHelpfulA}>
+              <u>Yes</u>
+              &#40;
+              {helpfulScore}
+              &#41;
+            </AnswerYesButton>
           </AnswerInfo>
         </AnswerDiv>
       </QuestionDiv>
