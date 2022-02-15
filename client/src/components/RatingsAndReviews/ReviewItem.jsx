@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Stars from './ReviewStars';
+import HelpfulCount from './HelpfulCount';
 
 const Div = styled.div`
 border-style: solid;
@@ -43,6 +44,7 @@ class ReviewItem extends React.Component {
         </Inline>
         <Div>{this.props.recommend ? "I recommend this product ✔" : null}</Div>
         <Div>{this.props.response ? `Response from Seller: ${this.props.response}` : null}</Div>
+        <HelpfulCount />
       </>
     );
   }
