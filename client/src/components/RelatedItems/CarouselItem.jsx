@@ -8,6 +8,11 @@ class CarouselItem extends React.Component {
     this.state = {
 
     };
+    this.setStorage = this.setStorage.bind(this);
+  }
+
+  setStorage() {
+    localStorage.setItem('myOutfit', JSON.stringify(this.props.product));
   }
 
   render() {
@@ -16,33 +21,32 @@ class CarouselItem extends React.Component {
         <Image>
           Image
         </Image>
-        <button type="button">
-          add
-        </button>
-        <Item>
+        <ActionButton type="button" onClick={this.setStorage}>
+          +
+        </ActionButton>
+        <Name>
           {this.props.product.name}
-        </Item>
-        <Item>
+        </Name>
+        <Category>
           {this.props.product.category}
-        </Item>
-        <Item>
+        </Category>
+        <Price>
+          $
           {this.props.product.default_price}
-        </Item>
-        <Item>
+        </Price>
+        <Stars>
           Stars
-        </Item>
+        </Stars>
       </Wrapper>
     );
   }
 }
 
-export const Item = styled.div`
-  position: relative;
-`;
-
 export const Wrapper = styled.div`
   display: grid;
   margin: 15px;
+  grid-template-columns: 30px 30px 30px 30px 30px;
+  grid-template-rows: auto;
 `;
 
 export const Image = styled.div`
@@ -51,6 +55,33 @@ export const Image = styled.div`
   color: white;
   height: 150px;
   width: 150px;
+  grid-column: 1/-1;
+  grid-row: 1/5;
+`;
+
+export const ActionButton = styled.button`
+  grid-column: 5;
+  grid-row: 1;
+`;
+
+export const Name = styled.div`
+  grid-column: 1/-1;
+  grid-row: 6;
+`;
+
+export const Category = styled.div`
+  grid-column: 1/-1;
+  grid-row: 7;
+`;
+
+export const Price = styled.div`
+  grid-column: 1/-1;
+  grid-row: 8;
+`;
+
+export const Stars = styled.div`
+  grid-column: 1/-1;
+  grid-row: 9;
 `;
 
 export default CarouselItem;
