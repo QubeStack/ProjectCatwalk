@@ -1,15 +1,38 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 class CarouselItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      salePrice: null,
+      photo: '',
+      name: '',
     };
     this.setStorage = this.setStorage.bind(this);
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'get',
+      url: '/api/product/styles',
+      params: {
+        product_id: this.props.product.id,
+      },
+    })
+      .then((styles) => {
+        const salePrice = styles.data.results[0].sale_price;
+        const photo = styles.data.results[0].photos[0].thumbnail_url;
+        const { name } = styles.data.results[0];
+        this.setState({
+          salePrice,
+          photo,
+          name,
+        });
+      });
   }
 
   setStorage() {
@@ -39,6 +62,7 @@ class CarouselItem extends React.Component {
   }
 
   render() {
+    // const image = <img src={this.state.photo} alt={this.state.name} />;
     let actionButton;
     if (this.props.actionButton === '+') {
       actionButton = (
@@ -55,9 +79,7 @@ class CarouselItem extends React.Component {
     }
     return (
       <Wrapper className="card">
-        <Image>
-          Image
-        </Image>
+        <Image photo={this.state.photo} />
         {actionButton}
         <Name>
           {this.props.product.name}
@@ -85,7 +107,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Image = styled.div`
-  background: green;
+  background: url(${(props) => props.photo}) 50% 50%;
   text-align: center;
   color: white;
   height: 150px;
