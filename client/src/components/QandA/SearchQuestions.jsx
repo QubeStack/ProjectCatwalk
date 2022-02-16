@@ -54,7 +54,7 @@ class SearchQuestions extends React.Component {
     const { input } = this.state;
     return (
       <form onSubmit={this.handleSearch}>
-        <SearchBar placeholder="Have a question? Search for answers..." type="text" value={input} onChange={this.handleChange} />
+        <SearchBar className="search" placeholder="Have a question? Search for answers..." type="text" value={input} onChange={this.handleChange} />
         <SearchButton type="submit" value="Search" />
       </form>
     );
