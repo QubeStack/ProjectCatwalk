@@ -16,9 +16,16 @@ class ReviewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      reviews: [],
     };
   }
+
+  // componentDidMount() {
+  //   var propReviews = this.props.reviews;
+  //   console.log("reviews:", this.props.reviews)
+  //   this.setState({ reviews: propReviews });
+  //   console.log("state reviews", this.state.reviews)
+  // }
 
   render() {
     return (

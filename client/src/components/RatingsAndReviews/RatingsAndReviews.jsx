@@ -14,6 +14,7 @@ class RatingsAndReviews extends React.Component {
     super(props);
     this.state = {
       reviews: [],
+      slice: 2,
     };
   }
 
@@ -31,10 +32,16 @@ class RatingsAndReviews extends React.Component {
 
   render() {
     return (
-      <Div>
-        <ReviewsList reviews={this.state.reviews} />
-      </Div>
-
+      <>
+        <Div>
+          <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
+        </Div>
+        <Div>
+          <button type="button" onClick={() => this.setState({slice: this.state.slice + 2})}>
+            See More Reviews
+          </button>
+        </Div>
+      </>
     );
   }
 }
