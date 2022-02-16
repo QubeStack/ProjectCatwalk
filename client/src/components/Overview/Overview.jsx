@@ -27,6 +27,7 @@ class Overview extends React.Component {
 
     this.getProducts = this.getProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
+    this.changeStyle = this.changeStyle.bind(this);
   }
 
   componentDidMount() {
@@ -64,16 +65,25 @@ class Overview extends React.Component {
       });
   }
 
+  changeStyle(style) {
+    this.setState({ selectedStyle: style });
+  }
+
   render() {
     const { product } = this.state;
     const { selectedStyle } = this.state;
-    const { styles } =this.state;
+    const { styles } = this.state;
     // console.log(products.id);
     return (
       <StyledContainer>
         <StyledH2>Product Overview</StyledH2>
         <ImageGallery />
-        <ProductInformation product={product} selectedStyle={selectedStyle} styles={styles} />
+        <ProductInformation
+          product={product}
+          selectedStyle={selectedStyle}
+          styles={styles}
+          changeStyle={this.changeStyle}
+        />
       </StyledContainer>
     );
   }
