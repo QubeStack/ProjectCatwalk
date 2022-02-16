@@ -20,11 +20,7 @@ class RelatedItems extends React.Component {
   }
 
   reRender() {
-    // this.forceUpdate();
-    const tock = !this.state.tick;
-    this.setState({
-      tick: tock,
-    });
+    this.forceUpdate();
   }
 
   render() {
@@ -32,6 +28,7 @@ class RelatedItems extends React.Component {
       <StyledDiv>
         <SimilarItems render={this.reRender} />
         <OutfitItems render={this.reRender} />
+        <button type="button" onClick={this.reRender}>update</button>
       </StyledDiv>
     );
   }

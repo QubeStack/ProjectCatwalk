@@ -8,9 +8,14 @@ class OutfitItems extends React.Component {
     this.state = {
       products: [],
     };
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
+    this.update();
+  }
+
+  update() {
     const outfit = [];
     const newOutfit = JSON.parse(localStorage.getItem('myOutfit'));
     outfit.push(JSON.parse(localStorage.getItem('myOutfit')));
@@ -25,7 +30,7 @@ class OutfitItems extends React.Component {
     return (
       <>
         <div>Your Outfit</div>
-        <MultiDisplayCarousel render={this.props.render} products={this.state.products} actionButton="x" />
+        <MultiDisplayCarousel render={this.props.render} update={this.props.update} products={this.state.products} actionButton="x" />
       </>
     );
   }
