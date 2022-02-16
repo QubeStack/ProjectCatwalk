@@ -16,7 +16,7 @@ class OutfitItems extends React.Component {
     outfit.push(JSON.parse(localStorage.getItem('myOutfit')));
     if (newOutfit !== null) {
       this.setState({
-        products: outfit,
+        products: newOutfit,
       });
     }
   }
@@ -25,7 +25,7 @@ class OutfitItems extends React.Component {
     return (
       <>
         <div>Your Outfit</div>
-        <MultiDisplayCarousel products={this.state.products} />
+        <MultiDisplayCarousel render={this.props.render} products={this.state.products} actionButton="x" />
       </>
     );
   }

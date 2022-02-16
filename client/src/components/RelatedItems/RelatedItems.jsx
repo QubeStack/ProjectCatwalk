@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
 import OutfitItems from './OutfitItems';
@@ -12,15 +14,24 @@ class RelatedItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      tick: false,
     };
+    this.reRender = this.reRender.bind(this);
+  }
+
+  reRender() {
+    // this.forceUpdate();
+    const tock = !this.state.tick;
+    this.setState({
+      tick: tock,
+    });
   }
 
   render() {
     return (
       <StyledDiv>
-        <SimilarItems />
-        <OutfitItems />
+        <SimilarItems render={this.reRender} />
+        <OutfitItems render={this.reRender} />
       </StyledDiv>
     );
   }

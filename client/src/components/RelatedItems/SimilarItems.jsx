@@ -17,7 +17,6 @@ class SimilarItems extends React.Component {
       url: '/api/products',
     })
       .then((results) => {
-        console.log(results.data);
         this.setState({
           products: results.data,
         });
@@ -28,7 +27,7 @@ class SimilarItems extends React.Component {
     return (
       <>
         <div>Similar Items</div>
-        <MultiDisplayCarousel products={this.state.products} />
+        <MultiDisplayCarousel render={this.props.render} products={this.state.products} actionButton="+" />
       </>
     );
   }

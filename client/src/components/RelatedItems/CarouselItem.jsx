@@ -9,21 +9,56 @@ class CarouselItem extends React.Component {
 
     };
     this.setStorage = this.setStorage.bind(this);
+    this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
   }
 
   setStorage() {
-    localStorage.setItem('myOutfit', JSON.stringify(this.props.product));
+    if (localStorage.getItem('myOutfit') === null) {
+      localStorage.setItem('myOutfit', JSON.stringify([this.props.product]));
+    } else {
+      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+      if (!Array.isArray(outfit)) {
+        outfit = [outfit];
+      }
+      if (outfit.every((item) => item.id !== this.props.product.id)) {
+        outfit.push(this.props.product);
+      }
+      localStorage.setItem('myOutfit', JSON.stringify(outfit));
+      this.props.render();
+    }
+  }
+
+  removeItemFromStorage() {
+    let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+    if (!Array.isArray(outfit)) {
+      outfit = [outfit];
+    }
+    const newOutfit = outfit.filter((item) => item.id !== this.props.product.id);
+    localStorage.setItem('myOutfit', JSON.stringify(newOutfit));
+    this.props.render();
   }
 
   render() {
+    let actionButton;
+    if (this.props.actionButton === '+') {
+      actionButton = (
+        <ActionButton type="button" onClick={this.setStorage}>
+          {this.props.actionButton}
+        </ActionButton>
+      );
+    } else {
+      actionButton = (
+        <ActionButton type="button" onClick={this.removeItemFromStorage}>
+          {this.props.actionButton}
+        </ActionButton>
+      );
+    }
     return (
       <Wrapper className="card">
         <Image>
           Image
         </Image>
-        <ActionButton type="button" onClick={this.setStorage}>
-          +
-        </ActionButton>
+        {actionButton}
         <Name>
           {this.props.product.name}
         </Name>
