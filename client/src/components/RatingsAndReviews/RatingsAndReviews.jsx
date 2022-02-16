@@ -18,11 +18,11 @@ class RatingsAndReviews extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = 40344;
+    const { id } = 40355;
     axios({
       method: 'get',
       url: '/api/product/reviews',
-      params: { product_id: 40344 },
+      params: { product_id: 40355 },
     })
       .then((results) => {
         this.setState({ reviews: results.data.results });
