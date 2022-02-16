@@ -54,6 +54,8 @@ class ProductInformation extends React.Component {
 
   render() {
     const { product } = this.props;
+    const { styles } = this.props;
+    const { selectedStyle } = this.props;
     // const product = products[0];
     // console.log(product);
     return (
@@ -74,7 +76,11 @@ class ProductInformation extends React.Component {
           <Icon src={twitter} alt="" />
           <Icon src={pinterest} alt="" />
         </IconContainer>
-        <StyleSelector id={product.id} />
+        <StyleSelector
+          product={product}
+          styles={styles}
+          selectedStyle={selectedStyle}
+        />
         <AddToCart />
       </ProductContainer>
     );

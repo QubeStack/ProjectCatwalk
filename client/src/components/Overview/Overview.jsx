@@ -20,30 +20,60 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      products: [],
+      product: [],
+      style: [],
+      selectedStyle: [],
     };
+
+    this.getProducts = this.getProducts.bind(this);
+    this.getStyles = this.getStyles.bind(this);
   }
 
   componentDidMount() {
+    this.getProducts();
+  }
+
+  getProducts() {
     axios.get('/api/products')
       .then((results) => {
         // const productIDs = [];
         // for (let i = 0; i < results.data.length; i += 1) {
         //   productIDs.push(results.data[i].id);
         // }
-        this.setState({ products: results.data[0] });
+        // alert(JSON.stringify(results.data));
+        this.getStyles(results.data[0].id);
+        this.setState({ product: results.data[0] });
         //  console.log(productIDs);
       });
   }
 
+  getStyles(id) {
+    axios({
+      method: 'get',
+      url: '/api/product/styles',
+      params: {
+        product_id: id,
+      },
+    })
+      .then((response) => {
+        const stylesArray = response.data.results;
+        const defaultStyle = stylesArray[0];
+        this.setState({
+          styles: stylesArray, selectedStyle: defaultStyle,
+        });
+      });
+  }
+
   render() {
-    const { products } = this.state;
+    const { product } = this.state;
+    const { selectedStyle } = this.state;
+    const { styles } =this.state;
     // console.log(products.id);
     return (
       <StyledContainer>
         <StyledH2>Product Overview</StyledH2>
         <ImageGallery />
-        <ProductInformation product={products} />
+        <ProductInformation product={product} selectedStyle={selectedStyle} styles={styles} />
       </StyledContainer>
     );
   }
