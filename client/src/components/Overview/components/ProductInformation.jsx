@@ -11,6 +11,7 @@ const ProductContainer = styled.div`
   border: solid;
   padding: 5px;
   color: #1F513F;
+  grid-column: span 3;
   grid-column-template: 1fr;
   gap: 1em;`;
 
@@ -19,6 +20,9 @@ const RatingsContainer = styled.div`
   grid-column-template: 1fr, 1fr;
   grid-auto-flow: column;`;
 
+const IconContainer = styled.div`
+  justify-self:center;`;
+
 const Icon = styled.img`
   padding-right: 1em;`;
 
@@ -26,8 +30,16 @@ class ProductInformation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      products: [],
+    };
   }
+
+  // componentDidUpdate(previousprops) {
+  //   if (previousprops !== this.props) {
+  //     this.setState({products: this.props});
+  //   }
+  // }
 
   static handleScrollTo() {
     // const xpath = "//div[contains(text(),'Ratings and Reviews here')]";
@@ -57,11 +69,11 @@ class ProductInformation extends React.Component {
           {product.default_price}
         </div>
         <div>{product.description}</div>
-        <div>
+        <IconContainer>
           <Icon src={facebook} alt="" />
           <Icon src={twitter} alt="" />
           <Icon src={pinterest} alt="" />
-        </div>
+        </IconContainer>
         <StyleSelector id={product.id} />
         <AddToCart />
       </ProductContainer>
