@@ -9,7 +9,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
-import TestItem from '../client/src/components/RelatedItems/TestItem';
+import CarouselItem from '../client/src/components/RelatedItems/CarouselItem';
 
 let container;
 
@@ -26,9 +26,9 @@ afterEach(() => {
   container = null;
 });
 
-it('renders with or without a name', () => {
+it('renders a CarouselItem into the document', () => {
   act(() => {
-    render(<TestItem />, container);
+    render(<CarouselItem product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} />, container);
   });
-  expect(container.textContent).toBe('Hey, stranger');
+  expect(container.getElementsByClassName('card')[0]).toBeDefined();
 });
