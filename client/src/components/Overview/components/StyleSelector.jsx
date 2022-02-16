@@ -67,7 +67,7 @@ class StyleSelector extends React.Component {
     // console.log(stylePhotos);
     // console.log(styles);
     return (
-      <StylesContainer>
+      <StylesContainer className="styles">
         {stylePhotos.map((style) => (
           <StyleBox src={style[0].thumbnail_url} alt="" />
         ))}
