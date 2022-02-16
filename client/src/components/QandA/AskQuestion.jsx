@@ -59,21 +59,42 @@ const CloseButton = styled.span`
   }
 `;
 
-const QuestionField = styled.input`
+const QuestionField = styled.textarea`
   grid-row-start: 1;
-  grid-row-end: 1;
+  grid-row-end: span 4;
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: span 4;
   height: 200px;
-  width: 80%;
+  width: 500px;
 `;
 
 const NicknameField = styled.input`
   grid-row-start: 2;
+  grid-column-start: 1;
+  width: 200px;
 `;
 
 const EmailField = styled.input`
   grid-row-start: 3;
+  grid-column-start: 1;
+  width: 200px;
+`;
+
+const ModalSubmit = styled.input`
+  grid-row-start: 4;
+  grid-column-start: 1;
+`;
+
+const NicknameLabel = styled.label`
+  grid-row-start: 2;
+  grid-column-start: 1;
+  border-color: blue;
+`;
+
+const EmailLabel = styled.label`
+  grid-row-start: 3;
+  grid-column-start: 1;
+  border-color: blue;
 `;
 
 class AskQuestion extends React.Component {
@@ -120,6 +141,12 @@ class AskQuestion extends React.Component {
     const { question, nickname, email } = this.state;
     e.preventDefault();
     console.log(question, nickname, email);
+    this.setState({
+      showModal: false,
+      question: '',
+      nickname: '',
+      email: '',
+    });
   }
 
   render() {
@@ -135,18 +162,20 @@ class AskQuestion extends React.Component {
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <form onSubmit={this.handleSubmit}>
                 <label>
-                  Your Question:
-                  <QuestionField type="text" name="question" onChange={this.handleChange} />
+                  Your Question:*
+                  <QuestionField type="text" name="question" placeholder="What is your question?" maxlength="1000" onChange={this.handleChange} />
                 </label>
-                <label>
-                  What is your nickname:
-                  <input type="text" name="nickname" onChange={this.handleChange} />
-                </label>
-                <label>
-                  Your Email:
-                  <input type="text" name="email" onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
+                <NicknameLabel>
+                  What is your nickname:*
+                  <NicknameField type="text" placeholder="Example: jackson11!" name="nickname" onChange={this.handleChange} />
+                  <p>For privacy reasons, do not use your full name or email address.</p>
+                </NicknameLabel>
+                <EmailLabel>
+                  Your Email:*
+                  <EmailField type="text" placeholder="Example: jackson@email.com" name="email" onChange={this.handleChange} />
+                  <p>For authentication reasons, you will not be emailed.</p>
+                </EmailLabel>
+                <ModalSubmit type="submit" value="Submit" />
               </form>
             </Content>
           </Modal>
