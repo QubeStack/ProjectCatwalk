@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
@@ -47,7 +48,9 @@ class MultiDisplayCarousel extends React.Component {
           direction={this.state.direction}
           position={this.state.position}
         >
-          {this.props.products.map((product) => <CarouselItem product={product} />)}
+          {this.props.products.map(
+            (product) => <CarouselItem product={product} actionButton={this.props.actionButton} render={this.props.render} />,
+          )}
         </CarouselContainer>
         <LeftButton>{prevButton}</LeftButton>
         <RightButton>{nextButton}</RightButton>

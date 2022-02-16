@@ -86,8 +86,32 @@ app.put('/api/product/questions/answers/helpful', (req, res) => {
 // get product styles
 app.get('/api/product/styles', (req, res) => {
   axios({
-    mathod: 'get',
+    method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.query.product_id}/styles`,
+    headers: { Authorization: API_KEY },
+  })
+    .then((results) => {
+      res.send(results.data);
+    });
+});
+
+// get one product
+app.get('/api/product', (req, res) => {
+  axios({
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.query.product_id}`,
+    headers: { Authorization: API_KEY },
+  })
+    .then((results) => {
+      res.send(results.data);
+    });
+});
+
+// get related products
+app.get('/api/product/related', (req, res) => {
+  axios({
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.query.product_id}/related`,
     headers: { Authorization: API_KEY },
   })
     .then((results) => {
