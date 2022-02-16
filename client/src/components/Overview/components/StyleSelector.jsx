@@ -7,12 +7,21 @@ const StylesContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;`;
 
-const StyleBox = styled.img`
+const Style = styled.img`
   border: solid;
   border-radius: 15px;
   width: 80px;
   height: 120px;
   object-fit: fill;`;
+
+const StyleCheck = styled.span`
+  position: absolute;
+  top: 5%;
+  left: 5%;`;
+
+const CheckBox = styled.div`
+  display: grid;
+  position: relative;`;
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -24,9 +33,10 @@ class StyleSelector extends React.Component {
       selected: [],
     };
 
-    // this.handleSelect = this.handleSelect.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
     this.selectedStyle = this.selectedStyle.bind(this);
+    this.setStyles = this.setStyles.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidUpdate(previousprops) {
@@ -36,7 +46,18 @@ class StyleSelector extends React.Component {
       if (styles) {
         // alert(JSON.stringify(styles));
         this.getPhotos(styles);
+        this.setStyles(styles);
       }
+    }
+  }
+
+  handleSelect(style) {
+    const { selected } = this.state;
+    const { changeStyle } = this.props;
+    if (selected !== style) {
+      // alert(JSON.stringify(style));
+      // this.setState({ selected: style });
+      changeStyle(style);
     }
   }
 
@@ -49,27 +70,33 @@ class StyleSelector extends React.Component {
     });
   }
 
+  setStyles(styles) {
+    this.setState({ styles });
+  }
+
   selectedStyle() {
     const { selectedStyle } = this.props;
     this.setState({ selected: selectedStyle });
   }
 
-  // handleSelect(style) {
-  //   const { selected } = this.state;
-  //   if (selected !== style) {
-  //     this.setState({ selected: style });
-  //   }
-  // }
-
   render() {
     // const { styles } = this.state;
     const { stylePhotos } = this.state;
+    const { styles } = this.state;
+    const { selected } = this.state;
     // console.log(stylePhotos);
     // console.log(styles);
     return (
       <StylesContainer className="styles">
-        {stylePhotos.map((style) => (
-          <StyleBox src={style[0].thumbnail_url} alt="" />
+        {styles.map((style) => (
+          selected === style ? (
+            <CheckBox>
+              <StyleCheck>
+                &#10003;
+              </StyleCheck>
+              <Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />
+            </CheckBox>
+          ) : (<Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />)
         ))}
         {/* <StyleBox>Style 1</StyleBox>
         <StyleBox>Style 2</StyleBox>

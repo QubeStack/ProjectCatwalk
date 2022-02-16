@@ -26,6 +26,9 @@ const IconContainer = styled.div`
 const Icon = styled.img`
   padding-right: 1em;`;
 
+const Style = styled.span`
+font-weight: bold;`;
+
 class ProductInformation extends React.Component {
   constructor(props) {
     super(props);
@@ -56,6 +59,7 @@ class ProductInformation extends React.Component {
     const { product } = this.props;
     const { styles } = this.props;
     const { selectedStyle } = this.props;
+    const { changeStyle } = this.props;
     // const product = products[0];
     // console.log(product);
     return (
@@ -68,7 +72,7 @@ class ProductInformation extends React.Component {
         <div>{product.name}</div>
         <div>
           $
-          {product.default_price}
+          {selectedStyle.original_price}
         </div>
         <div>{product.description}</div>
         <IconContainer>
@@ -76,10 +80,15 @@ class ProductInformation extends React.Component {
           <Icon src={twitter} alt="" />
           <Icon src={pinterest} alt="" />
         </IconContainer>
+        <div>
+          <span>Current style: </span>
+          <Style>{selectedStyle.name}</Style>
+        </div>
         <StyleSelector
           product={product}
           styles={styles}
           selectedStyle={selectedStyle}
+          changeStyle={changeStyle}
         />
         <AddToCart />
       </ProductContainer>
