@@ -36,9 +36,9 @@ class ReviewItem extends React.Component {
         <Div>{this.props.body}</Div>
         <button type="button">Show More</button>
         <Inline>
-        {this.props.photos.map((photo) => (
-          <img src={photo.url} width={60} height={60} />
-        ))}
+          {this.props.photos.map((photo) => (
+            <img src={photo.url} width={60} height={60} />
+          ))}
         </Inline>
         <Div>{this.props.recommend ? "I recommend this product ✔" : null}</Div>
         <Div>{this.props.response ? `Response from Seller: ${this.props.response}` : null}</Div>
