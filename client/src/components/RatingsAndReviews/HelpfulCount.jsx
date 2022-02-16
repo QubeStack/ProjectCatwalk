@@ -31,7 +31,7 @@ class HelpfulCount extends React.Component {
 
   render() {
     return (
-      <Inline>
+      <Inline className="helpful">
         <div>Was this review helpful?</div>
         <button type="button" onClick={this.handleYes}>{`Yes (${this.state.yes})`}</button>
         <button type="button">{`No (${this.state.no})`}</button>
