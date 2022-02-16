@@ -88,14 +88,8 @@ class CarouselItem extends React.Component {
     } else {
       price = (
         <Price>
-          <>
-            <StrikeThrough>
-              $
-              {this.props.product.default_price}
-            </StrikeThrough>
-            $
-            {this.state.salePrice}
-          </>
+          $
+          {this.state.salePrice}
         </Price>
       );
     }
@@ -161,8 +155,8 @@ export const Stars = styled.div`
   grid-row: 9;
 `;
 
-const StrikeThrough = styled.Text`
-    text-decoration: line-through;
-`;
+// const StrikeThrough = styled.Text`
+//     text-decoration: line-through;
+// `;
 
 export default CarouselItem;
