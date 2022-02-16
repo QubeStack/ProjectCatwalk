@@ -20,25 +20,10 @@ class ReviewList extends React.Component {
     };
   }
 
-  // 40355
-
-  // componentDidMount() {
-  //   const { id } = 40344;
-  //   axios({
-  //     method: 'get',
-  //     url: '/api/product/reviews/',
-  //     params: { product_id: id },
-  //   })
-  //     .then((results) => {
-  //       console.log("reviews results:", results.data);
-  //       res.send(results.data);
-  //     });
-  // }
-
   render() {
     return (
       <div>
-        {data.results.map(
+        {this.props.reviews.map(
           (review) => (
             <Div>
               <ReviewItem
@@ -48,6 +33,7 @@ class ReviewList extends React.Component {
                 body={review.body}
                 recommend={review.recommend}
                 response={review.response}
+                photos={review.photos}
               />
             </Div>
           ),
