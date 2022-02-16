@@ -17,7 +17,7 @@ class CarouselItem extends React.Component {
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper className="card">
         <Image>
           Image
         </Image>
