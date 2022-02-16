@@ -10,10 +10,10 @@ const StyledContainer = styled.div`
   padding: 5px;
   margin: 1em;
   gap: 1rem;
-  grid-template-columns: repeat(5, 1fr);`;
+  grid-template-columns: repeat(10, 1fr);`;
 const StyledH2 = styled.h2`
   justify-self: center;
-  grid-column: span 5;`;
+  grid-column: span 10;`;
 
 class Overview extends React.Component {
   constructor(props) {

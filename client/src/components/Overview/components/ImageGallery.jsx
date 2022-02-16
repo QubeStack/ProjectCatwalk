@@ -7,11 +7,12 @@ const PictureContainer = styled.div`
   border: solid;
   padding: 5px;
   color: blue;
-  grid-column: span 4;
+  grid-column: span 7;
   grid-column-format: repeat(8, 1fr);`;
 
 const StyledH4 = styled.h4`
   justify-self: center;
+  grid-row: 30px;
   grid-column: span 8;`;
 
 const ImageWrapper = styled.div`
@@ -52,7 +53,7 @@ class ImageGallery extends React.Component {
   render() {
     return (
       <PictureContainer>
-        <StyledH4>Image Gallery</StyledH4>
+        {/* <StyledH4>Image Gallery</StyledH4> */}
         <ImageWrapper>
           <LeftButton type="button">
             <ArrowButton src="/Users/waydizzle/Desktop/HackReactor/ProjectCatwalk/client/src/components/Overview/components/left-arrow-icon-vector-21641382.jpeg" alt="" />

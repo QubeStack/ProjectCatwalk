@@ -16,6 +16,7 @@ const StyledH4 = styled.h4`
 const ImageWrapper = styled.div`
   display: grid;
   border: solid;
+  justify-self: center;
   grid-column: span 8;
   grid-column-format: repeat(10, 1fr);
   grid-gap: 5px;`;
@@ -52,7 +53,7 @@ class Thumbnails extends React.Component {
   render() {
     return (
       <PictureContainer>
-        <StyledH4>Thumbnail Gallery</StyledH4>
+        {/* <StyledH4>Thumbnail Gallery</StyledH4> */}
         <ImageWrapper>
           <LeftButton type="button">
             <ArrowButton src="/Users/waydizzle/Desktop/HackReactor/ProjectCatwalk/client/src/components/Overview/components/left-arrow-icon-vector-21641382.jpeg" alt="" />

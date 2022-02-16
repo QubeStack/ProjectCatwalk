@@ -4,12 +4,15 @@ import styled from 'styled-components';
 
 const StylesContainer = styled.div`
   display: grid;
-  grid-column-template: repeat(4, 1fr);
-  grid-auto-flow: column;
-  grid-gap: 5px;`;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;`;
 
-const StyleBox = styled.div`
-  border: solid;`;
+const StyleBox = styled.img`
+  border: solid;
+  border-radius: 15px;
+  width: 80px;
+  height: 120px;
+  object-fit: fill;`;
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -17,7 +20,11 @@ class StyleSelector extends React.Component {
 
     this.state = {
       styles: [],
+      stylePhotos: [],
+      selected: [],
     };
+
+    // this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidUpdate(previousprops) {
@@ -32,29 +39,38 @@ class StyleSelector extends React.Component {
         },
       })
         .then((response) => {
-          const photoArray = response.data.results;
-          const filtered = [];
-          photoArray.forEach((e) => filtered.push(e.photos));
+          const stylesArray = response.data.results;
+          const photosArray = [];
+          stylesArray.forEach((e) => photosArray.push(e.photos));
           //alert(JSON.stringify(filtered));
           this.setState({
-            styles: response.data.results[0],
+            styles: stylesArray, stylePhotos: photosArray, selected: stylesArray[0],
           });
         });
     }
   }
 
+  // handleSelect(style) {
+  //   const { selected } = this.state;
+  //   if (selected !== style) {
+  //     this.setState({ selected: style });
+  //   }
+  // }
+
   render() {
     const { styles } = this.state;
-    console.log(styles);
+    const { stylePhotos } = this.state;
+    // console.log(stylePhotos);
+    // console.log(styles);
     return (
       <StylesContainer>
-        {/* {styles.map((style) => (
-          <StyleBox>{style}</StyleBox>
-        ))} */}
-        <StyleBox>Style 1</StyleBox>
+        {stylePhotos.map((style) => (
+          <StyleBox src={style[0].thumbnail_url} alt="" />
+        ))}
+        {/* <StyleBox>Style 1</StyleBox>
         <StyleBox>Style 2</StyleBox>
         <StyleBox>Style 3</StyleBox>
-        <StyleBox>Style 4</StyleBox>
+        <StyleBox>Style 4</StyleBox> */}
       </StylesContainer>
     );
   }
