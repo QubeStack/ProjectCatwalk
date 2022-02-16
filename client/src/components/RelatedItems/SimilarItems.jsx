@@ -14,12 +14,27 @@ class SimilarItems extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: '/api/products',
+      url: '/api/product/related',
+      params: {
+        product_id: this.props.id,
+      },
     })
       .then((results) => {
-        this.setState({
-          products: results.data,
-        });
+        Promise.all(results.data.map((result) => (
+          axios({
+            method: 'get',
+            url: '/api/product',
+            params: {
+              product_id: result,
+            },
+          })
+        )))
+          .then((products) => {
+            const data = products.map((product) => product.data);
+            this.setState({
+              products: data,
+            });
+          });
       });
   }
 

@@ -10,17 +10,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      id: 40344,
     };
   }
 
   render() {
+    const { id } = this.state;
     return (
       <div>
         <GlobalCSS />
         <Overview />
         <RatingsAndReviews />
         <QABody />
-        <RelatedItems />
+        <RelatedItems id={id} />
       </div>
     );
   }

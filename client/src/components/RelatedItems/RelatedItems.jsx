@@ -13,9 +13,7 @@ const StyledDiv = styled.div`
 class RelatedItems extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tick: false,
-    };
+    this.state = {};
     this.reRender = this.reRender.bind(this);
   }
 
@@ -24,9 +22,10 @@ class RelatedItems extends React.Component {
   }
 
   render() {
+    const { id } = this.props;
     return (
       <StyledDiv>
-        <SimilarItems render={this.reRender} />
+        <SimilarItems id={id} render={this.reRender} />
         <OutfitItems render={this.reRender} />
         <button type="button" onClick={this.reRender}>update</button>
       </StyledDiv>
