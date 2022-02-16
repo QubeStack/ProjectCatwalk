@@ -20,7 +20,7 @@ class ReviewItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      showMoreIsClicked: false,
     };
   }
 
@@ -33,14 +33,26 @@ class ReviewItem extends React.Component {
           <Div>{this.props.username}</Div>
           <Div>{this.props.date}</Div>
         </Inline>
-        <Div>{this.props.body}</Div>
-        <button type="button">Show More</button>
+        <Div>
+          {this.props.body.length > 250
+            ? (
+              <>
+                <div>
+                  {this.state.showMoreIsClicked ? this.props.body : this.props.body.slice(0, 250)}
+                </div>
+                <button type="button" onClick={() => this.setState({ showMoreIsClicked: !this.state.showMoreIsClicked })}>
+                  {this.state.showMoreIsClicked ? 'Show Less' : 'Show More'}
+                </button>
+              </>
+            )
+            : this.props.body}
+        </Div>
         <Inline>
           {this.props.photos.map((photo) => (
             <img src={photo.url} width={60} height={60} />
           ))}
         </Inline>
-        <Div>{this.props.recommend ? "I recommend this product ✔" : null}</Div>
+        <Div>{this.props.recommend ? 'I recommend this product ✔' : null}</Div>
         <Div>{this.props.response ? `Response from Seller: ${this.props.response}` : null}</Div>
         <HelpfulCount />
       </>
