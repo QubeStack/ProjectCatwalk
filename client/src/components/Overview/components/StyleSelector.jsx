@@ -25,29 +25,33 @@ class StyleSelector extends React.Component {
     };
 
     // this.handleSelect = this.handleSelect.bind(this);
+    this.getPhotos = this.getPhotos.bind(this);
+    this.selectedStyle = this.selectedStyle.bind(this);
   }
 
   componentDidUpdate(previousprops) {
     if (previousprops !== this.props) {
-      const { id } = this.props;
-      // alert(id);
-      axios({
-        method: 'get',
-        url: '/api/product/styles',
-        params: {
-          product_id: id,
-        },
-      })
-        .then((response) => {
-          const stylesArray = response.data.results;
-          const photosArray = [];
-          stylesArray.forEach((e) => photosArray.push(e.photos));
-          //alert(JSON.stringify(filtered));
-          this.setState({
-            styles: stylesArray, stylePhotos: photosArray, selected: stylesArray[0],
-          });
-        });
+      const { styles } = this.props;
+      this.selectedStyle();
+      if (styles) {
+        // alert(JSON.stringify(styles));
+        this.getPhotos(styles);
+      }
     }
+  }
+
+  getPhotos(styles) {
+    const photosArray = [];
+    styles.forEach((e) => photosArray.push(e.photos));
+    // alert(JSON.stringify(filtered));
+    this.setState({
+      stylePhotos: photosArray,
+    });
+  }
+
+  selectedStyle() {
+    const { selectedStyle } = this.props;
+    this.setState({ selected: selectedStyle });
   }
 
   // handleSelect(style) {
@@ -58,7 +62,7 @@ class StyleSelector extends React.Component {
   // }
 
   render() {
-    const { styles } = this.state;
+    // const { styles } = this.state;
     const { stylePhotos } = this.state;
     // console.log(stylePhotos);
     // console.log(styles);
