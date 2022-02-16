@@ -13,7 +13,7 @@ class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // reviews: [],
+      reviews: [],
     };
   }
 
@@ -25,15 +25,14 @@ class RatingsAndReviews extends React.Component {
       params: { product_id: 40344 },
     })
       .then((results) => {
-        console.log("reviews results:", results.data.results);
-        // this.setState({reviews: results.data.results});
+        this.setState({ reviews: results.data.results });
       });
   }
 
   render() {
     return (
       <Div>
-        <ReviewsList />
+        <ReviewsList reviews={this.state.reviews} />
       </Div>
 
     );

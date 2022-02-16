@@ -44,7 +44,7 @@ app.get('/api/product/questions/answers', (req, res) => {
     });
 });
 
-
+// get reviews for specific product
 app.get('/api/product/reviews', (req, res) => {
   console.log(req.query);
   axios({
@@ -53,7 +53,6 @@ app.get('/api/product/reviews', (req, res) => {
     headers: { Authorization: API_KEY },
   })
     .then((results) => {
-      console.log(results.data.results);
       res.send(results.data);
     });
 });
