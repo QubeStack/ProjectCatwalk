@@ -62,7 +62,6 @@ class CarouselItem extends React.Component {
   }
 
   render() {
-    // const image = <img src={this.state.photo} alt={this.state.name} />;
     let actionButton;
     if (this.props.actionButton === '+') {
       actionButton = (
@@ -77,6 +76,30 @@ class CarouselItem extends React.Component {
         </ActionButton>
       );
     }
+
+    let price;
+    if (this.state.salePrice === null) {
+      price = (
+        <Price>
+          $
+          {this.props.product.default_price}
+        </Price>
+      );
+    } else {
+      price = (
+        <Price>
+          <>
+            <StrikeThrough>
+              $
+              {this.props.product.default_price}
+            </StrikeThrough>
+            $
+            {this.state.salePrice}
+          </>
+        </Price>
+      );
+    }
+
     return (
       <Wrapper className="card">
         <Image photo={this.state.photo} />
@@ -87,10 +110,7 @@ class CarouselItem extends React.Component {
         <Category>
           {this.props.product.category}
         </Category>
-        <Price>
-          $
-          {this.props.product.default_price}
-        </Price>
+        {price}
         <Stars>
           Stars
         </Stars>
@@ -139,6 +159,10 @@ export const Price = styled.div`
 export const Stars = styled.div`
   grid-column: 1/-1;
   grid-row: 9;
+`;
+
+const StrikeThrough = styled.Text`
+    text-decoration: line-through;
 `;
 
 export default CarouselItem;
