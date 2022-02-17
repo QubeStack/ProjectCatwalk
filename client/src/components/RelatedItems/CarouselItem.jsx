@@ -62,56 +62,73 @@ class CarouselItem extends React.Component {
   }
 
   render() {
-    let actionButton;
-    if (this.props.actionButton === '+') {
-      actionButton = (
-        <ActionButton type="button" onClick={this.setStorage}>
-          {this.props.actionButton}
-        </ActionButton>
-      );
+    let card;
+    if (this.props.addCard) {
+      card = <AddCard>Add to Outfit</AddCard>;
     } else {
-      actionButton = (
-        <ActionButton type="button" onClick={this.removeItemFromStorage}>
-          {this.props.actionButton}
-        </ActionButton>
-      );
-    }
+      let actionButton;
+      if (this.props.actionButton === '+') {
+        actionButton = (
+          <ActionButton type="button" onClick={this.setStorage}>
+            {this.props.actionButton}
+          </ActionButton>
+        );
+      } else {
+        actionButton = (
+          <ActionButton type="button" onClick={this.removeItemFromStorage}>
+            {this.props.actionButton}
+          </ActionButton>
+        );
+      }
 
-    let price;
-    if (this.state.salePrice === null) {
-      price = (
-        <Price>
-          $
-          {this.props.product.default_price}
-        </Price>
-      );
-    } else {
-      price = (
-        <Price>
-          $
-          {this.state.salePrice}
-        </Price>
+      let price;
+      if (this.state.salePrice === null) {
+        price = (
+          <Price>
+            $
+            {this.props.product.default_price}
+          </Price>
+        );
+      } else {
+        price = (
+          <Price>
+            $
+            {this.state.salePrice}
+          </Price>
+        );
+      }
+      card = (
+        <Wrapper className="card">
+          <Image photo={this.state.photo} />
+          {actionButton}
+          <Name>
+            {this.props.product.name}
+          </Name>
+          <Category>
+            {this.props.product.category}
+          </Category>
+          {price}
+          <Stars>
+            Stars
+          </Stars>
+        </Wrapper>
       );
     }
 
     return (
-      <Wrapper className="card">
-        <Image photo={this.state.photo} />
-        {actionButton}
-        <Name>
-          {this.props.product.name}
-        </Name>
-        <Category>
-          {this.props.product.category}
-        </Category>
-        {price}
-        <Stars>
-          Stars
-        </Stars>
-      </Wrapper>
+      <>
+        { card }
+      </>
     );
   }
 }
+
+const AddCard = styled.div`
+  width: 150px;
+  height: 214px;
+  background-color: blue;
+  margin: 15px;
+`;
 
 export const Wrapper = styled.div`
   display: grid;
