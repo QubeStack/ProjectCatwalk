@@ -7,12 +7,16 @@ class CarouselItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showModal: false,
       salePrice: null,
       photo: '',
       // name: '',
     };
     this.setStorage = this.setStorage.bind(this);
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
+    this.clickRoute = this.clickRoute.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +63,20 @@ class CarouselItem extends React.Component {
     }
   }
 
+  handleClick(e) {
+    e.preventDefault();
+    this.setState({
+      showModal: true,
+    });
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    this.setState({
+      showModal: false,
+    });
+  }
+
   setStorage() {
     if (localStorage.getItem('myOutfit') === null) {
       localStorage.setItem('myOutfit', JSON.stringify([this.props.product]));
@@ -85,15 +103,21 @@ class CarouselItem extends React.Component {
     this.props.render();
   }
 
+  clickRoute() {
+    console.log(this.props.product.id);
+  }
+
   render() {
     let card;
+    let modal;
     if (this.props.addCard) {
       card = <AddCard>Add to Outfit</AddCard>;
+      modal = <> </>;
     } else {
       let actionButton;
       if (this.props.actionButton === '+') {
         actionButton = (
-          <ActionButton type="button" onClick={this.setStorage}>
+          <ActionButton type="button" onClick={this.handleClick}>
             {this.props.actionButton}
           </ActionButton>
         );
@@ -121,8 +145,9 @@ class CarouselItem extends React.Component {
           </Price>
         );
       }
+
       card = (
-        <Wrapper className="card">
+        <Wrapper className="card" onClick={this.clickRoute}>
           <Image photo={this.state.photo} />
           {actionButton}
           <Name>
@@ -139,8 +164,28 @@ class CarouselItem extends React.Component {
       );
     }
 
+    if (this.state.showModal) {
+      modal = (
+        <Modal>
+          <Content>
+            <CloseButton onClick={this.handleClose}>&times;</CloseButton>
+            Hello
+          </Content>
+        </Modal>
+      );
+    } else {
+      modal = <> </>;
+    }
+
     return (
-      <div>{ card }</div>
+      <>
+        <div>
+          { card }
+        </div>
+        <div>
+          { modal }
+        </div>
+      </>
     );
   }
 }
@@ -192,6 +237,41 @@ export const Price = styled.div`
 export const Stars = styled.div`
   grid-column: 1/-1;
   grid-row: 9;
+`;
+
+const Modal = styled.div`
+  display: block;
+  position: fixed;
+  z-index: 1;
+  width: 25%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+`;
+
+const Content = styled.div`
+  background-color: #f4f2ed;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid black;
+  width: 80%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 75% 10% 10% 5%;
+`;
+
+const CloseButton = styled.span`
+  color: #aaaaaa;
+  grid-row-start: 1;
+  grid-column-start: 4;
+  justify-self: end;
+  font-size: 28px;
+  font-weight: bold;
+  &: hover {
+    cursor: pointer;
+    color: black;
+  }
 `;
 
 // const StrikeThrough = styled.Text`
