@@ -3,10 +3,26 @@ import styled from 'styled-components';
 import axios from 'axios';
 import ReviewsList from './ReviewsList';
 
+const Center = styled.div`
+display: flex;
+justify-content: center;
+`;
+
 const Div = styled.div`
 border-style: solid;
 border-color: white;
 padding: 1px;
+height: 600px;
+width: 800px;
+`;
+
+const Scroll = styled.div`
+border-style: solid;
+border-color: white;
+padding: 1px;
+height: 600px;
+width: 800px;
+overflow-y: scroll;
 `;
 
 class RatingsAndReviews extends React.Component {
@@ -14,6 +30,7 @@ class RatingsAndReviews extends React.Component {
     super(props);
     this.state = {
       reviews: [],
+      slice: 2,
     };
   }
 
@@ -31,10 +48,25 @@ class RatingsAndReviews extends React.Component {
 
   render() {
     return (
-      <Div>
-        <ReviewsList reviews={this.state.reviews} />
-      </Div>
-
+      <>
+        <Center>
+          {this.state.slice >= 4 ?
+            <Scroll>
+              <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
+            </Scroll>
+            : <Div>
+              <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
+            </Div>
+          }
+        </Center>
+        <Center>
+          <div>
+            <button type="button" onClick={() => this.setState({ slice: this.state.slice + 2 })}>
+              See More Reviews
+            </button>
+          </div>
+        </Center>
+      </>
     );
   }
 }
