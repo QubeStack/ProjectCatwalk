@@ -36,6 +36,7 @@ class QuestionsView extends React.Component {
     };
     this.showMoreQuestions = this.showMoreQuestions.bind(this);
     this.showLessQuestions = this.showLessQuestions.bind(this);
+    this.reRenderView = this.reRenderView.bind(this);
   }
 
   showMoreQuestions() {
@@ -50,6 +51,11 @@ class QuestionsView extends React.Component {
     this.setState({
       count: count - 2,
     });
+  }
+
+  reRenderView() {
+    const { reRender } = this.props;
+    reRender();
   }
 
   render() {
@@ -72,7 +78,7 @@ class QuestionsView extends React.Component {
             <MoreQuestions onClick={this.showMoreQuestions}>
               More Answered Questions
             </MoreQuestions>
-            <AskQuestion product={product_id} />
+            <AskQuestion reRender={this.reRenderView} product_id={product_id} />
           </Container>
         </div>
       );
@@ -90,10 +96,10 @@ class QuestionsView extends React.Component {
           ))}
         </div>
         <Container>
-          <MoreQuestions onClick={this.showLessQuestions}>
+          {/* <MoreQuestions onClick={this.showLessQuestions}>
             Less Answered Questions
-          </MoreQuestions>
-          <AskQuestion product_id={product_id} />
+          </MoreQuestions> */}
+          <AskQuestion reRender={this.reRenderView} product_id={product_id} />
         </Container>
       </div>
     );

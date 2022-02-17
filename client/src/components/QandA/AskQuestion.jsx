@@ -141,8 +141,9 @@ class AskQuestion extends React.Component {
   }
 
   componentDidMount() {
+    const { product_id } = this.props;
     this.setState({
-      product_id: this.props.product_id,
+      product_id,
     });
   }
 
@@ -174,8 +175,8 @@ class AskQuestion extends React.Component {
     const {
       question, nickname, email, product_id,
     } = this.state;
+    const { reRender } = this.props;
     e.preventDefault();
-    console.log(question, nickname, email);
     axios({
       method: 'post',
       url: '/api/product/questions',
@@ -188,7 +189,8 @@ class AskQuestion extends React.Component {
        },
     })
       .then((response) => {
-        console.log('data', response.data);
+        console.log('res', response.data);
+        reRender();
       });
     this.setState({
       showModal: false,
@@ -202,7 +204,6 @@ class AskQuestion extends React.Component {
     const {
       showModal, question, nickname, email, product_id,
     } = this.state;
-    console.log('product id', product_id);
     if (showModal) {
       return (
         <AskDiv>

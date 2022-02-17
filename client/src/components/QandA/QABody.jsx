@@ -31,6 +31,7 @@ class QABody extends React.Component {
     this.state = {
       questions: [],
     };
+    this.reRender = this.reRender.bind(this);
   }
 
   componentDidMount() {
@@ -38,11 +39,27 @@ class QABody extends React.Component {
       method: 'get',
       url: '/api/product/questions',
       params: {
-        product_id: 40345,
+        product_id: 40412,
       },
     })
       .then((response) => {
         console.log('questions', response);
+        this.setState({
+          questions: response.data.results,
+        });
+      });
+  }
+
+  reRender() {
+    axios({
+      method: 'get',
+      url: '/api/product/questions',
+      params: {
+        product_id: 40412,
+      },
+    })
+      .then((response) => {
+        console.log('questions:', response.data.results);
         this.setState({
           questions: response.data.results,
         });
@@ -55,7 +72,7 @@ class QABody extends React.Component {
       <BodyDiv>
         <Title>Questions and Answers</Title>
         <SearchQuestions />
-        <QuestionsView product_id={40345} questions={questions} />
+        <QuestionsView reRender={this.reRender} product_id={40412} questions={questions} />
       </BodyDiv>
     );
   }

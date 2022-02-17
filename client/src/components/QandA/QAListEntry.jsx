@@ -8,7 +8,7 @@ const QuestionDiv = styled.div`
   padding: 10px;
   grid-area: main;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 75% 0% 15% 5%;
   grid-template-rows: auto;
   grid-template-areas:
     'header header sidebar sidebar'
@@ -19,8 +19,10 @@ const Question = styled.div`
   grid-area: header;
   grid-column-start: 1;
   grid-row-start: 1;
+  grid-row-end: 2;
   padding: 10px;
   font-weight: bold;
+  overflow-wrap: break-word;
 `;
 
 const HelpfulDiv = styled.div`
@@ -73,6 +75,7 @@ const AnswerYesButton = styled.button`
 const AnswerInfo = styled.div`
   font-size: 10px;
   padding-top: 10px;
+  grid-column-start: 1;
 `;
 
 const months = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -239,15 +242,14 @@ class QAListEntry extends React.Component {
             Add Answer!
           </AddAnswer>
           <AnswerDiv>
-            <strong>A:&#160;</strong>
+            <strong>A:&nbsp;</strong>
             {answer}
             <AnswerInfo>
-              by:&#160;
+              by:
               <strong>{user}</strong>
-            &#160;on:&#160;
+              on:
               {date}
-              &#160;&#160;&#160;&#160;
-              Helpful?
+              &nbsp;&nbsp;Helpful?
               <AnswerYesButton onClick={this.handleHelpfulA}>
                 <u>Yes</u>
                 &#40;
@@ -285,7 +287,7 @@ class QAListEntry extends React.Component {
             {user}
           &#160;on:&#160;
             {date}
-            Helpful?
+            &nbsp;&nbsp;Helpful?
             <AnswerYesButton onClick={this.handleHelpfulA}>
               <u>Yes</u>
               &#40;
