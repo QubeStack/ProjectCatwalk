@@ -2,24 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+const AddAnswerButton = styled.button`
+  grid-row-start: 1;
+  grid-column-start: 4;
+  justify-self: end;
+  text-decoration: underline;
+  color: #1f513f;
+  margin-left: 1%;
+  margin-right: 1%;
+  padding: 0;
+  border: none;
+  background: none;
+`;
+
 const AskDiv = styled.div`
   grid-row-start: 4;
   grid-column-start: 3;
   grid-column-end: 3;
-`;
-
-const AskAQuestion = styled.button`
-  border-style: solid;
-  border-color: #1f513f;
-  padding: 10px;
-  width: 200px;
-  background-color: white;
-  border-radius: 12px;
-  &: active {
-    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
-     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
-          box-shadow: inset 0px 0px 15px #c1c1c1;
-  };
 `;
 
 const Modal = styled.div`
@@ -123,27 +122,27 @@ const FormText = styled.p`
   padding-left: 10px;
 `;
 
-class AskQuestion extends React.Component {
+class AddAnswer extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
+    this.state = ({
       showModal: false,
-      question: '',
+      answer: '',
       nickname: '',
       email: '',
-      product_id: '',
-    };
+      question_id: '',
+    });
+
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    const { product_id } = this.props;
+    const { question_id } = this.props;
     this.setState({
-      product_id,
+      question_id,
     });
   }
 
@@ -172,29 +171,30 @@ class AskQuestion extends React.Component {
   }
 
   handleSubmit(e) {
-    const {
-      question, nickname, email, product_id,
-    } = this.state;
-    const { reRender } = this.props;
     e.preventDefault();
+    const { reRender } = this.props;
+    const {
+      answer, nickname, email, question_id,
+    } = this.state;
+    console.log(question_id);
     axios({
       method: 'post',
-      url: '/api/product/questions',
-      data:
-       {
-         body: question,
-         name: nickname,
-         email,
-         product_id,
-       },
+      url: '/api/product/questions/answers',
+      params: {
+        question_id,
+      },
+      data: {
+        body: answer,
+        name: nickname,
+        email,
+      },
     })
       .then((response) => {
-        // console.log('res', response.data);
         reRender();
       });
     this.setState({
       showModal: false,
-      question: '',
+      answer: '',
       nickname: '',
       email: '',
     });
@@ -202,36 +202,35 @@ class AskQuestion extends React.Component {
 
   render() {
     const {
-      showModal, question, nickname, email, product_id,
+      showModal, answer, nickname, email,
     } = this.state;
     if (showModal) {
       return (
         <AskDiv>
-          <AskAQuestion onClick={this.handleClick}>
-            Ask a Question
-          </AskAQuestion>
+          <AddAnswerButton onClick={this.handleClick}>
+            Add Answer!
+          </AddAnswerButton>
           <Modal>
             <Content>
               <ModalHeader>
-                Ask Your Question - About the Product ID&nbsp;
-                {product_id}
+                Submit your Answer - Product Name: Question Body
               </ModalHeader>
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <ModalForm onSubmit={this.handleSubmit}>
                 <QuestionLabel>
-                  Your Question*:
-                  <QuestionField type="text" value={question} name="question" placeholder="What is your question?" maxlength="1000" onChange={this.handleChange} />
+                  Your Answer*:
+                  <QuestionField type="text" value={answer} name="answer" placeholder="Your Answer Here" maxlength="1000" onChange={this.handleChange} />
                 </QuestionLabel>
                 <NicknameLabel>
                   What is your nickname*:
-                  <NicknameField type="text" value={nickname} placeholder="Example: jackson11!" name="nickname" onChange={this.handleChange} />
+                  <NicknameField type="text" value={nickname} placeholder="Example: jack543!" name="nickname" onChange={this.handleChange} />
                   <FormText>
                     For privacy reasons, do not use your full name or email address.
                   </FormText>
                 </NicknameLabel>
                 <EmailLabel>
                   Your Email*:
-                  <EmailField type="text" value={email} placeholder="Example: jackson@email.com" name="email" onChange={this.handleChange} />
+                  <EmailField type="text" value={email} placeholder="Example: jack@email.com" name="email" onChange={this.handleChange} />
                   <FormText>For authentication reasons, you will not be emailed.</FormText>
                 </EmailLabel>
                 <ModalSubmit type="submit" value="Submit" />
@@ -242,13 +241,11 @@ class AskQuestion extends React.Component {
       );
     }
     return (
-      <AskDiv>
-        <AskAQuestion onClick={this.handleClick}>
-          Ask a Question
-        </AskAQuestion>
-      </AskDiv>
+      <AddAnswerButton onClick={this.handleClick}>
+        Add Answer!
+      </AddAnswerButton>
     );
   }
 }
 
-export default AskQuestion;
+export default AddAnswer;

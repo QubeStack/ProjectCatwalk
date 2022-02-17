@@ -43,7 +43,6 @@ class QABody extends React.Component {
       },
     })
       .then((response) => {
-        console.log('questions', response);
         this.setState({
           questions: response.data.results,
         });
@@ -59,7 +58,7 @@ class QABody extends React.Component {
       },
     })
       .then((response) => {
-        console.log('questions:', response.data.results);
+        // console.log('questions:', response.data.results);
         this.setState({
           questions: response.data.results,
         });

@@ -68,9 +68,10 @@ class QuestionsView extends React.Component {
             {questions.slice(0, count).map((question) => (
               <QAListEntry
                 key={question.question_id}
-                id={question.question_id}
+                question_id={question.question_id}
                 question={question.question_body}
                 helpful={question.question_helpfulness}
+                reRender={this.reRenderView}
               />
             ))}
           </div>
@@ -89,9 +90,10 @@ class QuestionsView extends React.Component {
           {questions.slice(0, count).map((question) => (
             <QAListEntry
               key={question.question_id}
-              id={question.question_id}
+              question_id={question.question_id}
               question={question.question_body}
               helpful={question.question_helpfulness}
+              reRender={this.reRenderView}
             />
           ))}
         </div>

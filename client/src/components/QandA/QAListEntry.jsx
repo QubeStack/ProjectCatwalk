@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import AddAnswer from './AddAnswer';
+import AnswerListEntry from './AnswerListEntry';
 
 const QuestionDiv = styled.div`
   color: #1f513f;
@@ -33,11 +35,7 @@ const HelpfulDiv = styled.div`
   justify-self: end;
 `;
 
-const AddAnswer = styled.button`
-  grid-row-start: 1;
-  grid-column-start: 4;
-  justify-self: end;
-  text-decoration: underline;
+const YesButton = styled.button`
   color: #1f513f;
   margin-left: 1%;
   margin-right: 1%;
@@ -54,31 +52,22 @@ const AnswerDiv = styled.div`
   background-color: white;
 `;
 
-const YesButton = styled.button`
-  color: #1f513f;
-  margin-left: 1%;
-  margin-right: 1%;
-  padding: 0;
-  border: none;
-  background: none;
-`;
-const AnswerYesButton = styled.button`
-  color: #1f513f;
-  margin-left: 1%;
-  margin-right: 1%;
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 10px;
-`;
-
-const AnswerInfo = styled.div`
-  font-size: 10px;
-  padding-top: 10px;
+const MoreAnswersButton = styled.button`
+  border-style: solid;
+  border-color: #1f513f;
+  width: 200px;
   grid-column-start: 1;
-`;
+  grid-column-end: 1;
+  grid-row-start: 3;
+  background-color: white;
+  border-radius: 12px;
+  &: active {
+    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+          box-shadow: inset 0px 0px 15px #c1c1c1;
+  };
 
-const months = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+`;
 
 class QAListEntry extends React.Component {
   constructor(props) {
@@ -87,22 +76,24 @@ class QAListEntry extends React.Component {
     this.state = {
       answers: [],
       disabledQ: false,
-      disabledA: false,
       helpful,
+      count: 2,
     };
     this.handleHelpfulQ = this.handleHelpfulQ.bind(this);
     this.handleHelpfulA = this.handleHelpfulA.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.reRenderView = this.reRenderView.bind(this);
     // this.handleAddAnswer = this.handleAddAnswer.bind(this);
     // this.handleReport = this.handleReport.bind(this);
   }
 
   componentDidMount() {
-    const { id } = this.props;
+    const { question_id } = this.props;
     axios({
       method: 'get',
       url: '/api/product/questions/answers',
       params: {
-        product_id: id,
+        product_id: question_id,
       },
     })
       .then((response) => {
@@ -114,7 +105,7 @@ class QAListEntry extends React.Component {
 
   handleHelpfulQ(e) {
     e.preventDefault();
-    const { id } = this.props;
+    const { question_id } = this.props;
     const { disabledQ, helpful } = this.state;
     if (disabledQ) {
       return;
@@ -124,7 +115,7 @@ class QAListEntry extends React.Component {
       method: 'put',
       url: '/api/product/questions/helpful',
       params: {
-        question_id: id,
+        question_id,
       },
     })
       .then(() => {
@@ -135,36 +126,33 @@ class QAListEntry extends React.Component {
       });
   }
 
-  handleHelpfulA(e) {
+  handleHelpfulA(newAnswers) {
+    this.setState({
+      answers: newAnswers,
+    });
+  }
+
+  handleClick(e) {
+    const { count } = this.state;
     e.preventDefault();
-    const { id } = this.props;
-    const { disabledA, answers } = this.state;
-    if (disabledA) {
-      return;
-    }
+    this.setState({
+      count: count + 2,
+    });
+  }
+
+  reRenderView() {
+    const { question_id } = this.props;
     axios({
-      method: 'put',
-      url: '/api/product/questions/answers/helpful',
+      method: 'get',
+      url: '/api/product/questions/answers',
       params: {
-        answer_id: answers[0].answer_id,
+        product_id: question_id,
       },
     })
-      .then(() => {
+      .then((response) => {
         this.setState({
-          disabledA: true,
+          answers: response.data.results,
         });
-        axios({
-          method: 'get',
-          url: '/api/product/questions/answers',
-          params: {
-            product_id: id,
-          },
-        })
-          .then((response) => {
-            this.setState({
-              answers: response.data.results,
-            });
-          });
       });
   }
 
@@ -172,31 +160,12 @@ class QAListEntry extends React.Component {
   //   e.preventDefault();
   // }
 
-  // handleAddAnswer(e) {
-  //   e.preventDefault();
-  //   console.log('clicked add answer');
-  // }
-
   render() {
-    const { question } = this.props;
-    const { answers, disabled, helpful } = this.state;
-    let answer;
-    let user;
-    let date;
-    let monthStr;
-    let helpfulScore;
-    if (answers[0] === undefined) {
-      answer = '';
-      user = '';
-      date = '';
-    } else {
-      answer = answers[0].body;
-      user = answers[0].answerer_name;
-      monthStr = Number(answers[0].date.substring(6, 7));
-      date = `${months[monthStr]} ${answers[0].date.substring(8, 10)},${answers[0].date.substring(0, 4)}`;
-      helpfulScore = answers[0].helpfulness;
-    }
-    if (answer === '') {
+    const { question, question_id, reRender } = this.props;
+    const {
+      answers, disabled, helpful, count,
+    } = this.state;
+    if (answers.length === 0) {
       return (
         <QuestionDiv>
           <Question>
@@ -212,9 +181,7 @@ class QAListEntry extends React.Component {
               &#41;
             </YesButton>
           </HelpfulDiv>
-          <AddAnswer onClick={this.handleAddAnswer}>
-            Add Answer!
-          </AddAnswer>
+          <AddAnswer question_id={question_id} />
           <AnswerDiv>
             <strong>A:&#160;</strong>
             No answers yet!
@@ -222,7 +189,7 @@ class QAListEntry extends React.Component {
         </QuestionDiv>
       );
     }
-    if (user === 'Seller') {
+    if (answers.length > answers.slice(0, count).length) {
       return (
         <QuestionDiv>
           <Question>
@@ -238,27 +205,26 @@ class QAListEntry extends React.Component {
               &#41;
             </YesButton>
           </HelpfulDiv>
-          <AddAnswer onClick={this.handleAddAnswer}>
-            Add Answer!
-          </AddAnswer>
-          <AnswerDiv>
-            <strong>A:&nbsp;</strong>
-            {answer}
-            <AnswerInfo>
-              by:
-              <strong>{user}</strong>
-              on:
-              {date}
-              &nbsp;&nbsp;Helpful?
-              <AnswerYesButton onClick={this.handleHelpfulA}>
-                <u>Yes</u>
-                &#40;
-                {helpfulScore}
-                &#41;
-              </AnswerYesButton>
-            </AnswerInfo>
-          </AnswerDiv>
+          <AddAnswer reRender={this.reRenderView} question_id={question_id} />
+          <div>
+            {answers.slice(0, count).map((answer) => (
+              <AnswerListEntry
+                key={answer.answer_id}
+                answer_id={answer.answer_id}
+                answer={answer.body}
+                date={answer.date}
+                helpful={answer.helpfulness}
+                photos={answer.photos}
+                username={answer.answerer_name}
+                handle={this.handleHelpfulA}
+                question_id={question_id}
+                reRender={reRender}
+              />
+            ))}
+          </div>
+          <MoreAnswersButton onClick={this.handleClick}>Show More Answers</MoreAnswersButton>
         </QuestionDiv>
+
       );
     }
     return (
@@ -276,26 +242,20 @@ class QAListEntry extends React.Component {
             &#41;
           </YesButton>
         </HelpfulDiv>
-        <AddAnswer onClick={this.handleAddAnswer}>
-          Add Answer!
-        </AddAnswer>
-        <AnswerDiv>
-          <strong>A:&#160;</strong>
-          {answer}
-          <AnswerInfo>
-            by:&#160;
-            {user}
-          &#160;on:&#160;
-            {date}
-            &nbsp;&nbsp;Helpful?
-            <AnswerYesButton onClick={this.handleHelpfulA}>
-              <u>Yes</u>
-              &#40;
-              {helpfulScore}
-              &#41;
-            </AnswerYesButton>
-          </AnswerInfo>
-        </AnswerDiv>
+        <AddAnswer reRender={this.reRenderView} question_id={question_id} />
+        <div>
+          {answers.slice(0, count).map((answer) => (
+            <AnswerListEntry
+              key={answer.answer_id}
+              answer_id={answer.answer_id}
+              answer={answer.body}
+              date={answer.date}
+              helpful={answer.helpfulness}
+              photos={answer.photos}
+              username={answer.answerer_name}
+            />
+          ))}
+        </div>
       </QuestionDiv>
     );
   }
