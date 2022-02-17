@@ -21,7 +21,7 @@ class Overview extends React.Component {
 
     this.state = {
       product: [],
-      style: [],
+      styles: [],
       selectedStyle: [],
     };
 
@@ -70,20 +70,22 @@ class Overview extends React.Component {
   }
 
   render() {
-    const { product } = this.state;
-    const { selectedStyle } = this.state;
-    const { styles } = this.state;
-    // console.log(products.id);
+    const { product, selectedStyle, styles } = this.state;
+
     return (
       <StyledContainer>
-        <StyledH2>Product Overview</StyledH2>
-        <ImageGallery />
-        <ProductInformation
-          product={product}
-          selectedStyle={selectedStyle}
-          styles={styles}
-          changeStyle={this.changeStyle}
-        />
+        { product && selectedStyle && styles ? (
+          <>
+            <StyledH2>Product Overview</StyledH2>
+            <ImageGallery />
+            <ProductInformation
+              product={product}
+              selectedStyle={selectedStyle}
+              styles={styles}
+              changeStyle={this.changeStyle}
+            />
+          </>
+        ) : null}
       </StyledContainer>
     );
   }

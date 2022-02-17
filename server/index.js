@@ -20,6 +20,7 @@ app.get('/api/products', (req, res) => {
       res.send(results.data);
     });
 });
+
 // get product questions
 app.get('/api/product/questions', (req, res) => {
   axios({
@@ -31,6 +32,7 @@ app.get('/api/product/questions', (req, res) => {
       res.send(results.data);
     });
 });
+
 // get product answers
 app.get('/api/product/questions/answers', (req, res) => {
   axios({
@@ -42,6 +44,7 @@ app.get('/api/product/questions/answers', (req, res) => {
       res.send(results.data);
     });
 });
+
 // post a new question
 app.post('/api/product/questions', (req, res) => {
   console.log('req', req.body);
@@ -128,6 +131,20 @@ app.get('/api/product/related', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    });
+});
+
+// add product to the users cart
+app.post('/api/cart', (req, res) => {
+  axios({
+    method: 'post',
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart',
+    headers: { Authorization: API_KEY },
+    data: req.body,
+  })
+    .then(() => {
+      console.log('success');
+      res.sendStatus(201);
     });
 });
 
