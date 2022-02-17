@@ -116,9 +116,7 @@ class CarouselItem extends React.Component {
     }
 
     return (
-      <>
-        { card }
-      </>
+      <div>{ card }</div>
     );
   }
 }
@@ -126,7 +124,7 @@ class CarouselItem extends React.Component {
 const AddCard = styled.div`
   width: 150px;
   height: 214px;
-  background-color: blue;
+  background-color: gray;
   margin: 15px;
 `;
 
