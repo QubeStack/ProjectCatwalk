@@ -8,7 +8,10 @@ import AddToCart from './AddToCart';
 
 const ProductContainer = styled.div`
   display: grid;
-  border: solid;
+  border-style: hidden;
+  border-color: #1F513F;
+  background-color: #f4f2ed;
+  border-radius: 5px;
   padding: 5px;
   color: #1F513F;
   grid-column: span 3;
@@ -90,7 +93,7 @@ class ProductInformation extends React.Component {
           selectedStyle={selectedStyle}
           changeStyle={changeStyle}
         />
-        <AddToCart />
+        <AddToCart selectedStyle={selectedStyle} />
       </ProductContainer>
     );
   }
