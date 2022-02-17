@@ -19,8 +19,8 @@ class App extends React.Component {
     return (
       <div>
         <GlobalCSS />
-        {/* <Overview />
-        <RatingsAndReviews /> */}
+        <Overview />
+        <RatingsAndReviews />
         <QABody />
         <RelatedItems id={id} />
       </div>
