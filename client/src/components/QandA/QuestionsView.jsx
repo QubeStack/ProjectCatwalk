@@ -54,7 +54,7 @@ class QuestionsView extends React.Component {
 
   render() {
     const { count } = this.state;
-    const { questions } = this.props;
+    const { questions, product_id } = this.props;
     if (questions.length > questions.slice(0, count).length) {
       return (
         <div>
@@ -72,7 +72,7 @@ class QuestionsView extends React.Component {
             <MoreQuestions onClick={this.showMoreQuestions}>
               More Answered Questions
             </MoreQuestions>
-            <AskQuestion />
+            <AskQuestion product={product_id} />
           </Container>
         </div>
       );
@@ -93,7 +93,7 @@ class QuestionsView extends React.Component {
           <MoreQuestions onClick={this.showLessQuestions}>
             Less Answered Questions
           </MoreQuestions>
-          <AskQuestion />
+          <AskQuestion product_id={product_id} />
         </Container>
       </div>
     );
