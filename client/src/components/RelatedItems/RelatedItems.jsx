@@ -40,7 +40,6 @@ class RelatedItems extends React.Component {
       <StyledDiv>
         <SimilarItems id={id} render={this.reRender} />
         <OutfitItems render={this.reRender} products={this.state.products} />
-        <button type="button" onClick={this.reRender}>update</button>
       </StyledDiv>
     );
   }
