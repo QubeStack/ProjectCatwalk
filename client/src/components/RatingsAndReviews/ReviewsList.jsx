@@ -41,6 +41,7 @@ class ReviewList extends React.Component {
                 recommend={review.recommend}
                 response={review.response}
                 photos={review.photos}
+                rating={review.rating}
               />
             </Div>
           ),
