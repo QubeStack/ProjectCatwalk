@@ -59,41 +59,43 @@ class ProductInformation extends React.Component {
   }
 
   render() {
-    const { product } = this.props;
-    const { styles } = this.props;
-    const { selectedStyle } = this.props;
-    const { changeStyle } = this.props;
-    // const product = products[0];
-    // console.log(product);
+    const {
+      product, styles, selectedStyle, changeStyle,
+    } = this.props;
     return (
       <ProductContainer>
-        <RatingsContainer>
-          <div>⭐⭐⭐⭐⭐</div>
-          <div role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { this.handleScrollTo(); }}>Read Reviews</div>
-        </RatingsContainer>
-        <div>{product.category}</div>
-        <div>{product.name}</div>
-        <div>
-          $
-          {selectedStyle.original_price}
-        </div>
-        <div>{product.description}</div>
-        <IconContainer>
-          <Icon src={facebook} alt="" />
-          <Icon src={twitter} alt="" />
-          <Icon src={pinterest} alt="" />
-        </IconContainer>
-        <div>
-          <span>Current style: </span>
-          <Style>{selectedStyle.name}</Style>
-        </div>
-        <StyleSelector
-          product={product}
-          styles={styles}
-          selectedStyle={selectedStyle}
-          changeStyle={changeStyle}
-        />
-        <AddToCart selectedStyle={selectedStyle} />
+        {product && styles && selectedStyle && changeStyle ? (
+          <>
+            <RatingsContainer>
+              <div>⭐⭐⭐⭐⭐</div>
+              <div role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { this.handleScrollTo(); }}>Read Reviews</div>
+            </RatingsContainer>
+            <div>{product.category}</div>
+            <div>{product.name}</div>
+            <div>
+              $
+              {selectedStyle.original_price}
+            </div>
+            <div>{product.description}</div>
+            <IconContainer>
+              <Icon src={facebook} alt="" />
+              <Icon src={twitter} alt="" />
+              <Icon src={pinterest} alt="" />
+            </IconContainer>
+            <div>
+              <span>Current style: </span>
+              <Style>{selectedStyle.name}</Style>
+            </div>
+            <StyleSelector
+              product={product}
+              styles={styles}
+              selectedStyle={selectedStyle}
+              changeStyle={changeStyle}
+            />
+            <AddToCart selectedStyle={selectedStyle} />
+          </>
+        ) : null }
+
       </ProductContainer>
     );
   }

@@ -43,11 +43,11 @@ class StyleSelector extends React.Component {
     if (previousprops !== this.props) {
       const { styles } = this.props;
       this.selectedStyle();
-      if (styles) {
-        // alert(JSON.stringify(styles));
-        this.getPhotos(styles);
-        this.setStyles(styles);
-      }
+      // if (styles) {
+      // alert(JSON.stringify(styles));
+      this.getPhotos(styles);
+      this.setStyles(styles);
+      // }
     }
   }
 
@@ -81,13 +81,15 @@ class StyleSelector extends React.Component {
 
   render() {
     // const { styles } = this.state;
-    const { stylePhotos } = this.state;
-    const { styles } = this.state;
-    const { selected } = this.state;
+    const { stylePhotos, styles, selected } = this.state;
+    // const { styles } = this.state;
+    // const { selected } = this.state;
     // console.log(stylePhotos);
     // console.log(styles);
     return (
-      <StylesContainer className="styles">
+      <>
+      { styles && selected ? (
+        <StylesContainer className="styles">
         {styles.map((style) => (
           selected === style ? (
             <CheckBox>
@@ -98,11 +100,9 @@ class StyleSelector extends React.Component {
             </CheckBox>
           ) : (<Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />)
         ))}
-        {/* <StyleBox>Style 1</StyleBox>
-        <StyleBox>Style 2</StyleBox>
-        <StyleBox>Style 3</StyleBox>
-        <StyleBox>Style 4</StyleBox> */}
       </StylesContainer>
+      ) : null}
+      </>
     );
   }
 }
