@@ -22,7 +22,6 @@ app.get('/api/products', (req, res) => {
 });
 // get product questions
 app.get('/api/product/questions', (req, res) => {
-  console.log(req.query);
   axios({
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/?product_id=${req.query.product_id}`,
@@ -41,6 +40,18 @@ app.get('/api/product/questions/answers', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    });
+});
+// post a new question
+app.post('/api/product/questions', (req, res) => {
+  axios({
+    method: 'post',
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
+    headers: { Authorization: API_KEY },
+    data: req.body,
+  })
+    .then(() => {
+      res.sendStatus(201);
     });
 });
 

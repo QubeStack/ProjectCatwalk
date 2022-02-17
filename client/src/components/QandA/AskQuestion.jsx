@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const AskDiv = styled.div`
   grid-row-start: 4;
@@ -24,7 +25,7 @@ const AskAQuestion = styled.button`
 const Modal = styled.div`
   display: block;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   padding-top: 200px;
   left: 0;
   top: 0;
@@ -38,12 +39,19 @@ const Modal = styled.div`
 const Content = styled.div`
   background-color: #f4f2ed;
   margin: auto;
-  padding: 20px;
   border: 1px solid black;
   width: 80%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 75% 10% 10% 5%;
+  grid-template-rows: 5% 70% 10% 10% 5%;
+`;
+
+const ModalHeader = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 4;
+  background-color: black;
+  color: white;
+  align-self: start;
 `;
 
 const CloseButton = styled.span`
@@ -51,6 +59,7 @@ const CloseButton = styled.span`
   grid-row-start: 1;
   grid-column-start: 4;
   justify-self: end;
+  padding-right: 10px;
   font-size: 28px;
   font-weight: bold;
   &: hover {
@@ -60,41 +69,58 @@ const CloseButton = styled.span`
 `;
 
 const QuestionField = styled.textarea`
-  grid-row-start: 1;
+  grid-row-start: 2;
   grid-row-end: span 4;
   grid-column-start: 1;
   grid-column-end: span 4;
   height: 200px;
   width: 500px;
+  margin-left: 10px;
+`;
+
+const QuestionLabel = styled.label`
+  grid-row-start: 1;
+  padding-left: 10px;
 `;
 
 const NicknameField = styled.input`
-  grid-row-start: 2;
-  grid-column-start: 1;
-  width: 200px;
-`;
-
-const EmailField = styled.input`
   grid-row-start: 3;
   grid-column-start: 1;
   width: 200px;
-`;
-
-const ModalSubmit = styled.input`
-  grid-row-start: 4;
-  grid-column-start: 1;
+  margin-left: 10px;
 `;
 
 const NicknameLabel = styled.label`
-  grid-row-start: 2;
+  grid-row-start: 3;
   grid-column-start: 1;
-  border-color: blue;
+  padding-left: 10px;
+`;
+
+const EmailField = styled.input`
+  grid-row-start: 4;
+  grid-column-start: 1;
+  width: 200px;
+  margin-left: 10px;
 `;
 
 const EmailLabel = styled.label`
-  grid-row-start: 3;
+  grid-row-start: 4;
   grid-column-start: 1;
-  border-color: blue;
+  padding-left: 10px;
+`;
+
+const ModalSubmit = styled.input`
+  grid-row-start: 5;
+  grid-column-start: 1;
+  margin-left: 10px;
+`;
+
+const ModalForm = styled.form`
+  grid-row-start:2;
+`;
+
+const FormText = styled.p`
+  padding-left: 10px;
 `;
 
 class AskQuestion extends React.Component {
@@ -106,11 +132,18 @@ class AskQuestion extends React.Component {
       question: '',
       nickname: '',
       email: '',
+      product_id: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      product_id: this.props.product_id,
+    });
   }
 
   handleClick(e) {
@@ -138,9 +171,25 @@ class AskQuestion extends React.Component {
   }
 
   handleSubmit(e) {
-    const { question, nickname, email } = this.state;
+    const {
+      question, nickname, email, product_id,
+    } = this.state;
     e.preventDefault();
     console.log(question, nickname, email);
+    axios({
+      method: 'post',
+      url: '/api/product/questions',
+      data:
+       {
+         body: question,
+         name: nickname,
+         email,
+         product_id,
+       },
+    })
+      .then((response) => {
+        console.log('data', response.data);
+      });
     this.setState({
       showModal: false,
       question: '',
@@ -150,7 +199,10 @@ class AskQuestion extends React.Component {
   }
 
   render() {
-    const { showModal } = this.state;
+    const {
+      showModal, question, nickname, email, product_id,
+    } = this.state;
+    console.log('product id', product_id);
     if (showModal) {
       return (
         <AskDiv>
@@ -159,24 +211,30 @@ class AskQuestion extends React.Component {
           </AskAQuestion>
           <Modal>
             <Content>
+              <ModalHeader>
+                Ask Your Question - About the Product ID&nbsp;
+                {product_id}
+              </ModalHeader>
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
-              <form onSubmit={this.handleSubmit}>
-                <label>
-                  Your Question:*
-                  <QuestionField type="text" name="question" placeholder="What is your question?" maxlength="1000" onChange={this.handleChange} />
-                </label>
+              <ModalForm onSubmit={this.handleSubmit}>
+                <QuestionLabel>
+                  Your Question*:
+                  <QuestionField type="text" value={question} name="question" placeholder="What is your question?" maxlength="1000" onChange={this.handleChange} />
+                </QuestionLabel>
                 <NicknameLabel>
-                  What is your nickname:*
-                  <NicknameField type="text" placeholder="Example: jackson11!" name="nickname" onChange={this.handleChange} />
-                  <p>For privacy reasons, do not use your full name or email address.</p>
+                  What is your nickname*:
+                  <NicknameField type="text" value={nickname} placeholder="Example: jackson11!" name="nickname" onChange={this.handleChange} />
+                  <FormText>
+                    For privacy reasons, do not use your full name or email address.
+                  </FormText>
                 </NicknameLabel>
                 <EmailLabel>
-                  Your Email:*
-                  <EmailField type="text" placeholder="Example: jackson@email.com" name="email" onChange={this.handleChange} />
-                  <p>For authentication reasons, you will not be emailed.</p>
+                  Your Email*:
+                  <EmailField type="text" value={email} placeholder="Example: jackson@email.com" name="email" onChange={this.handleChange} />
+                  <FormText>For authentication reasons, you will not be emailed.</FormText>
                 </EmailLabel>
                 <ModalSubmit type="submit" value="Submit" />
-              </form>
+              </ModalForm>
             </Content>
           </Modal>
         </AskDiv>

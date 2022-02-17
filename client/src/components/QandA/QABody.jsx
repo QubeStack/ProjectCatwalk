@@ -42,6 +42,7 @@ class QABody extends React.Component {
       },
     })
       .then((response) => {
+        console.log('questions', response);
         this.setState({
           questions: response.data.results,
         });
@@ -54,7 +55,7 @@ class QABody extends React.Component {
       <BodyDiv>
         <Title>Questions and Answers</Title>
         <SearchQuestions />
-        <QuestionsView questions={questions} />
+        <QuestionsView product_id={40345} questions={questions} />
       </BodyDiv>
     );
   }
