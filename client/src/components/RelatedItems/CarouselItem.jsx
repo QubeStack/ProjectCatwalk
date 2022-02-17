@@ -9,30 +9,54 @@ class CarouselItem extends React.Component {
     this.state = {
       salePrice: null,
       photo: '',
-      name: '',
+      // name: '',
     };
     this.setStorage = this.setStorage.bind(this);
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: '/api/product/styles',
-      params: {
-        product_id: this.props.product.id,
-      },
-    })
-      .then((styles) => {
-        const salePrice = styles.data.results[0].sale_price;
-        const photo = styles.data.results[0].photos[0].thumbnail_url;
-        const { name } = styles.data.results[0];
-        this.setState({
-          salePrice,
-          photo,
-          name,
+    if (!this.props.addCard) {
+      axios({
+        method: 'get',
+        url: '/api/product/styles',
+        params: {
+          product_id: this.props.product.id,
+        },
+      })
+        .then((styles) => {
+          const salePrice = styles.data.results[0].sale_price;
+          const photo = styles.data.results[0].photos[0].thumbnail_url;
+          // const { name } = styles.data.results[0];
+          this.setState({
+            salePrice,
+            photo,
+            // name,
+          });
         });
-      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.product.id !== prevProps.product.id) {
+      axios({
+        method: 'get',
+        url: '/api/product/styles',
+        params: {
+          product_id: this.props.product.id,
+        },
+      })
+        .then((styles) => {
+          const salePrice = styles.data.results[0].sale_price;
+          const photo = styles.data.results[0].photos[0].thumbnail_url;
+          // const { name } = styles.data.results[0];
+          this.setState({
+            salePrice,
+            photo,
+            // name,
+          });
+        });
+    }
   }
 
   setStorage() {

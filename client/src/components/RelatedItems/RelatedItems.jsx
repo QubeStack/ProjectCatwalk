@@ -13,12 +13,25 @@ const StyledDiv = styled.div`
 class RelatedItems extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      products: [],
+    };
     this.reRender = this.reRender.bind(this);
   }
 
+  componentDidMount() {
+    this.reRender();
+  }
+
   reRender() {
-    this.forceUpdate();
+    const outfit = [];
+    const newOutfit = JSON.parse(localStorage.getItem('myOutfit'));
+    outfit.push(JSON.parse(localStorage.getItem('myOutfit')));
+    if (newOutfit !== null) {
+      this.setState({
+        products: newOutfit,
+      });
+    }
   }
 
   render() {
@@ -26,7 +39,7 @@ class RelatedItems extends React.Component {
     return (
       <StyledDiv>
         <SimilarItems id={id} render={this.reRender} />
-        <OutfitItems render={this.reRender} />
+        <OutfitItems render={this.reRender} products={this.state.products} />
         <button type="button" onClick={this.reRender}>update</button>
       </StyledDiv>
     );

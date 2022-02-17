@@ -42,7 +42,7 @@ class SimilarItems extends React.Component {
     return (
       <>
         <div>Similar Items</div>
-        <MultiDisplayCarousel render={this.props.render} products={this.state.products} actionButton="+" />
+        <MultiDisplayCarousel render={this.props.render} products={this.state.products} actionButton="+" offset={0} />
       </>
     );
   }
