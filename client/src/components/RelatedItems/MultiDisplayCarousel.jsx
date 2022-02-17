@@ -43,7 +43,7 @@ class MultiDisplayCarousel extends React.Component {
     }
     let addCard;
     if (this.props.addCard) {
-      addCard = <CarouselItem product={{ id: -1 }} actionButton={this.props.actionButton} render={this.props.render} addCard />;
+      addCard = <CarouselItem id={this.props.id} product={{ id: -1 }} actionButton={this.props.actionButton} render={this.props.render} addCard />;
     } else {
       addCard = <> </>;
     }

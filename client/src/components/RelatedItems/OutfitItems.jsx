@@ -12,7 +12,7 @@ class OutfitItems extends React.Component {
     return (
       <>
         <div>Your Outfit</div>
-        <MultiDisplayCarousel render={this.props.render} update={this.props.update} products={this.props.products} actionButton="x" addCard offset={1} />
+        <MultiDisplayCarousel id={this.props.id} render={this.props.render} update={this.props.update} products={this.props.products} actionButton="x" addCard offset={1} />
       </>
     );
   }

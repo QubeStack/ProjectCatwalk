@@ -39,7 +39,7 @@ class RelatedItems extends React.Component {
     return (
       <StyledDiv>
         <SimilarItems id={id} render={this.reRender} />
-        <OutfitItems render={this.reRender} products={this.state.products} />
+        <OutfitItems id={id} render={this.reRender} products={this.state.products} />
       </StyledDiv>
     );
   }

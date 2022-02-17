@@ -78,19 +78,28 @@ class CarouselItem extends React.Component {
   }
 
   setStorage() {
-    if (localStorage.getItem('myOutfit') === null) {
-      localStorage.setItem('myOutfit', JSON.stringify([this.props.product]));
-    } else {
-      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
-      if (!Array.isArray(outfit)) {
-        outfit = [outfit];
-      }
-      if (outfit.every((item) => item.id !== this.props.product.id)) {
-        outfit.push(this.props.product);
-      }
-      localStorage.setItem('myOutfit', JSON.stringify(outfit));
-      this.props.render();
-    }
+    axios({
+      method: 'get',
+      url: '/api/product',
+      params: {
+        product_id: this.props.id,
+      },
+    })
+      .then((product) => {
+        if (localStorage.getItem('myOutfit') === null) {
+          localStorage.setItem('myOutfit', JSON.stringify([product.data]));
+        } else {
+          let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+          if (!Array.isArray(outfit)) {
+            outfit = [outfit];
+          }
+          if (outfit.every((item) => item.id !== product.data.id)) {
+            outfit.push(product.data);
+          }
+          localStorage.setItem('myOutfit', JSON.stringify(outfit));
+          this.props.render();
+        }
+      });
   }
 
   removeItemFromStorage() {
@@ -111,7 +120,7 @@ class CarouselItem extends React.Component {
     let card;
     let modal;
     if (this.props.addCard) {
-      card = <AddCard>Add to Outfit</AddCard>;
+      card = <AddCard onClick={this.setStorage}>Add to Outfit</AddCard>;
       modal = <> </>;
     } else {
       let actionButton;
