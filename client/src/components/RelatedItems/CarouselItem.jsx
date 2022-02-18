@@ -122,6 +122,18 @@ class CarouselItem extends React.Component {
   render() {
     let card;
     let modal;
+    let featureArray;
+    let featureArray2;
+    let allFeatures;
+
+    if (this.props.product.features !== undefined
+      && this.state.currentProduct.features !== undefined) {
+      featureArray = this.props.product.features.map((feature) => feature.feature);
+      featureArray2 = this.state.currentProduct.features.map((feature) => feature.feature);
+      allFeatures = featureArray.concat(featureArray2);
+    }
+
+    const uniqueFeatures = Array.from(new Set(allFeatures));
 
     if (this.state.showModal) {
       modal = (
@@ -129,6 +141,38 @@ class CarouselItem extends React.Component {
           <Content>
             <CloseButton onClick={this.handleClose}>&times;</CloseButton>
             <ModalTitle>Comparing</ModalTitle>
+            <Table>
+              <TR>
+                <th>{this.props.product.name}</th>
+                <th> </th>
+                <th>{this.state.currentProduct.name}</th>
+              </TR>
+              {uniqueFeatures.map((feature) => {
+                let productFeature = '';
+                let currentProductFeature = '';
+                this.props.product.features.forEach((one) => {
+                  if (one.feature === feature) {
+                    if (one.value === null) {
+                      productFeature = '\u2713';
+                    } else {
+                      productFeature = one.value;
+                    }
+                  }
+                });
+                this.state.currentProduct.features.forEach((two) => {
+                  if (two.feature === feature) {
+                    currentProductFeature = two.value;
+                  }
+                });
+                return (
+                  <tr>
+                    <td>{productFeature}</td>
+                    <td>{feature}</td>
+                    <td>{currentProductFeature}</td>
+                  </tr>
+                );
+              })}
+            </Table>
           </Content>
         </Modal>
       );
@@ -332,6 +376,17 @@ const ModalTitle = styled.div`
   align-items: center;
 `;
 
+const Table = styled.table`
+  grid-row: 2/-1;
+  grid-column: 1/-1;
+  border: 1px solid white;
+  text-align: center;
+  border-collapse: collapse;
+`;
+
+const TR = styled.tr`
+  border: 1px solid white;
+`;
 // const StrikeThrough = styled.Text`
 //     text-decoration: line-through;
 // `;
