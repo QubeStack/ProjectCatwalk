@@ -29,11 +29,9 @@ class StyleSelector extends React.Component {
 
     this.state = {
       styles: [],
-      stylePhotos: [],
       selected: [],
     };
 
-    this.getPhotos = this.getPhotos.bind(this);
     this.selectedStyle = this.selectedStyle.bind(this);
     this.setStyles = this.setStyles.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -43,11 +41,7 @@ class StyleSelector extends React.Component {
     if (previousprops !== this.props) {
       const { styles } = this.props;
       this.selectedStyle();
-      // if (styles) {
-      // alert(JSON.stringify(styles));
-      this.getPhotos(styles);
       this.setStyles(styles);
-      // }
     }
   }
 
@@ -55,19 +49,8 @@ class StyleSelector extends React.Component {
     const { selected } = this.state;
     const { changeStyle } = this.props;
     if (selected !== style) {
-      // alert(JSON.stringify(style));
-      // this.setState({ selected: style });
       changeStyle(style);
     }
-  }
-
-  getPhotos(styles) {
-    const photosArray = [];
-    styles.forEach((e) => photosArray.push(e.photos));
-    // alert(JSON.stringify(filtered));
-    this.setState({
-      stylePhotos: photosArray,
-    });
   }
 
   setStyles(styles) {
@@ -80,29 +63,27 @@ class StyleSelector extends React.Component {
   }
 
   render() {
-    // const { styles } = this.state;
-    const { stylePhotos, styles, selected } = this.state;
-    // const { styles } = this.state;
-    // const { selected } = this.state;
-    // console.log(stylePhotos);
-    // console.log(styles);
+    const {
+      styles,
+      selected,
+    } = this.state;
     return (
-      <>
-      { styles && selected ? (
-        <StylesContainer className="styles">
-        {styles.map((style) => (
-          selected === style ? (
-            <CheckBox>
-              <StyleCheck>
-                &#10003;
-              </StyleCheck>
-              <Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />
-            </CheckBox>
-          ) : (<Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />)
-        ))}
+      <StylesContainer className="styles">
+        { styles && selected ? (
+          <>
+            {styles.map((style) => (
+              selected === style ? (
+                <CheckBox>
+                  <StyleCheck>
+                    &#10003;
+                  </StyleCheck>
+                  <Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />
+                </CheckBox>
+              ) : (<Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />)
+            ))}
+          </>
+        ) : null}
       </StylesContainer>
-      ) : null}
-      </>
     );
   }
 }

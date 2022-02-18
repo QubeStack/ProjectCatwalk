@@ -23,11 +23,14 @@ class Overview extends React.Component {
       product: [],
       styles: [],
       selectedStyle: [],
+      stylePhotos: [],
+      styleThumbnails: [],
     };
 
     this.getProducts = this.getProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
+    this.getPhotos = this.getPhotos.bind(this);
   }
 
   componentDidMount() {
@@ -62,22 +65,51 @@ class Overview extends React.Component {
         this.setState({
           styles: stylesArray, selectedStyle: defaultStyle,
         });
+        const { selectedStyle } = this.state;
+        if (selectedStyle) {
+          this.getPhotos(selectedStyle.photos);
+        }
       });
   }
 
+  getPhotos(style) {
+    if (style) {
+      const thumbnailArray = [];
+      const photosArray = [];
+      for (let i = 0; i < style.length; i += 1) {
+        thumbnailArray.push(style[i].thumbnail_url);
+        photosArray.push(style[i].url);
+      }
+      this.setState({
+        styleThumbnails: thumbnailArray, stylePhotos: photosArray
+      });
+    }
+  }
+
   changeStyle(style) {
-    this.setState({ selectedStyle: style });
+    if (style) {
+      this.getPhotos(style.photos);
+      this.setState({
+        selectedStyle: style,
+      });
+    }
   }
 
   render() {
-    const { product, selectedStyle, styles } = this.state;
+    const {
+      product,
+      selectedStyle,
+      styles,
+      styleThumbnails,
+      stylePhotos,
+    } = this.state;
 
     return (
       <StyledContainer>
         { product && selectedStyle && styles ? (
           <>
             <StyledH2>Product Overview</StyledH2>
-            <ImageGallery />
+            <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} />
             <ProductInformation
               product={product}
               selectedStyle={selectedStyle}
