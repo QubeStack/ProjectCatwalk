@@ -5,7 +5,8 @@ const PictureContainer = styled.div`
   display: grid;
   border: solid;
   color: orange;
-  grid-column: span 4;
+  grid-row: 2 / 1;
+  grid-column: 2 / 8;
   grid-column-format: repeat(8, 1fr);
   justify-self: center;`;
 
@@ -17,7 +18,8 @@ const ImageWrapper = styled.div`
   display: grid;
   border: solid;
   justify-self: center;
-  grid-column: span 8;
+  grid-column: 2 / 8 ;
+  grid-row: 4 / 1;
   grid-column-format: repeat(10, 1fr);
   grid-gap: 5px;`;
 
@@ -26,10 +28,10 @@ const ArrowButton = styled.img`
   height: 30px;
   object-fit: contain;`;
 
-const Thumbnail = styled.div`
-  grid-column: span 1;
-  border: solid;
-  color: black;`;
+const Thumbnail = styled.img`
+  width: 80px;
+  height: 120px;
+  object-fit: fill;`;
 
 const RightArrowButton = styled.img`
   width: 20px;
@@ -38,10 +40,12 @@ const RightArrowButton = styled.img`
   transform: scaleX(-1);`;
 
 const LeftButton = styled.button`
-  grid-column: 1 / span 1;`;
+  grid-column: 1 / span 1;
+  grid-row: 1 / 1;`;
 
 const RightButton = styled.button`
-  grid-column: 9 / span 1;`;
+  grid-column: 1 / span 1;
+  grid-row: -1 / 1;`;
 
 class Thumbnails extends React.Component {
   constructor(props) {
@@ -51,6 +55,7 @@ class Thumbnails extends React.Component {
   }
 
   render() {
+    const { thumbnails } = this.props;
     return (
       <PictureContainer>
         {/* <StyledH4>Thumbnail Gallery</StyledH4> */}
@@ -58,13 +63,14 @@ class Thumbnails extends React.Component {
           <LeftButton type="button">
             <ArrowButton src="/Users/waydizzle/Desktop/HackReactor/ProjectCatwalk/client/src/components/Overview/components/left-arrow-icon-vector-21641382.jpeg" alt="" />
           </LeftButton>
-          <Thumbnail>Thumbnail 1</Thumbnail>
+          {thumbnails.map((thumb) => (<Thumbnail src={thumb} alt="" />))}
+          {/* <Thumbnail>Thumbnail 1</Thumbnail>
           <Thumbnail>Thumbnail 2</Thumbnail>
           <Thumbnail>Thumbnail 3</Thumbnail>
           <Thumbnail>Thumbnail 4</Thumbnail>
           <Thumbnail>Thumbnail 5</Thumbnail>
           <Thumbnail>Thumbnail 6</Thumbnail>
-          <Thumbnail>Thumbnail 7</Thumbnail>
+          <Thumbnail>Thumbnail 7</Thumbnail> */}
           <RightButton type="button">
             <RightArrowButton src="/Users/waydizzle/Desktop/HackReactor/ProjectCatwalk/client/src/components/Overview/components/left-arrow-icon-vector-21641382.jpeg" alt="" />
           </RightButton>

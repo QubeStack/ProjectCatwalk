@@ -11,6 +11,7 @@ const StyledContainer = styled.div`
   margin: 1em;
   gap: 1rem;
   grid-template-columns: repeat(10, 1fr);`;
+
 const StyledH2 = styled.h2`
   justify-self: center;
   grid-column: span 10;`;
