@@ -6,19 +6,22 @@ display: flex;
 `;
 
 const Star = styled.span`
-  color: gold;
+  color: #a6a6a6;
   font-size: 24px;
   position: relative;
   &:before {
     content: "\\2605";
-    width: 50%;
+    overflow: hidden;
+
   }
   &:after {
-    content: "\\2606";
-    color: black;
+    content: "\\2605";
+    color: gold;
     position: absolute;
     top: 0;
     left: 0;
+    overflow: hidden;
+    width: 50%;
   }`;
 
 class ReviewStars extends React.Component {
@@ -30,12 +33,12 @@ class ReviewStars extends React.Component {
   }
 
   render() {
+    let rating = this.props.rating;
+    for (var i = 5; i > 0; i--) {
+      console.log("star");
+    }
     return (
       <Inline>
-        <Star />
-        <Star />
-        <Star />
-        <Star />
         <Star />
       </Inline>
     );

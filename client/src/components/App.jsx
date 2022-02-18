@@ -22,7 +22,7 @@ class App extends React.Component {
         <Overview />
         <RatingsAndReviews />
         <QABody />
-        {/* <RelatedItems id={id} /> */}
+        <RelatedItems id={id} />
       </div>
     );
   }

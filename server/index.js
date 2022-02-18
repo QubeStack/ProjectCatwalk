@@ -57,7 +57,6 @@ app.post('/api/product/questions', (req, res) => {
 
 // get reviews for specific product
 app.get('/api/product/reviews', (req, res) => {
-  console.log(req.query);
   axios({
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${req.query.product_id}`,
