@@ -18,6 +18,9 @@ const AnswerYesButton = styled.button`
   border: none;
   background: none;
   font-size: 10px;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const AnswerInfo = styled.div`

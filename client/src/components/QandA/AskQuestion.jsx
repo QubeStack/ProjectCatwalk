@@ -20,6 +20,9 @@ const AskAQuestion = styled.button`
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;
   };
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const Modal = styled.div`
@@ -113,6 +116,9 @@ const ModalSubmit = styled.input`
   grid-row-start: 5;
   grid-column-start: 1;
   margin-left: 10px;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const ModalForm = styled.form`

@@ -13,6 +13,9 @@ const AddAnswerButton = styled.button`
   padding: 0;
   border: none;
   background: none;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const AskDiv = styled.div`
