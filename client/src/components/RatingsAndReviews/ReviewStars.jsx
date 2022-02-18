@@ -16,7 +16,7 @@ const Star = styled.span`
   }
   &:after {
     content: "\\2605";
-    color: gold;
+    color: ${props => props.empty ? "#a6a6a6" : "gold"};
     position: absolute;
     top: 0;
     left: 0;
@@ -39,6 +39,8 @@ class ReviewStars extends React.Component {
       if (rating >= 1) {
         stars.push(<Star />);
         rating--;
+      } else {
+        stars.push(<Star empty />);
       }
     }
     return (
