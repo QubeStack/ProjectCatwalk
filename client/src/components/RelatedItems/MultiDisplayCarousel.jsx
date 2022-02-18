@@ -60,7 +60,7 @@ class MultiDisplayCarousel extends React.Component {
         >
           {addCard}
           {this.props.products.map(
-            (product) => <CarouselItem product={product} actionButton={this.props.actionButton} render={this.props.render} />,
+            (product) => <CarouselItem id={this.props.id} product={product} actionButton={this.props.actionButton} render={this.props.render} />,
           )}
         </CarouselContainer>
         <LeftButton>{prevButton}</LeftButton>
@@ -79,7 +79,7 @@ const HideOverflowContainer = styled.div`
 `;
 
 const CarouselContainer = styled.div`
-  overflow: hidden;
+  // overflow: hidden;
   grid-column: 1/-1;
   grid-row: 1/11;
   position: absolute;
