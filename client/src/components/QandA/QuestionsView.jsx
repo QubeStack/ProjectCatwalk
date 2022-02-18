@@ -25,6 +25,9 @@ const MoreQuestions = styled.button`
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;
   };
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 class QuestionsView extends React.Component {

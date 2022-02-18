@@ -32,6 +32,7 @@ class QABody extends React.Component {
       questions: [],
     };
     this.reRender = this.reRender.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +48,12 @@ class QABody extends React.Component {
           questions: response.data.results,
         });
       });
+  }
+
+  handleSubmit(searched) {
+    this.setState({
+      questions: searched,
+    });
   }
 
   reRender() {
@@ -70,7 +77,7 @@ class QABody extends React.Component {
     return (
       <BodyDiv>
         <Title>Questions and Answers</Title>
-        <SearchQuestions />
+        <SearchQuestions handleSubmit={this.handleSubmit} questions={questions} />
         <QuestionsView reRender={this.reRender} product_id={40412} questions={questions} />
       </BodyDiv>
     );
