@@ -34,13 +34,16 @@ class MultiDisplayCarousel extends React.Component {
 
   render() {
     let prevButton = <button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}> &lt; </button>;
+
     let nextButton = <button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}> &gt; </button>;
+
     if (this.state.position === 0) {
       prevButton = <> </>;
     }
     if (this.state.position === this.props.products.length + this.props.offset - 1) {
       nextButton = <> </>;
     }
+
     let addCard;
     if (this.props.addCard) {
       addCard = <CarouselItem id={this.props.id} product={{ id: -1 }} actionButton={this.props.actionButton} render={this.props.render} addCard />;

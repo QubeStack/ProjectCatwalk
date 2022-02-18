@@ -119,8 +119,22 @@ class CarouselItem extends React.Component {
   render() {
     let card;
     let modal;
+
+    if (this.state.showModal) {
+      modal = (
+        <Modal>
+          <Content>
+            <CloseButton onClick={this.handleClose}>&times;</CloseButton>
+            Hello
+          </Content>
+        </Modal>
+      );
+    } else {
+      modal = <> </>;
+    }
+
     if (this.props.addCard) {
-      card = <AddCard onClick={this.setStorage}>Add to Outfit</AddCard>;
+      card = <AddCard onClick={this.setStorage}>+</AddCard>;
       modal = <> </>;
     } else {
       let actionButton;
@@ -156,13 +170,14 @@ class CarouselItem extends React.Component {
       }
 
       card = (
-        <Wrapper className="card" onClick={this.clickRoute}>
-          <Image photo={this.state.photo} />
+        <Wrapper className="card">
+          <Image photo={this.state.photo} onClick={this.clickRoute} />
           {actionButton}
-          <Name>
+          { modal }
+          <Name onClick={this.clickRoute}>
             {this.props.product.name}
           </Name>
-          <Category>
+          <Category onClick={this.clickRoute}>
             {this.props.product.category}
           </Category>
           {price}
@@ -173,28 +188,10 @@ class CarouselItem extends React.Component {
       );
     }
 
-    if (this.state.showModal) {
-      modal = (
-        <Modal>
-          <Content>
-            <CloseButton onClick={this.handleClose}>&times;</CloseButton>
-            Hello
-          </Content>
-        </Modal>
-      );
-    } else {
-      modal = <> </>;
-    }
-
     return (
-      <>
-        <div>
-          { card }
-        </div>
-        <div>
-          { modal }
-        </div>
-      </>
+      <div>
+        { card }
+      </div>
     );
   }
 }
@@ -202,8 +199,17 @@ class CarouselItem extends React.Component {
 const AddCard = styled.div`
   width: 150px;
   height: 214px;
-  background-color: gray;
+  color: #1f513f;
+  background-color: #f4f2ed;
   margin: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-weight: bold;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -211,16 +217,25 @@ export const Wrapper = styled.div`
   margin: 15px;
   grid-template-columns: 30px 30px 30px 30px 30px;
   grid-template-rows: auto;
+  color: #1f513f;
+  background-color: #f4f2ed;
 `;
 
 export const Image = styled.div`
-  background: url(${(props) => props.photo}) 50% 50%;
+  background: url(${(props) => props.photo});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
   text-align: center;
-  color: white;
+  color: #1f513f;
+  background-color: #f4f2ed;
   height: 150px;
   width: 150px;
   grid-column: 1/-1;
   grid-row: 1/5;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 export const ActionButton = styled.button`
@@ -231,11 +246,17 @@ export const ActionButton = styled.button`
 export const Name = styled.div`
   grid-column: 1/-1;
   grid-row: 6;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 export const Category = styled.div`
   grid-column: 1/-1;
   grid-row: 7;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 export const Price = styled.div`
@@ -249,11 +270,13 @@ export const Stars = styled.div`
 `;
 
 const Modal = styled.div`
-  display: block;
-  position: fixed;
-  z-index: 1;
-  width: 25%;
-  height: 100%;
+  display: grid;
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  position: absolute;
+  z-index: 3;
+  width: 150px;
+  height: 214px;
   overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
@@ -261,10 +284,8 @@ const Modal = styled.div`
 
 const Content = styled.div`
   background-color: #f4f2ed;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid black;
-  width: 80%;
+  width: 150px;
+  height: 214px;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: 75% 10% 10% 5%;
@@ -274,7 +295,6 @@ const CloseButton = styled.span`
   color: #aaaaaa;
   grid-row-start: 1;
   grid-column-start: 4;
-  justify-self: end;
   font-size: 28px;
   font-weight: bold;
   &: hover {

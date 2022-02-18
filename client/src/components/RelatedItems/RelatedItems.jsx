@@ -6,8 +6,8 @@ import OutfitItems from './OutfitItems';
 import SimilarItems from './SimilarItems';
 
 const StyledDiv = styled.div`
-    border: 2px solid red;
-    border-radius: 3px;
+    color: #1f513f;
+    margin: 50px 25px;
   `;
 
 class RelatedItems extends React.Component {
