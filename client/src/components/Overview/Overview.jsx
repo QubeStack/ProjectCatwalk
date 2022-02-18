@@ -93,8 +93,6 @@ class Overview extends React.Component {
         selectedStyle: style,
       });
     }
-    // this.getPhotos(style);
-    // this.setState({ selectedStyle: style });
   }
 
   render() {
