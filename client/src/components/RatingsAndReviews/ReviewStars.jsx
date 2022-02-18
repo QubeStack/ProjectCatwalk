@@ -21,7 +21,7 @@ const Star = styled.span`
     top: 0;
     left: 0;
     overflow: hidden;
-    width: 50%;
+    width: 100%;
   }`;
 
 class ReviewStars extends React.Component {
@@ -34,12 +34,16 @@ class ReviewStars extends React.Component {
 
   render() {
     let rating = this.props.rating;
+    let stars = [];
     for (var i = 5; i > 0; i--) {
-      console.log("star");
+      if (rating >= 1) {
+        stars.push(<Star />);
+        rating--;
+      }
     }
     return (
       <Inline>
-        <Star />
+        {stars}
       </Inline>
     );
   }
