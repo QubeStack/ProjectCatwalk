@@ -12,25 +12,46 @@ const ProductContainer = styled.div`
   border-color: #1F513F;
   background-color: #f4f2ed;
   border-radius: 5px;
-  padding: 5px;
   color: #1F513F;
   grid-column: span 3;
-  grid-column-template: 1fr;
-  gap: 1em;`;
+  grid-template-columns: 1fr;
+  grid-auto-rows: max-content;
+  grid-gap: 1rem;
+  padding: 5px;
+  margin: 5px;
+  height: 88vh;
+  position: relative;
+`;
+
+const Info = styled.div`
+  width: 100%;
+  font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+  `;
+
+const Name = styled.div`
+  font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
+  font-weight: bold;`;
 
 const RatingsContainer = styled.div`
   display: grid;
-  grid-column-template: 1fr, 1fr;
-  grid-auto-flow: column;`;
+  grid-template-columns: 1fr, 1fr;
+  grid-auto-flow: column;
+  font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));`;
 
 const IconContainer = styled.div`
-  justify-self:center;`;
+  justify-self:center;
+  margin-bottom: 40px;
+  margin-top: 40px;`;
 
 const Icon = styled.img`
   padding-right: 1em;`;
 
 const Style = styled.span`
-font-weight: bold;`;
+font-weight: bold;
+font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));`;
+
+const StyleInfo = styled.div`
+  margin-bottom: 40px;`;
 
 class ProductInformation extends React.Component {
   constructor(props) {
@@ -67,25 +88,25 @@ class ProductInformation extends React.Component {
         {product && styles && selectedStyle && changeStyle ? (
           <>
             <RatingsContainer>
-              <div>⭐⭐⭐⭐⭐</div>
-              <div role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { this.handleScrollTo(); }}>Read Reviews</div>
+              <Info>⭐⭐⭐⭐⭐</Info>
+              <Info role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { this.handleScrollTo(); }}>Read Reviews</Info>
             </RatingsContainer>
-            <div>{product.category}</div>
-            <div>{product.name}</div>
-            <div>
+            <Info>Category / {product.category}</Info>
+            <Name>{product.name}</Name>
+            <Info>
               $
               {selectedStyle.original_price}
-            </div>
-            <div>{product.description}</div>
+            </Info>
+            <Info>{product.description}</Info>
             <IconContainer>
               <Icon src={facebook} alt="" />
               <Icon src={twitter} alt="" />
               <Icon src={pinterest} alt="" />
             </IconContainer>
-            <div>
+            <StyleInfo>
               <span>Current style: </span>
               <Style>{selectedStyle.name}</Style>
-            </div>
+            </StyleInfo>
             <StyleSelector
               product={product}
               styles={styles}

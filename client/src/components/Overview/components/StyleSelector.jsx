@@ -4,13 +4,14 @@ import styled from 'styled-components';
 const StylesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;`;
+  grid-gap: 10px;
+  margin-bottom: 20px;`;
 
 const Style = styled.img`
   border: solid;
   border-radius: 15px;
-  width: 80px;
-  height: 120px;
+  width: 100%;
+  height: 110px;
   object-fit: fill;`;
 
 const StyleCheck = styled.span`

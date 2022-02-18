@@ -9,6 +9,7 @@ const StyledContainer = styled.div`
   border: solid;
   padding: 5px;
   margin: 1em;
+  height: 90vh;
   gap: 1rem;
   grid-template-columns: repeat(10, 1fr);`;
 
@@ -109,7 +110,7 @@ class Overview extends React.Component {
       <StyledContainer>
         { product && selectedStyle && styles ? (
           <>
-            <StyledH2>Product Overview</StyledH2>
+            {/* <StyledH2>Product Overview</StyledH2> */}
             <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} />
             <ProductInformation
               product={product}
