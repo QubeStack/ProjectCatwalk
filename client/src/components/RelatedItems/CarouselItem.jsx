@@ -10,7 +10,7 @@ class CarouselItem extends React.Component {
       showModal: false,
       salePrice: null,
       photo: '',
-      // name: '',
+      currentProduct: {},
     };
     this.setStorage = this.setStorage.bind(this);
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
@@ -39,6 +39,18 @@ class CarouselItem extends React.Component {
           });
         });
     }
+    axios({
+      method: 'get',
+      url: '/api/product',
+      params: {
+        product_id: this.props.id,
+      },
+    })
+      .then((product) => {
+        this.setState({
+          currentProduct: product.data,
+        });
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -78,28 +90,19 @@ class CarouselItem extends React.Component {
   }
 
   setStorage() {
-    axios({
-      method: 'get',
-      url: '/api/product',
-      params: {
-        product_id: this.props.id,
-      },
-    })
-      .then((product) => {
-        if (localStorage.getItem('myOutfit') === null) {
-          localStorage.setItem('myOutfit', JSON.stringify([product.data]));
-        } else {
-          let outfit = JSON.parse(localStorage.getItem('myOutfit'));
-          if (!Array.isArray(outfit)) {
-            outfit = [outfit];
-          }
-          if (outfit.every((item) => item.id !== product.data.id)) {
-            outfit.push(product.data);
-          }
-          localStorage.setItem('myOutfit', JSON.stringify(outfit));
-          this.props.render();
-        }
-      });
+    if (localStorage.getItem('myOutfit') === null) {
+      localStorage.setItem('myOutfit', JSON.stringify([this.state.currentProduct]));
+    } else {
+      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+      if (!Array.isArray(outfit)) {
+        outfit = [outfit];
+      }
+      if (outfit.every((item) => item.id !== this.state.currentProduct.id)) {
+        outfit.push(this.state.currentProduct);
+      }
+      localStorage.setItem('myOutfit', JSON.stringify(outfit));
+      this.props.render();
+    }
   }
 
   removeItemFromStorage() {
@@ -125,7 +128,7 @@ class CarouselItem extends React.Component {
         <Modal>
           <Content>
             <CloseButton onClick={this.handleClose}>&times;</CloseButton>
-            Hello
+            <ModalTitle>Comparing</ModalTitle>
           </Content>
         </Modal>
       );
@@ -241,12 +244,18 @@ export const Image = styled.div`
 export const ActionButton = styled.div`
   grid-column: 5;
   grid-row: 1;
+  margin-top: 5px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background: #f4f2ed;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;
   &: hover {
     cursor: pointer;
+    background: yellow;
   }
 `;
 
@@ -281,24 +290,25 @@ const Modal = styled.div`
   grid-column: 1/-1;
   grid-row: 1/-1;
   position: absolute;
-  z-index: 3;
-  width: 150px;
-  height: 214px;
+  z-index: 2;
+  width: 300px;
+  height: 234px;
   overflow: auto;
+  transform: translate(-75px, -10px);
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.8);
 `;
 
 const Content = styled.div`
-  background-color: #f4f2ed;
-  width: 150px;
-  height: 214px;
+  width: 300px;
+  height: 234px;
   display: grid;
+  color: white;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+  grid-template-rows: repeat(auto-fit, 15%);
 `;
 
-const CloseButton = styled.span`
+const CloseButton = styled.div`
   color: #aaaaaa;
   grid-row: 1;
   grid-column: 5;
@@ -311,6 +321,15 @@ const CloseButton = styled.span`
     cursor: pointer;
     color: black;
   }
+`;
+
+const ModalTitle = styled.div`
+  grid-row: 1;
+  grid-column: 3/4;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 // const StrikeThrough = styled.Text`
