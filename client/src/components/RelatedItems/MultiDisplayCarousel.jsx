@@ -34,13 +34,23 @@ class MultiDisplayCarousel extends React.Component {
 
   render() {
     let prevButton = <button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}> &lt; </button>;
+
     let nextButton = <button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}> &gt; </button>;
+
     if (this.state.position === 0) {
       prevButton = <> </>;
     }
-    if (this.state.position === this.props.products.length - 1) {
+    if (this.state.position === this.props.products.length + this.props.offset - 1) {
       nextButton = <> </>;
     }
+
+    let addCard;
+    if (this.props.addCard) {
+      addCard = <CarouselItem id={this.props.id} product={{ id: -1 }} actionButton={this.props.actionButton} render={this.props.render} addCard />;
+    } else {
+      addCard = <> </>;
+    }
+
     return (
       <HideOverflowContainer>
         <CarouselContainer
@@ -48,6 +58,7 @@ class MultiDisplayCarousel extends React.Component {
           direction={this.state.direction}
           position={this.state.position}
         >
+          {addCard}
           {this.props.products.map(
             (product) => <CarouselItem product={product} actionButton={this.props.actionButton} render={this.props.render} />,
           )}
@@ -68,7 +79,7 @@ const HideOverflowContainer = styled.div`
 `;
 
 const CarouselContainer = styled.div`
-  grid-column: 2;
+  grid-column: 1/-1;
   grid-row: 1/11;
   display: flex;
   margin: 0 0 20px 20px;
@@ -92,7 +103,7 @@ const LeftButton = styled.div`
 `;
 
 const RightButton = styled.div`
-  grid-column: 3;
+  grid-column: 25;
   grid-row: 4;
   z-index: 2;
 `;

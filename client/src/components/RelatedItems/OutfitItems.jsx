@@ -5,32 +5,14 @@ import MultiDisplayCarousel from './MultiDisplayCarousel';
 class OutfitItems extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      products: [],
-    };
-    this.update = this.update.bind(this);
-  }
-
-  componentDidMount() {
-    this.update();
-  }
-
-  update() {
-    const outfit = [];
-    const newOutfit = JSON.parse(localStorage.getItem('myOutfit'));
-    outfit.push(JSON.parse(localStorage.getItem('myOutfit')));
-    if (newOutfit !== null) {
-      this.setState({
-        products: newOutfit,
-      });
-    }
+    this.state = {};
   }
 
   render() {
     return (
       <>
         <div>Your Outfit</div>
-        <MultiDisplayCarousel render={this.props.render} update={this.props.update} products={this.state.products} actionButton="x" />
+        <MultiDisplayCarousel id={this.props.id} render={this.props.render} update={this.props.update} products={this.props.products} actionButton="x" addCard offset={1} />
       </>
     );
   }
