@@ -4,7 +4,17 @@ import styled from 'styled-components';
 
 const StyledCart = styled.div`
   display: grid;
-  `;
+  grid-gap: 10px;`;
+
+const Add = styled.button`
+  border-color: #1F513F;
+  background-color: white;
+  border-radius: 12px;`;
+
+const Fav = styled.button`
+  border-color: #1F513F;
+  background-color: white;
+  border-radius: 12px;`;
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -154,8 +164,8 @@ class AddToCart extends React.Component {
             // : null)
           ))}
         </select>
-        {!noStock ? <button type="button" onClick={this.handleCart}>Add To Cart</button> : null}
-        <button type="button">Fav</button>
+        {!noStock ? <Add type="button" onClick={this.handleCart}>Add To Cart</Add> : null}
+        <Fav type="button">&#9733;</Fav>
       </StyledCart>
     );
   }
