@@ -140,14 +140,14 @@ class CarouselItem extends React.Component {
       let actionButton;
       if (this.props.actionButton === '+') {
         actionButton = (
-          <ActionButton type="button" onClick={this.handleClick}>
-            {this.props.actionButton}
+          <ActionButton onClick={this.handleClick}>
+            &#9733;
           </ActionButton>
         );
       } else {
         actionButton = (
-          <ActionButton type="button" onClick={this.removeItemFromStorage}>
-            {this.props.actionButton}
+          <ActionButton onClick={this.removeItemFromStorage}>
+            &times;
           </ActionButton>
         );
       }
@@ -238,9 +238,16 @@ export const Image = styled.div`
   }
 `;
 
-export const ActionButton = styled.button`
+export const ActionButton = styled.div`
   grid-column: 5;
   grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 export const Name = styled.div`
@@ -287,16 +294,19 @@ const Content = styled.div`
   width: 150px;
   height: 214px;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 75% 10% 10% 5%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
 `;
 
 const CloseButton = styled.span`
   color: #aaaaaa;
-  grid-row-start: 1;
-  grid-column-start: 4;
+  grid-row: 1;
+  grid-column: 5;
   font-size: 28px;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &: hover {
     cursor: pointer;
     color: black;
