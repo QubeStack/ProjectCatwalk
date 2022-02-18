@@ -71,18 +71,20 @@ class MultiDisplayCarousel extends React.Component {
 }
 
 const HideOverflowContainer = styled.div`
-  overflow: hidden;
+  margin: 0 20px 120px 0;
   font-size: small;
   display: grid;
-  grid-auto-columns: min-content;
-  grid-auto-rows: auto;
+  grid-template-columns: 5% 95% 5%;
+  grid-template-rows: 24px 24px 24px 24px 24px 24px;
 `;
 
 const CarouselContainer = styled.div`
+  overflow: hidden;
   grid-column: 1/-1;
   grid-row: 1/11;
+  position: absolute;
   display: flex;
-  margin: 0 0 20px 20px;
+  margin: 0 20px 20px 20px;
   transition: 'transform 0.2s ease';
   transform: ${(props) => {
     if (props.direction === 'right') {
@@ -98,14 +100,14 @@ const CarouselContainer = styled.div`
 
 const LeftButton = styled.div`
   grid-column: 1;
-  grid-row: 4;
-  z-index: 2;
+  grid-row: 5/6;
+  z-index: 1;
 `;
 
 const RightButton = styled.div`
-  grid-column: 25;
-  grid-row: 4;
-  z-index: 2;
+  grid-column: 3;
+  grid-row: 5/6;
+  z-index: 1;
 `;
 
 export default MultiDisplayCarousel;
