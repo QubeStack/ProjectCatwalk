@@ -29,7 +29,7 @@ class ReviewItem extends React.Component {
       <>
         <Div>{this.props.summary}</Div>
         <Inline>
-          <Stars />
+          <Stars rating={this.props.rating} />
           <Div>{this.props.username}</Div>
           <Div>{this.props.date}</Div>
         </Inline>
