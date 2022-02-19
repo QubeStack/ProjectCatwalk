@@ -21,6 +21,7 @@ class SimilarItems extends React.Component {
       },
     })
       .then((results) => {
+        console.log(results);
         Promise.all(results.data.map((result) => (
           axios({
             method: 'get',

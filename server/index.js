@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 const API_KEY = require('./config');
 
 const app = express();
@@ -157,6 +158,10 @@ app.post('/api/cart', (req, res) => {
       console.log('success');
       res.sendStatus(201);
     });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../', 'client/dist/index.html'));
 });
 
 app.listen(PORT, () => {

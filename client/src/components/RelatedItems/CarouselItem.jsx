@@ -29,14 +29,16 @@ class CarouselItem extends React.Component {
         },
       })
         .then((styles) => {
-          const salePrice = styles.data.results[0].sale_price;
-          const photo = styles.data.results[0].photos[0].thumbnail_url;
-          // const { name } = styles.data.results[0];
-          this.setState({
-            salePrice,
-            photo,
-            // name,
-          });
+          if (styles.data.results !== undefined) {
+            const salePrice = styles.data.results[0].sale_price;
+            const photo = styles.data.results[0].photos[0].thumbnail_url;
+            // const { name } = styles.data.results[0];
+            this.setState({
+              salePrice,
+              photo,
+              // name,
+            });
+          }
         });
     }
     axios({
