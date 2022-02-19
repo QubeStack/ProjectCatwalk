@@ -30,9 +30,21 @@ const Question = styled.div`
 const HelpfulDiv = styled.div`
   grid-area: sidebar;
   grid-row-start: 1;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  justify-self: end;
+`;
+
+const ReportButton = styled.button`
+  grid-row-start: 1;
   grid-column-start: 3;
   grid-column-end: 3;
-  justify-self: end;
+  justify-self: center;
+  border: none;
+  background: none;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const YesButton = styled.button`
@@ -84,13 +96,14 @@ class QAListEntry extends React.Component {
       disabledQ: false,
       helpful,
       count: 2,
+      reported: false,
     };
     this.handleHelpfulQ = this.handleHelpfulQ.bind(this);
     this.handleHelpfulA = this.handleHelpfulA.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.reRenderView = this.reRenderView.bind(this);
     // this.handleAddAnswer = this.handleAddAnswer.bind(this);
-    // this.handleReport = this.handleReport.bind(this);
+    this.handleReport = this.handleReport.bind(this);
   }
 
   componentDidMount() {
@@ -146,6 +159,30 @@ class QAListEntry extends React.Component {
     });
   }
 
+  handleReport(e) {
+    const { reported } = this.state;
+    const { question_id } = this.props;
+    e.preventDefault();
+    if (reported) {
+      return;
+    }
+    axios({
+      method: 'put',
+      url: '/api/product/questions/report',
+      params: {
+        question_id,
+      },
+    })
+      .then(() => {
+        this.setState({
+          reported: true,
+        });
+      })
+      .then(() => {
+        this.reRenderView();
+      });
+  }
+
   reRenderView() {
     const { question_id } = this.props;
     axios({
@@ -162,15 +199,15 @@ class QAListEntry extends React.Component {
       });
   }
 
-  // handleReport(e) {
-  //   e.preventDefault();
-  // }
-
   render() {
     const { question, question_id, reRender } = this.props;
     const {
-      answers, disabled, helpful, count,
+      answers, disabled, helpful, count, reported,
     } = this.state;
+    let reportText = 'Report';
+    if (reported) {
+      reportText = 'Reported';
+    }
     if (answers.length === 0) {
       return (
         <QuestionDiv>
@@ -187,6 +224,7 @@ class QAListEntry extends React.Component {
               &#41;
             </YesButton>
           </HelpfulDiv>
+          <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer question_id={question_id} />
           <AnswerDiv>
             <strong>A:&#160;</strong>
@@ -211,6 +249,7 @@ class QAListEntry extends React.Component {
               &#41;
             </YesButton>
           </HelpfulDiv>
+          <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer reRender={this.reRenderView} question_id={question_id} />
           <div>
             {answers.slice(0, count).map((answer) => (
@@ -248,6 +287,7 @@ class QAListEntry extends React.Component {
             &#41;
           </YesButton>
         </HelpfulDiv>
+        <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
         <AddAnswer reRender={this.reRenderView} question_id={question_id} />
         <div>
           {answers.slice(0, count).map((answer) => (
