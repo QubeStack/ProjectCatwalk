@@ -7,23 +7,33 @@ display: flex;
 `;
 
 const Bar = styled.span`
-  color: #a6a6a6;
-  font-size: 24px;
+  background-color: #a6a6a6;
+  height: 10px;
+  width: 150px;
+  border-radius: 5px;
   position: relative;
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   &:before {
-    content: "\\2605";
+    content: '';
     overflow: hidden;
 
   }
   &:after {
-    content: "\\2605";
-    color: ${props => props.empty ? "#a6a6a6" : "green"};
+    content: '';
+    background-color: ${props => props.empty ? "#a6a6a6" : "green"};
     position: absolute;
+    height: 10px;
+    border-radius: 5px;
     top: 0;
     left: 0;
     overflow: hidden;
-    width: ${props => props.width + '%'};
+    width: 50%;
   }`;
+
+  //width: ${props => props.width + '%'};
 
 class RatingBreakdown extends React.Component {
   constructor(props) {
@@ -44,6 +54,10 @@ class RatingBreakdown extends React.Component {
       <>
         {/* <Stars rating={AverageRating(this.props.reviews)} /> */}
         <div>
+          <Bar />
+          <Bar />
+          <Bar />
+          <Bar />
           <Bar />
         </div>
       </>
