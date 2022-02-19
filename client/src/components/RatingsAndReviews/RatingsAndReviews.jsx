@@ -15,7 +15,7 @@ border-color: #1f513f;;
 padding: 3px;
 margin: 4px;
 height: 550px;
-width: 200px;
+width: 300px;
 `;
 
 const Div = styled.div`
@@ -65,7 +65,7 @@ class RatingsAndReviews extends React.Component {
       <>
         <Inline>
           <Border>
-            <RatingBreakdown />
+            <RatingBreakdown reviews={this.state.reviews} />
           </Border>
           <Center>
             {this.state.slice >= 4 ?
