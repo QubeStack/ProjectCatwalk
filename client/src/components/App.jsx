@@ -9,13 +9,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      id: 40344,
-    };
+    this.state = {};
   }
 
   render() {
-    const { id } = this.state;
+    const { id } = this.props;
     return (
       <div>
         <GlobalCSS />

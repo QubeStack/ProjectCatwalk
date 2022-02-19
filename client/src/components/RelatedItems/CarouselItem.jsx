@@ -29,14 +29,16 @@ class CarouselItem extends React.Component {
         },
       })
         .then((styles) => {
-          const salePrice = styles.data.results[0].sale_price;
-          const photo = styles.data.results[0].photos[0].thumbnail_url;
-          // const { name } = styles.data.results[0];
-          this.setState({
-            salePrice,
-            photo,
-            // name,
-          });
+          if (styles.data.results !== undefined) {
+            const salePrice = styles.data.results[0].sale_price;
+            const photo = styles.data.results[0].photos[0].thumbnail_url;
+            // const { name } = styles.data.results[0];
+            this.setState({
+              salePrice,
+              photo,
+              // name,
+            });
+          }
         });
     }
     axios({
@@ -335,21 +337,21 @@ const Modal = styled.div`
   grid-row: 1/-1;
   position: absolute;
   z-index: 2;
-  width: 300px;
+  width: 250px;
   height: 234px;
   overflow: auto;
-  transform: translate(-75px, -10px);
+  transform: translate(-50px, -10px);
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.8);
 `;
 
 const Content = styled.div`
-  width: 300px;
+  width: 250px;
   height: 234px;
   display: grid;
   color: white;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: repeat(auto-fit, 15%);
+  grid-template-rows: repeat(auto-fit, 20%);
 `;
 
 const CloseButton = styled.div`
@@ -379,7 +381,6 @@ const ModalTitle = styled.div`
 const Table = styled.table`
   grid-row: 2/-1;
   grid-column: 1/-1;
-  border: 1px solid white;
   text-align: center;
   border-collapse: collapse;
 `;

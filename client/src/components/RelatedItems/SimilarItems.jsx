@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import MultiDisplayCarousel from './MultiDisplayCarousel';
 
 class SimilarItems extends React.Component {
@@ -20,6 +21,7 @@ class SimilarItems extends React.Component {
       },
     })
       .then((results) => {
+        console.log(results);
         Promise.all(results.data.map((result) => (
           axios({
             method: 'get',
@@ -41,11 +43,15 @@ class SimilarItems extends React.Component {
   render() {
     return (
       <>
-        <div>Similar Items</div>
+        <Label>Similar Items</Label>
         <MultiDisplayCarousel id={this.props.id} render={this.props.render} products={this.state.products} actionButton="+" offset={0} />
       </>
     );
   }
 }
+
+const Label = styled.div`
+  margin: 0 35px;
+`;
 
 export default SimilarItems;
