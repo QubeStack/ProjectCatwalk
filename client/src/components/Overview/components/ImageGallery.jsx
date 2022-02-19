@@ -4,14 +4,13 @@ import Thumbnails from './Thumbnails';
 
 const PictureContainer = styled.div`
   display: flex;
-  position: relative;
+  position: ${({ zoomed }) => (zoomed ? 'absolute' : 'relative')};
   border-radius: 5px;
-  background-color: #f4f2ed;
-  padding: 5px;
-  grid-column: span 7;
-  width: 70vw;
+  background-color: ${({ zoomed }) => (zoomed ? 'black' : '#f4f2ed')};
+  grid-column: ${({ zoomed }) => (zoomed ? 'span 10' : 'span 7')};
+  width: ${({ zoomed }) => (zoomed ? '95vw' : '70vw')};
+  z-index: ${({ zoomed }) => (zoomed ? '1' : 'auto')};
   height: 88vh;
-  padding: 5px;
   margin: 5px;`;
 
 const StyledH4 = styled.h4`
@@ -31,11 +30,14 @@ const ArrowButton = styled.img`
   `;
 
 const MainImage = styled.img`
-  justify-self: center;
+
   position: absolute;
-  width: 70vw;
-  height: 88vh;
-  object-fit: scale-down;`;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  &:hover {
+    cursor: zoom-in;
+  }`;
 
 const RightArrowButton = styled.img`
   width: 20px;
@@ -52,7 +54,7 @@ height: 10%;
 color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
 position: absolute;
 bottom: 45%;
-right: 85%;`;
+right: 95%;`;
 
 const RightButton = styled.button`
 background-color: transparent;
@@ -63,7 +65,7 @@ font-size: 2rem;
 color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
 position: absolute;
 bottom: 45%;
-right: 15%;`;
+right: 5%;`;
 
 class ImageGallery extends React.Component {
   constructor(props) {
@@ -71,8 +73,11 @@ class ImageGallery extends React.Component {
 
     this.state = {
       index: 0,
+      zoomed: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleThumbClick = this.handleThumbClick.bind(this);
+    this.handleZoom = this.handleZoom.bind(this);
   }
 
   handleClick(e) {
@@ -86,10 +91,19 @@ class ImageGallery extends React.Component {
     }
   }
 
+  handleThumbClick(index) {
+    this.setState({ index });
+  }
+
+  handleZoom() {
+    const { zoomed } = this.state;
+    this.setState({ zoomed: !zoomed });
+  }
+
   render() {
     const { photos, thumbnails } = this.props;
-    const { index } = this.state;
-    const thumbArr = thumbnails.slice(index, index + 7);
+    const { index, zoomed } = this.state;
+    // const thumbArr = thumbnails.slice(index, index + 7);
     let hideLeft = true;
     let hideRight = false;
     if (index <= 0) {
@@ -103,21 +117,21 @@ class ImageGallery extends React.Component {
       hideRight = true;
     }
     return (
-      <PictureContainer>
+      <PictureContainer zoomed={zoomed}>
         {/* <ImageWrapper> */}
-        <MainImage src={photos[index]} />
+        <MainImage src={photos[index]} onClick={this.handleZoom} />
         {/* </ImageWrapper> */}
         {/* {index > 0 ? ( */}
-        <LeftButton hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
+        <LeftButton disabled={hideLeft} hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
           &lt;
         </LeftButton>
         {/* ) : <> </>} */}
         {/* {index < photos.length - 1 ? ( */}
-        <RightButton hide={hideRight} className="next" type="button" onClick={this.handleClick}>
+        <RightButton disabled={hideRight} hide={hideRight} className="next" type="button" onClick={this.handleClick}>
           &gt;
         </RightButton>
         {/* ) : <> </>} */}
-        <Thumbnails index={index} thumbnails={thumbArr} />
+        <Thumbnails handleThumbClick={this.handleThumbClick} index={index} thumbnails={thumbnails} />
       </PictureContainer>
     );
   }
