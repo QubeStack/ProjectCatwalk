@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RatingBreakdown from './RatingBreakdown';
+import ProductBreakdown from './ProductBreakdown';
 import ReviewsList from './ReviewsList';
 
 const Center = styled.div`
@@ -76,6 +77,7 @@ class RatingsAndReviews extends React.Component {
         <Inline>
           <Border>
             <RatingBreakdown reviews={this.state.reviews} />
+            <ProductBreakdown meta={this.state.meta} />
           </Border>
           <Center>
             {this.state.slice >= 4 ?
