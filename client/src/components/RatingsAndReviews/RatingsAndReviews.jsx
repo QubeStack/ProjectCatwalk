@@ -45,6 +45,7 @@ class RatingsAndReviews extends React.Component {
     this.state = {
       reviews: [],
       slice: 2,
+      meta: {},
     };
   }
 
@@ -57,6 +58,15 @@ class RatingsAndReviews extends React.Component {
     })
       .then((results) => {
         this.setState({ reviews: results.data.results });
+      });
+    axios({
+      method: 'get',
+      url: '/api/product/reviews/meta',
+      params: { product_id: 40357 },
+    })
+      .then((results) => {
+        this.setState({ meta: results.data });
+        console.log("meta:", this.state.meta);
       });
   }
 
