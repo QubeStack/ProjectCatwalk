@@ -69,6 +69,31 @@ app.post('/api/product/questions/answers', (req, res) => {
       res.sendStatus(200);
     });
 });
+// report a question
+app.put('/api/product/questions/report', (req, res) => {
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.question_id}/report`,
+    headers: { Authorization: API_KEY },
+  })
+    .then(() => {
+      console.log('success');
+      res.sendStatus(200);
+    });
+});
+// report an answer
+app.put('/api/product/questions/answers/report', (req, res) => {
+  console.log('req', req.query);
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.query.answer_id}/report`,
+    headers: { Authorization: API_KEY },
+  })
+    .then(() => {
+      console.log('success');
+      res.sendStatus(200);
+    });
+});
 
 // get reviews for specific product
 app.get('/api/product/reviews', (req, res) => {

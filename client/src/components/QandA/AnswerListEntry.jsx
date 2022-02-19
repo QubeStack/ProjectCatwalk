@@ -23,6 +23,18 @@ const AnswerYesButton = styled.button`
   }
 `;
 
+const ReportButton = styled.button`
+  grid-row-start: 1;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  justify-self: center;
+  border: none;
+  background: none;
+  &: hover {
+    cursor: pointer;
+  }
+`;
+
 const AnswerInfo = styled.div`
   font-size: 10px;
   padding-top: 10px;
@@ -36,9 +48,11 @@ class AnswerListEntry extends React.Component {
     super(props);
     this.state = {
       disabledA: false,
+      reported: false,
     };
 
     this.handleHelpfulA = this.handleHelpfulA.bind(this);
+    this.handleReport = this.handleReport.bind(this);
   }
 
   handleHelpfulA(e) {
@@ -72,10 +86,37 @@ class AnswerListEntry extends React.Component {
       });
   }
 
+  handleReport(e) {
+    const { reported } = this.state;
+    const { answer_id } = this.props;
+    e.preventDefault();
+    if (reported) {
+      return;
+    }
+    console.log('reported');
+    axios({
+      method: 'put',
+      url: '/api/product/questions/answers/report',
+      params: {
+        answer_id,
+      },
+    })
+      .then(() => {
+        this.setState({
+          reported: true,
+        });
+      });
+  }
+
   render() {
     const {
       username, answer, date, helpful,
     } = this.props;
+    const { reported } = this.state;
+    let reportText = 'Report';
+    if (reported) {
+      reportText = 'Reported';
+    }
     const monthStr = Number(date.substring(5, 7));
     const newDate = `${months[monthStr]} ${date.substring(8, 10)},${date.substring(0, 4)}`;
     if (username === 'Seller') {
@@ -95,6 +136,7 @@ class AnswerListEntry extends React.Component {
               {helpful}
               &#41;
             </AnswerYesButton>
+            <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           </AnswerInfo>
         </AnswerDiv>
       );
@@ -115,6 +157,7 @@ class AnswerListEntry extends React.Component {
             {helpful}
             &#41;
           </AnswerYesButton>
+          <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
         </AnswerInfo>
       </AnswerDiv>
     );
