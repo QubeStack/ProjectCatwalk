@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Border = styled.div`
-justify-content: center;
-align-content: center;
-border-style: solid;
-border-color: transparent;
-boder-size: 1px;
+* {
+  font-family: verdana;
+  justify-content: center;
+  align-content: center;
+  border-style: solid;
+  border-color: transparent;
+  border-size: 1px;
+}
 `;
 
 // const SpaceEven = styled.div`

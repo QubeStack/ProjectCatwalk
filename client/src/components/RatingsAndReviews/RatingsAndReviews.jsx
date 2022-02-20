@@ -6,7 +6,6 @@ import ProductBreakdown from './ProductBreakdown';
 import ReviewsList from './ReviewsList';
 
 const Center = styled.div`
-display: flex;
 justify-content: center;
 `;
 
@@ -18,14 +17,30 @@ height: 550px;
 width: 300px;
 `;
 
-const Div = styled.div`
+const Border2 = styled.div`
 border-style: solid;
-border-color: white;
+border-color: #1f513f;
+margin: 4px;
+height: 550px;
+width: 700px;
+`;
+
+const Header = styled.div`
+font-size: 30px;
+background-color: #1f513f;
+color: white;
+font-weight: bold;
+`;
+
+const Div = styled.div`
 height: 550px;
 width: 700px;
 `;
 
 const Inline = styled.div`
+* {
+  font-family: verdana;
+}
 display: flex;
 `;
 
@@ -76,7 +91,8 @@ class RatingsAndReviews extends React.Component {
             <RatingBreakdown reviews={this.state.reviews} />
             <ProductBreakdown meta={this.state.meta} />
           </Border>
-          <Center>
+          <Border2>
+            <Header>Ratings and Reviews</Header>
             {this.state.slice >= 4 ?
               <Scroll>
                 <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
@@ -85,7 +101,7 @@ class RatingsAndReviews extends React.Component {
                 <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
               </Div>
             }
-          </Center>
+          </Border2>
         </Inline>
         <Center>
           <div>
