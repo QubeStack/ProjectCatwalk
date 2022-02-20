@@ -40,6 +40,7 @@ const ReportButton = styled.button`
   grid-column-start: 3;
   grid-column-end: 3;
   justify-self: center;
+  color: #1f513f;
   border: none;
   background: none;
   &: hover {
@@ -59,12 +60,25 @@ const YesButton = styled.button`
   }
 `;
 
-const AnswerDiv = styled.div`
+const AnswerDivNoScroll = styled.div`
   grid-area: footer;
   grid-row-start: 7;
   grid-column-start: 1;
   padding: 10px;
   background-color: white;
+`;
+
+const AnswerDivScroll = styled.div`
+  grid-area: footer;
+  grid-row-start: 7;
+  grid-column-start: 1;
+  padding: 10px;
+  background-color: white;
+  overflow-y: scroll;
+  height: 200px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MoreAnswersButton = styled.button`
@@ -200,6 +214,7 @@ class QAListEntry extends React.Component {
   }
 
   render() {
+    let AnswersDiv;
     const { question, question_id, reRender } = this.props;
     const {
       answers, disabled, helpful, count, reported,
@@ -207,6 +222,11 @@ class QAListEntry extends React.Component {
     let reportText = 'Report';
     if (reported) {
       reportText = 'Reported';
+    }
+    if (count >= 4) {
+      AnswersDiv = AnswerDivScroll;
+    } else {
+      AnswersDiv = AnswerDivNoScroll;
     }
     if (answers.length === 0) {
       return (
@@ -226,10 +246,10 @@ class QAListEntry extends React.Component {
           </HelpfulDiv>
           <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer question_id={question_id} />
-          <AnswerDiv>
+          <AnswersDiv>
             <strong>A:&#160;</strong>
             No answers yet!
-          </AnswerDiv>
+          </AnswersDiv>
         </QuestionDiv>
       );
     }
@@ -251,7 +271,7 @@ class QAListEntry extends React.Component {
           </HelpfulDiv>
           <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer reRender={this.reRenderView} question_id={question_id} />
-          <div>
+          <AnswersDiv>
             {answers.slice(0, count).map((answer) => (
               <AnswerListEntry
                 key={answer.answer_id}
@@ -266,8 +286,8 @@ class QAListEntry extends React.Component {
                 reRender={reRender}
               />
             ))}
-          </div>
-          <MoreAnswersButton onClick={this.handleClick}>Show More Answers</MoreAnswersButton>
+            <MoreAnswersButton onClick={this.handleClick}>Show More Answers</MoreAnswersButton>
+          </AnswersDiv>
         </QuestionDiv>
 
       );
@@ -289,7 +309,7 @@ class QAListEntry extends React.Component {
         </HelpfulDiv>
         <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
         <AddAnswer reRender={this.reRenderView} question_id={question_id} />
-        <div>
+        <AnswersDiv>
           {answers.slice(0, count).map((answer) => (
             <AnswerListEntry
               key={answer.answer_id}
@@ -301,7 +321,7 @@ class QAListEntry extends React.Component {
               username={answer.answerer_name}
             />
           ))}
-        </div>
+        </AnswersDiv>
       </QuestionDiv>
     );
   }
