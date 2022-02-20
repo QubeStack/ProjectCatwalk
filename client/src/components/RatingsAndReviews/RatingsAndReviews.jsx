@@ -4,6 +4,7 @@ import axios from 'axios';
 import RatingBreakdown from './RatingBreakdown';
 import ProductBreakdown from './ProductBreakdown';
 import ReviewsList from './ReviewsList';
+import WriteNewReview from './WriteNewReview';
 
 const Center = styled.div`
 justify-content: center;
@@ -26,7 +27,7 @@ width: 700px;
 `;
 
 const Header = styled.div`
-font-size: 30px;
+font-size: 20px;
 background-color: #1f513f;
 color: white;
 font-weight: bold;
@@ -42,6 +43,10 @@ const Inline = styled.div`
   font-family: verdana;
 }
 display: flex;
+`;
+
+const PushRight = styled.div`
+margin left: auto;
 `;
 
 const Scroll = styled.div`
@@ -92,7 +97,16 @@ class RatingsAndReviews extends React.Component {
             <ProductBreakdown meta={this.state.meta} />
           </Border>
           <Border2>
-            <Header>Ratings and Reviews</Header>
+            <Header>
+              <Inline>
+                <div>Ratings and Reviews</div>
+                <PushRight>
+                  <WriteNewReview />
+                </PushRight>
+
+              </Inline>
+
+            </Header>
             {this.state.slice >= 4 ?
               <Scroll>
                 <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />

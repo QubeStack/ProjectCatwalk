@@ -9,6 +9,7 @@ const Star = styled.span`
   color: #a6a6a6;
   font-size: 24px;
   position: relative;
+  margin-bottom: 5px;
   &:before {
     content: "\\2605";
     overflow: hidden;

@@ -5,7 +5,8 @@ import Stars from './ReviewStars';
 const BigText = styled.div`
 display: flex;
 justify-content: center;
-font-size: 30px;
+align-items: center;
+font-size: 20px;
 font-weight: bold;
 font-family:verdana;
 color: white;
