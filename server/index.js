@@ -108,6 +108,18 @@ app.get('/api/product/reviews', (req, res) => {
     });
 });
 
+// get reviews meta-data for specific product
+app.get('/api/product/reviews/meta', (req, res) => {
+  axios({
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/?product_id=${req.query.product_id}`,
+    headers: { Authorization: API_KEY },
+  })
+    .then((results) => {
+      res.send(results.data);
+    });
+});
+
 // increase helpful count of question
 app.put('/api/product/questions/helpful', (req, res) => {
   axios({

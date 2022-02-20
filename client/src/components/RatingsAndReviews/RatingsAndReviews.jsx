@@ -2,38 +2,56 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RatingBreakdown from './RatingBreakdown';
+import ProductBreakdown from './ProductBreakdown';
 import ReviewsList from './ReviewsList';
+import WriteNewReview from './WriteNewReview';
 
 const Center = styled.div`
-display: flex;
 justify-content: center;
 `;
 
 const Border = styled.div`
 border-style: solid;
-border-color: #1f513f;;
-padding: 3px;
+border-color: #1f513f;
 margin: 4px;
 height: 550px;
-width: 200px;
+width: 300px;
+`;
+
+const Border2 = styled.div`
+border-style: solid;
+border-color: #1f513f;
+margin: 4px;
+height: 550px;
+width: 700px;
+`;
+
+const Header = styled.div`
+font-size: 20px;
+background-color: #1f513f;
+color: white;
+font-weight: bold;
 `;
 
 const Div = styled.div`
-border-style: solid;
-border-color: white;
-padding: 1px;
 height: 550px;
 width: 700px;
 `;
 
 const Inline = styled.div`
+* {
+  font-family: verdana;
+}
 display: flex;
+`;
+
+const PushRight = styled.div`
+margin left: auto;
 `;
 
 const Scroll = styled.div`
 border-style: solid;
 border-color: white;
-padding: 1px;
 height: 500px;
 width: 700px;
 overflow-y: scroll;
@@ -45,6 +63,7 @@ class RatingsAndReviews extends React.Component {
     this.state = {
       reviews: [],
       slice: 2,
+      meta: {},
     };
   }
 
@@ -58,6 +77,15 @@ class RatingsAndReviews extends React.Component {
       .then((results) => {
         this.setState({ reviews: results.data.results });
       });
+    axios({
+      method: 'get',
+      url: '/api/product/reviews/meta',
+      params: { product_id: 40357 },
+    })
+      .then((results) => {
+        this.setState({ meta: results.data });
+        console.log("meta:", this.state.meta);
+      });
   }
 
   render() {
@@ -65,9 +93,20 @@ class RatingsAndReviews extends React.Component {
       <>
         <Inline>
           <Border>
-            <RatingBreakdown />
+            <RatingBreakdown reviews={this.state.reviews} />
+            <ProductBreakdown meta={this.state.meta} />
           </Border>
-          <Center>
+          <Border2>
+            <Header>
+              <Inline>
+                <div>Ratings and Reviews</div>
+                <PushRight>
+                  <WriteNewReview />
+                </PushRight>
+
+              </Inline>
+
+            </Header>
             {this.state.slice >= 4 ?
               <Scroll>
                 <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
@@ -76,7 +115,7 @@ class RatingsAndReviews extends React.Component {
                 <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
               </Div>
             }
-          </Center>
+          </Border2>
         </Inline>
         <Center>
           <div>

@@ -6,11 +6,12 @@ import ReviewItem from './ReviewItem';
 const axios = require('axios');
 
 const Div = styled.div`
-border-style: solid;
-border-color: #1f513f;;
 padding: 3px;
 margin: 4px;
 `;
+
+// border-style: solid;
+// border-color: #1f513f;
 
 class ReviewList extends React.Component {
   constructor(props) {
