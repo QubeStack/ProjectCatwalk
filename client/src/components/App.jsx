@@ -18,11 +18,11 @@ class App extends React.Component {
     const { id } = this.state;
     return (
       <div>
-        {/* <GlobalCSS />
-        <Overview /> */}
+        <GlobalCSS />
+        <Overview />
         <RatingsAndReviews />
-        {/* <QABody />
-        <RelatedItems id={id} /> */}
+        <QABody />
+        <RelatedItems id={id} />
       </div>
     );
   }
