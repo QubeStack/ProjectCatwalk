@@ -36,11 +36,12 @@ class QABody extends React.Component {
   }
 
   componentDidMount() {
+    const { id } = this.props;
     axios({
       method: 'get',
       url: '/api/product/questions',
       params: {
-        product_id: 40412,
+        product_id: id,
       },
     })
       .then((response) => {
@@ -57,11 +58,12 @@ class QABody extends React.Component {
   }
 
   reRender() {
+    const { id } = this.props;
     axios({
       method: 'get',
       url: '/api/product/questions',
       params: {
-        product_id: 40412,
+        product_id: id,
       },
     })
       .then((response) => {
@@ -73,12 +75,13 @@ class QABody extends React.Component {
   }
 
   render() {
+    const { id } = this.props;
     const { questions } = this.state;
     return (
       <BodyDiv>
         <Title>Questions and Answers</Title>
         <SearchQuestions handleSubmit={this.handleSubmit} questions={questions} />
-        <QuestionsView reRender={this.reRender} product_id={40412} questions={questions} />
+        <QuestionsView reRender={this.reRender} product_id={id} questions={questions} />
       </BodyDiv>
     );
   }

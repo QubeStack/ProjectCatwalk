@@ -28,6 +28,8 @@ const ReportButton = styled.button`
   grid-column-start: 3;
   grid-column-end: 3;
   justify-self: center;
+  color: #1f513f;
+  font-size: 10px;
   border: none;
   background: none;
   &: hover {

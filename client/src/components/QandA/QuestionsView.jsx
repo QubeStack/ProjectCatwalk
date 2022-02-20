@@ -30,6 +30,18 @@ const MoreQuestions = styled.button`
   }
 `;
 
+const QuestionsDiv1 = styled.div`
+  overflow-y: scroll;
+  height: 400px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const QuestionsDiv2 = styled.div`
+
+`;
+
 class QuestionsView extends React.Component {
   constructor(props) {
     super(props);
@@ -64,10 +76,17 @@ class QuestionsView extends React.Component {
   render() {
     const { count } = this.state;
     const { questions, product_id } = this.props;
+    let QuestionsDiv;
+    console.log(count);
+    if (count >= 4) {
+      QuestionsDiv = QuestionsDiv1;
+    } else {
+      QuestionsDiv = QuestionsDiv2;
+    }
     if (questions.length > questions.slice(0, count).length) {
       return (
         <div>
-          <div>
+          <QuestionsDiv>
             {questions.slice(0, count).map((question) => (
               <QAListEntry
                 key={question.question_id}
@@ -77,7 +96,7 @@ class QuestionsView extends React.Component {
                 reRender={this.reRenderView}
               />
             ))}
-          </div>
+          </QuestionsDiv>
           <Container>
             <MoreQuestions onClick={this.showMoreQuestions}>
               More Answered Questions
@@ -89,7 +108,7 @@ class QuestionsView extends React.Component {
     }
     return (
       <div>
-        <div>
+        <QuestionsDiv>
           {questions.slice(0, count).map((question) => (
             <QAListEntry
               key={question.question_id}
@@ -99,11 +118,8 @@ class QuestionsView extends React.Component {
               reRender={this.reRenderView}
             />
           ))}
-        </div>
+        </QuestionsDiv>
         <Container>
-          {/* <MoreQuestions onClick={this.showLessQuestions}>
-            Less Answered Questions
-          </MoreQuestions> */}
           <AskQuestion reRender={this.reRenderView} product_id={product_id} />
         </Container>
       </div>

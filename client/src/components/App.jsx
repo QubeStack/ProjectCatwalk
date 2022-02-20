@@ -19,7 +19,7 @@ class App extends React.Component {
         <GlobalCSS />
         <Overview />
         <RatingsAndReviews />
-        <QABody />
+        <QABody id={id}/>
         <RelatedItems id={id} />
       </div>
     );
