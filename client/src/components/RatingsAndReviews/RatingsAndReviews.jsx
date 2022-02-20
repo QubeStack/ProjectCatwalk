@@ -12,8 +12,7 @@ justify-content: center;
 
 const Border = styled.div`
 border-style: solid;
-border-color: #1f513f;;
-padding: 3px;
+border-color: #1f513f;
 margin: 4px;
 height: 550px;
 width: 300px;
@@ -22,7 +21,6 @@ width: 300px;
 const Div = styled.div`
 border-style: solid;
 border-color: white;
-padding: 1px;
 height: 550px;
 width: 700px;
 `;
@@ -34,7 +32,6 @@ display: flex;
 const Scroll = styled.div`
 border-style: solid;
 border-color: white;
-padding: 1px;
 height: 500px;
 width: 700px;
 overflow-y: scroll;

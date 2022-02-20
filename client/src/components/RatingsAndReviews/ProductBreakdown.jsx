@@ -9,21 +9,31 @@ border-color: transparent;
 boder-size: 1px;
 `;
 
-const SpaceEven = styled.div`
-display: flex;
-justify-content: space-between;
-`;
+// const SpaceEven = styled.div`
+// display: flex;
+// justify-content: space-between;
+// `;
 
 const Inline = styled.div`
 display: flex;
-border-style: solid;
-border-color: white;
-padding: 1px;
+position: relative;
 `;
 
-const Text = styled.div`
-display: flex;
-justify-content: center;
+const Text1 = styled.div`
+font-size: 10px;
+margin-bottom: 8px;
+`;
+
+const Text2 = styled.div`
+position: absolute;
+left: 50%;
+transform: translate(-50%,0);
+font-size: 10px;
+margin-bottom: 8px;
+`;
+
+const Text3 = styled.div`
+margin-left: auto;
 font-size: 10px;
 margin-bottom: 8px;
 `;
@@ -55,7 +65,7 @@ const Bar = styled.span`
     position: absolute;
     height: 5px;
     top: -6px;
-    left: 50%;
+    left: 47%;
   }`;
 
 class ProductBreakdown extends React.Component {
@@ -74,17 +84,17 @@ class ProductBreakdown extends React.Component {
             Size
           </Factor>
           <Bar />
-          <SpaceEven>
-            <Text>
+          <Inline>
+            <Text1>
               Too Small
-            </Text>
-            <Text>
+            </Text1>
+            <Text2>
               Perfect
-            </Text>
-            <Text>
+            </Text2>
+            <Text3>
               Too Big
-            </Text>
-          </SpaceEven>
+            </Text3>
+          </Inline>
         </Border>
 
         <Border>
@@ -92,17 +102,17 @@ class ProductBreakdown extends React.Component {
             Width
           </Factor>
           <Bar />
-          <SpaceEven>
-            <Text>
+          <Inline>
+            <Text1>
               Too Narrow
-            </Text>
-            <Text>
+            </Text1>
+            <Text2>
               Perfect
-            </Text>
-            <Text>
+            </Text2>
+            <Text3>
               Too Wide
-            </Text>
-          </SpaceEven>
+            </Text3>
+          </Inline>
         </Border>
 
         <Border>
@@ -110,17 +120,17 @@ class ProductBreakdown extends React.Component {
             Comfort
           </Factor>
           <Bar />
-          <SpaceEven>
-            <Text>
+          <Inline>
+            <Text1>
               Uncomfortable
-            </Text>
-            <Text>
+            </Text1>
+            <Text2>
               Ok
-            </Text>
-            <Text>
+            </Text2>
+            <Text3>
               Perfect
-            </Text>
-          </SpaceEven>
+            </Text3>
+          </Inline>
         </Border>
 
         <Border>
@@ -128,17 +138,17 @@ class ProductBreakdown extends React.Component {
             Quality
           </Factor>
           <Bar />
-          <SpaceEven>
-            <Text>
+          <Inline>
+            <Text1>
               Poor
-            </Text>
-            <Text>
+            </Text1>
+            <Text2>
               Ok
-            </Text>
-            <Text>
+            </Text2>
+            <Text3>
               Perfect
-            </Text>
-          </SpaceEven>
+            </Text3>
+          </Inline>
         </Border>
 
         <Border>
@@ -146,17 +156,17 @@ class ProductBreakdown extends React.Component {
             Length
           </Factor>
           <Bar />
-          <SpaceEven>
-            <Text>
+          <Inline>
+            <Text1>
               Runs Short
-            </Text>
-            <Text>
+            </Text1>
+            <Text2>
               Perfect
-            </Text>
-            <Text>
+            </Text2>
+            <Text3>
               Runs Long
-            </Text>
-          </SpaceEven>
+            </Text3>
+          </Inline>
         </Border>
 
         <Border>
@@ -164,17 +174,17 @@ class ProductBreakdown extends React.Component {
             Fit
           </Factor>
           <Bar />
-          <SpaceEven>
-            <Text>
+          <Inline>
+            <Text1>
               Runs Tight
-            </Text>
-            <Text>
+            </Text1>
+            <Text2>
               Perfect
-            </Text>
-            <Text>
+            </Text2>
+            <Text3>
               Runs Long
-            </Text>
-          </SpaceEven>
+            </Text3>
+          </Inline>
         </Border>
 
       </Center>

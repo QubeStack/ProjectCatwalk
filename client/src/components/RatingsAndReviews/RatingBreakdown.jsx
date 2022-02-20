@@ -6,16 +6,16 @@ const BigText = styled.div`
 display: flex;
 justify-content: center;
 font-size: 30px;
-border-style: solid;
-border-color: black;
-boder-size: 2px;
+font-weight: bold;
+font-family:verdana;
+color: white;
+background-color: #1f513f;
 `;
 
 const Inline = styled.div`
 display: flex;
 border-style: solid;
 border-color: white;
-padding: 1px;
 `;
 
 const Text = styled.div`
@@ -89,11 +89,9 @@ class RatingBreakdown extends React.Component {
     return (
       <>
         <BigText>
-          {ratingSummary.rating / totalReviews}
-        </BigText>
-        <Center>
           <Stars rating={ratingSummary.rating / totalReviews} />
-        </Center>
+          <div>{ratingSummary.rating / totalReviews}</div>
+        </BigText>
         <Center>
           <Inline>
             <Text>
