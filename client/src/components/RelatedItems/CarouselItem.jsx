@@ -1,6 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+  Link,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 class CarouselItem extends React.Component {
@@ -167,11 +174,11 @@ class CarouselItem extends React.Component {
                   }
                 });
                 return (
-                  <tr>
+                  <TR2>
                     <td>{productFeature}</td>
                     <td>{feature}</td>
                     <td>{currentProductFeature}</td>
-                  </tr>
+                  </TR2>
                 );
               })}
             </Table>
@@ -240,10 +247,20 @@ class CarouselItem extends React.Component {
     return (
       <div>
         { card }
+        <Link to={`/products/${this.props.product.id}`} replace>My Profile</Link>
+        {/*
+        <Routes>
+          <Route exact path="products/:id" element={<DisplayApp />} />
+        </Routes> */}
       </div>
     );
   }
 }
+
+// function DisplayApp() {
+//   const { id } = useParams();
+//   return <App id={id} />;
+// }
 
 const AddCard = styled.div`
   width: 150px;
@@ -387,7 +404,15 @@ const Table = styled.table`
 
 const TR = styled.tr`
   border: 1px solid white;
+  font-size: small;
+  color: white;
 `;
+
+const TR2 = styled.tr`
+  font-size: small;
+  color: white;
+`;
+
 // const StrikeThrough = styled.Text`
 //     text-decoration: line-through;
 // `;
