@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import facebook from '../icons/iconmonstr-facebook-4-24.png';
 import twitter from '../icons/iconmonstr-twitter-4-24.png';
 import pinterest from '../icons/iconmonstr-pinterest-1-24.png';
+import Stars from '../../RatingsAndReviews/ReviewStars';
 import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 
@@ -19,7 +21,7 @@ const ProductContainer = styled.div`
   grid-gap: 1rem;
   padding: 5px;
   margin: 5px;
-  height: 88vh;
+  height: 87vh;
   position: relative;
 `;
 
@@ -27,6 +29,13 @@ const Info = styled.div`
   width: 100%;
   font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
   `;
+
+const ReviewLink = styled.div`
+  width: 100%;
+  font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+  &:hover{
+  cursor: pointer;
+  };`;
 
 const Name = styled.div`
   font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
@@ -40,11 +49,16 @@ const RatingsContainer = styled.div`
 
 const IconContainer = styled.div`
   justify-self:center;
-  margin-bottom: 40px;
-  margin-top: 40px;`;
+  margin-bottom: 30px;
+  margin-top: 30px;`;
 
 const Icon = styled.img`
-  padding-right: 1em;`;
+  padding-right: 1em;
+  width: 30px;
+  height: 30px;
+  &:hover{
+    cursor: pointer;
+    };`;
 
 const Style = styled.span`
 font-weight: bold;
@@ -59,39 +73,59 @@ class ProductInformation extends React.Component {
 
     this.state = {
       products: [],
+      reviews: null,
+      avgRating: null,
     };
+
+    this.getReview = this.getReview.bind(this);
   }
 
-  // componentDidUpdate(previousprops) {
-  //   if (previousprops !== this.props) {
-  //     this.setState({products: this.props});
-  //   }
-  // }
+  componentDidMount() {
+    const { id } = this.props;
+    if (id) {
+      this.getReview(id);
+    }
+  }
 
-  static handleScrollTo() {
-    // const xpath = "//div[contains(text(),'Ratings and Reviews here')]";
-    // // eslint-disable-next-line max-len
-    // const matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-    // matchingElement.scrollIntoView({
-    //   behavior: 'smooth',
-    //   block: 'start',
-    // });
-    //
+  getReview(id) {
+    axios.get('/api/product/reviews', {
+      params: {
+        product_id: id,
+      },
+    })
+      .then((results) => {
+        let avgRating = 0;
+        results.data.results.map((review) => avgRating += review.rating);
+        avgRating /= results.data.results.length;
+        avgRating = Math.floor(avgRating / 0.25) * 0.25;
+        console.log(avgRating);
+        console.log(results.data.results);
+        this.setState({ reviews: results.data.results.length, avgRating });
+      });
   }
 
   render() {
     const {
-      product, styles, selectedStyle, changeStyle,
+      product, styles, selectedStyle, changeStyle, scroll,
     } = this.props;
+    const { reviews, avgRating } = this.state;
     return (
       <ProductContainer>
         {product && styles && selectedStyle && changeStyle ? (
           <>
             <RatingsContainer>
-              <Info>⭐⭐⭐⭐⭐</Info>
-              <Info role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { this.handleScrollTo(); }}>Read Reviews</Info>
+              {/* <Info>⭐⭐⭐⭐⭐</Info> */}
+              <Stars rating={avgRating} />
+              <ReviewLink role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { scroll(); }} style={{ textDecoration: 'underline' }}>
+                Read all {reviews} reviews
+              </ReviewLink>
             </RatingsContainer>
-            <Info>Category / {product.category}</Info>
+            <Info>
+              Category
+              /
+
+              {product.category}
+            </Info>
             <Name>{product.name}</Name>
             <Info>
               $
@@ -116,7 +150,6 @@ class ProductInformation extends React.Component {
             <AddToCart selectedStyle={selectedStyle} />
           </>
         ) : null }
-
       </ProductContainer>
     );
   }

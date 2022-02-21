@@ -12,7 +12,10 @@ const Style = styled.img`
   border-radius: 15px;
   width: 100%;
   height: 110px;
-  object-fit: fill;`;
+  object-fit: fill;
+  &:hover{
+    color: white;
+  }`;
 
 const StyleCheck = styled.span`
   position: absolute;
