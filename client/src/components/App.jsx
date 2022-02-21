@@ -20,7 +20,7 @@ class App extends React.Component {
         <Overview />
         <RatingsAndReviews />
         <QABody id={id} />
-        <RelatedItems id={id} />
+        <RelatedItems key={id} id={id} />
       </div>
     );
   }

@@ -34,12 +34,16 @@ class SimilarItems extends React.Component {
             const data = products.map((product) => product.data);
             this.setState({
               products: data,
+              finished: true,
             });
           });
       });
   }
 
   render() {
+    if (!this.state.finished) {
+      return <div />;
+    }
     return (
       <>
         <Label>Similar Items</Label>

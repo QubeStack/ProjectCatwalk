@@ -58,6 +58,7 @@ class CarouselItem extends React.Component {
       .then((product) => {
         this.setState({
           currentProduct: product.data,
+          finished: true,
         });
       });
   }
@@ -129,6 +130,9 @@ class CarouselItem extends React.Component {
   }
 
   render() {
+    if (!this.state.finished) {
+      return <div />;
+    }
     let card;
     let modal;
     let featureArray;
@@ -227,15 +231,23 @@ class CarouselItem extends React.Component {
 
       card = (
         <Wrapper className="card">
-          <Image photo={this.state.photo} onClick={this.clickRoute} />
+          <ImageLink>
+            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace>
+              <Image photo={this.state.photo} onClick={this.clickRoute} />
+            </Link>
+          </ImageLink>
           {actionButton}
-          { modal }
-          <Name onClick={this.clickRoute}>
-            {this.props.product.name}
-          </Name>
+          <NameLink>
+            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace>
+              <Name onClick={this.clickRoute}>
+                {this.props.product.name}
+              </Name>
+            </Link>
+          </NameLink>
           <Category onClick={this.clickRoute}>
             {this.props.product.category}
           </Category>
+          { modal }
           {price}
           <Stars>
             Stars
@@ -247,7 +259,6 @@ class CarouselItem extends React.Component {
     return (
       <div>
         { card }
-        <Link to={`/products/${this.props.product.id}`} replace>My Profile</Link>
         {/*
         <Routes>
           <Route exact path="products/:id" element={<DisplayApp />} />
@@ -257,10 +268,18 @@ class CarouselItem extends React.Component {
   }
 }
 
-// function DisplayApp() {
-//   const { id } = useParams();
-//   return <App id={id} />;
-// }
+const NameLink = styled.div`
+  grid-column: 1/-1;
+  grid-row: 6;
+  &: hover {
+    cursor: pointer;
+  }
+`;
+
+const ImageLink = styled.div`
+  grid-column: 1/-1;
+  grid-row: 1/5;
+`;
 
 const AddCard = styled.div`
   width: 150px;
@@ -333,9 +352,6 @@ export const Name = styled.div`
 export const Category = styled.div`
   grid-column: 1/-1;
   grid-row: 7;
-  &: hover {
-    cursor: pointer;
-  }
 `;
 
 export const Price = styled.div`
