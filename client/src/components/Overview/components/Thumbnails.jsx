@@ -5,7 +5,7 @@ const PictureContainer = styled.div`
   position: relative;
   bottom: -80%;
   right: -10%;
-  height: 15%;
+  height: ${({ zoomed }) => (zoomed ? '15%' : '10%')};
   width: 80%;
   display: grid;
   grid-template-columns: repeat(${({ index }) => index}, 1fr);
@@ -14,17 +14,10 @@ const PictureContainer = styled.div`
   color: transparent;
   justify-content: center;`;
 
-const StyledH4 = styled.h4`
-  justify-self: center;
-  grid-column: span 8;`;
-
 const ImageWrapper = styled.div`
-  grid-column: span 1;`;
-
-const ArrowButton = styled.img`
-  width: 20px;
-  height: 30px;
-  object-fit: contain;`;
+  grid-column: span 1;
+  align-content: center;
+  position: relative;`;
 
 const Thumbnail = styled.img`
   border: solid;
@@ -36,15 +29,25 @@ const Thumbnail = styled.img`
   opacity: ${({ context }) => (context ? '1' : '.5')};
   &:hover {
     opacity: 1;
-  }`;
+  };`;
 
-const RightArrowButton = styled.img`
-  width: 20px;
-  height: 30px;
-  object-fit: contain;
-  transform: scaleX(-1);`;
+const Dot = styled.div`
+  position: absolute;
+  border: solid;
+  right: 40%;
+  bottom: -50%;
+  border-color: ${({ context }) => (context ? 'white' : 'transparent')};
+  background-color: white;
+  border-radius: 50%;
+  height: 25%;
+  width: 18%;
+  opacity: ${({ context }) => (context ? '1' : '.5')};
+  &:hover {
+    opacity: 1;
+  };`;
 
 const LeftButton = styled.button`
+  position: relative;
   background-color: transparent;
   border: none;
   font-weight: bold;
@@ -52,17 +55,25 @@ const LeftButton = styled.button`
   height: 10%;
   color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
   grid-column span 1;
-  align-self: center;`;
+  align-self: center;
+  &:hover{
+    cursor: pointer;
+  };`;
 
 const RightButton = styled.button`
+  position: relative;
+  bottom: ${({ zoomed }) => (zoomed ? '-74%' : '0%')};
   background-color: transparent;
   border: none;
   font-weight: bold;
   height: 10%;
   font-size: 1rem;
-  color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
+  color: ${({ hide, zoomed }) => (zoomed ? (hide ? 'transparent' : 'white') : (hide ? 'transparent' : '#1F513F'))};
   grid-column span 1;
-  align-self: center;`;
+  align-self: center;
+  &:hover{
+    cursor: pointer;
+  };`;
 
 class Thumbnails extends React.Component {
   constructor(props) {
@@ -72,37 +83,38 @@ class Thumbnails extends React.Component {
   }
 
   render() {
-    const { thumbnails, index, handleThumbClick } = this.props;
+    const {
+      thumbnails,
+      index,
+      handleThumbClick,
+      zoomed,
+    } = this.props;
     let leftHide = false;
     let rightHide = false;
-    // if (index <= 7) {
-    //   leftHide = true;
-    // }
-    // if (index >= thumbnails.length - 1 || thumbnails.length < 7) {
-    //   rightHide = true;
-    // }
+    let currentThumbs = [];
+    if (index <= 7) {
+      leftHide = true;
+      currentThumbs = thumbnails.slice(0, 7);
+    }
+    if (index >= thumbnails.length - 1 || thumbnails.length < 7) {
+      rightHide = true;
+    }
+    if (index > 7) {
+      currentThumbs = thumbnails.slice(index - 7, index);
+    }
     return (
-      <PictureContainer index={thumbnails.length + 2}>
-        {/* <StyledH4>Thumbnail Gallery</StyledH4> */}
+      <PictureContainer index={thumbnails.length <= 7 ? thumbnails.length + 2 : 9}>
         <LeftButton disabled={leftHide} hide={leftHide} type="button">
           &lt;
         </LeftButton>
-        {thumbnails.map(
+        {currentThumbs.map(
           (thumb, i) => (
-            i === index
-              ? (
-                <ImageWrapper>
-                  <Thumbnail onClick={() => handleThumbClick(i)} context={true} src={thumb} alt="" />
-                </ImageWrapper>
-              )
-              : (
-                <ImageWrapper>
-                  <Thumbnail onClick={() => handleThumbClick(i)} context={false} src={thumb} alt="" />
-                </ImageWrapper>
-              )
+            <ImageWrapper>
+              {zoomed ? (<Dot onClick={() => handleThumbClick(i)} context={i === index} />) : (<Thumbnail onClick={() => handleThumbClick(i)} context={i === index} src={thumb} alt="" />)}
+            </ImageWrapper>
           ),
         )}
-        <RightButton disabled={rightHide} hide={rightHide} type="button">
+        <RightButton disabled={rightHide} hide={rightHide} zoomed={zoomed} type="button">
           &gt;
         </RightButton>
 

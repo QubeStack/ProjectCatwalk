@@ -56,6 +56,9 @@ app.post('/api/product/questions', (req, res) => {
   })
     .then(() => {
       res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 // post a new answer
