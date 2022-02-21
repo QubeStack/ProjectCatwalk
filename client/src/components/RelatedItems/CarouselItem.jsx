@@ -58,32 +58,32 @@ class CarouselItem extends React.Component {
       .then((product) => {
         this.setState({
           currentProduct: product.data,
-          finished: true,
+          // finished: true,
         });
       });
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.product.id !== prevProps.product.id) {
-      axios({
-        method: 'get',
-        url: '/api/product/styles',
-        params: {
-          product_id: this.props.product.id,
-        },
-      })
-        .then((styles) => {
-          const salePrice = styles.data.results[0].sale_price;
-          const photo = styles.data.results[0].photos[0].thumbnail_url;
-          // const { name } = styles.data.results[0];
-          this.setState({
-            salePrice,
-            photo,
-            // name,
-          });
-        });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.product.id !== prevProps.product.id) {
+  //     axios({
+  //       method: 'get',
+  //       url: '/api/product/styles',
+  //       params: {
+  //         product_id: this.props.product.id,
+  //       },
+  //     })
+  //       .then((styles) => {
+  //         const salePrice = styles.data.results[0].sale_price;
+  //         const photo = styles.data.results[0].photos[0].thumbnail_url;
+  //         // const { name } = styles.data.results[0];
+  //         this.setState({
+  //           salePrice,
+  //           photo,
+  //           // name,
+  //         });
+  //       });
+  //   }
+  // }
 
   handleClick(e) {
     e.preventDefault();
@@ -130,9 +130,9 @@ class CarouselItem extends React.Component {
   }
 
   render() {
-    if (!this.state.finished) {
-      return <div />;
-    }
+    // if (!this.state.finished) {
+    //   return <div />;
+    // }
     let card;
     let modal;
     let featureArray;
