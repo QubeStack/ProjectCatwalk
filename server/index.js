@@ -196,8 +196,8 @@ app.post('/api/cart', (req, res) => {
     });
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../', 'client/dist/index.html'));
+app.get('/products/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../', 'client/dist/'));
 });
 
 app.listen(PORT, () => {

@@ -16,7 +16,7 @@ function DisplayApp() {
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/:id" element={<DisplayApp />} />
+      <Route path="/products/:id" element={<DisplayApp />} />
     </Routes>
   </Router>,
   document.getElementById('app'),
