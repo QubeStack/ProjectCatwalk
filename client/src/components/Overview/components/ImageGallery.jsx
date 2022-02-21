@@ -1,6 +1,40 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Thumbnails from './Thumbnails';
+
+const expand = keyframes`
+  from {
+    position: relative;
+    background-color: #f4f2ed;
+    grid-column: span 7;
+    width: 70vw;
+    z-index: auto;
+  }
+
+  to {
+    position: absolute;
+    background-color: black;
+    grid-column: span 10;
+    width: 95vw;
+    z-index: 1;
+  }`;
+
+const contract = keyframes`
+  from {
+    position: absolute;
+    background-color: black;
+    grid-column: span 10;
+    width: 95vw;
+    z-index: 1;
+  }
+
+  to {
+    position: relative;
+    background-color: #f4f2ed;
+    grid-column: span 7;
+    width: 70vw;
+    z-index: auto;
+  }`;
 
 const PictureContainer = styled.div`
   display: flex;
@@ -11,23 +45,14 @@ const PictureContainer = styled.div`
   width: ${({ zoomed }) => (zoomed ? '95vw' : '70vw')};
   z-index: ${({ zoomed }) => (zoomed ? '1' : 'auto')};
   height: 88vh;
-  margin: 5px;`;
-
-const StyledH4 = styled.h4`
-  justify-self: center;
-  grid-row: 30px;
-  grid-column: span 8;`;
+  margin: 5px;
+  animation-name: ${({ zoomed, firstClick }) => (firstClick ? (zoomed ? expand : contract) : 'none')};
+  animation-duration: 1.5s;`;
 
 const ImageWrapper = styled.div`
   width: 70vw;
   height: 88%;
   position: relative;`;
-
-const ArrowButton = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  `;
 
 const MainImage = styled.img`
 
@@ -39,12 +64,6 @@ const MainImage = styled.img`
     cursor: zoom-in;
   }`;
 
-const RightArrowButton = styled.img`
-  width: 20px;
-  height: 30px;
-  object-fit: scale-down;
-  transform: scaleX(-1);`;
-
 const LeftButton = styled.button`
 background-color: transparent;
 border: none;
@@ -54,7 +73,10 @@ height: 10%;
 color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
 position: absolute;
 bottom: 45%;
-right: 95%;`;
+right: 95%;
+&:hover{
+  cursor: pointer;
+};`;
 
 const RightButton = styled.button`
 background-color: transparent;
@@ -65,7 +87,10 @@ font-size: 2rem;
 color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
 position: absolute;
 bottom: 45%;
-right: 5%;`;
+right: 5%;
+&:hover{
+  cursor: pointer;
+}`;
 
 class ImageGallery extends React.Component {
   constructor(props) {
@@ -74,6 +99,7 @@ class ImageGallery extends React.Component {
     this.state = {
       index: 0,
       zoomed: false,
+      firstClick: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleThumbClick = this.handleThumbClick.bind(this);
@@ -97,12 +123,12 @@ class ImageGallery extends React.Component {
 
   handleZoom() {
     const { zoomed } = this.state;
-    this.setState({ zoomed: !zoomed });
+    this.setState({ zoomed: !zoomed, firstClick: true });
   }
 
   render() {
     const { photos, thumbnails } = this.props;
-    const { index, zoomed } = this.state;
+    const { index, zoomed, firstClick } = this.state;
     // const thumbArr = thumbnails.slice(index, index + 7);
     let hideLeft = true;
     let hideRight = false;
@@ -117,21 +143,20 @@ class ImageGallery extends React.Component {
       hideRight = true;
     }
     return (
-      <PictureContainer zoomed={zoomed}>
-        {/* <ImageWrapper> */}
-        <MainImage src={photos[index]} onClick={this.handleZoom} />
-        {/* </ImageWrapper> */}
-        {/* {index > 0 ? ( */}
+      <PictureContainer zoomed={zoomed} firstClick={firstClick}>
+        <MainImage src={photos[index]} onClick={this.handleZoom} tabIndex="0" alt="" />
         <LeftButton disabled={hideLeft} hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
           &lt;
         </LeftButton>
-        {/* ) : <> </>} */}
-        {/* {index < photos.length - 1 ? ( */}
         <RightButton disabled={hideRight} hide={hideRight} className="next" type="button" onClick={this.handleClick}>
           &gt;
         </RightButton>
-        {/* ) : <> </>} */}
-        <Thumbnails handleThumbClick={this.handleThumbClick} index={index} thumbnails={thumbnails} />
+        <Thumbnails
+          handleThumbClick={this.handleThumbClick}
+          index={index}
+          thumbnails={thumbnails}
+          zoomed={zoomed}
+        />
       </PictureContainer>
     );
   }

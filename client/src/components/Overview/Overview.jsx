@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+
+// import Loader from '../Loader';
 import ImageGallery from './components/ImageGallery';
 import ProductInformation from './components/ProductInformation';
 
@@ -12,10 +14,6 @@ const StyledContainer = styled.div`
   height: 90vh;
   gap: 1rem;
   grid-template-columns: repeat(10, 1fr);`;
-
-const StyledH2 = styled.h2`
-  justify-self: center;
-  grid-column: span 10;`;
 
 class Overview extends React.Component {
   constructor(props) {
@@ -35,20 +33,17 @@ class Overview extends React.Component {
     this.getPhotos = this.getPhotos.bind(this);
   }
 
+
   componentDidMount() {
     this.getProducts();
   }
 
   getProducts() {
-    axios.get('/api/products')
+    const { id } = this.props;
+    axios.get('/api/product', { params: { product_id: id } })
       .then((results) => {
-        // const productIDs = [];
-        // for (let i = 0; i < results.data.length; i += 1) {
-        //   productIDs.push(results.data[i].id);
-        // }
-        // alert(JSON.stringify(results.data));
-        this.getStyles(results.data[0].id);
-        this.setState({ product: results.data[0] });
+        this.getStyles(results.data.id);
+        this.setState({ product: results.data });
         //  console.log(productIDs);
       });
   }
@@ -106,17 +101,22 @@ class Overview extends React.Component {
       stylePhotos,
     } = this.state;
 
+    const { scroll, id } = this.props;
+
+    // const renderLoader = () => <StyledLoader>Loading...</StyledLoader>;
+
     return (
       <StyledContainer>
         { product && selectedStyle && styles ? (
           <>
-            {/* <StyledH2>Product Overview</StyledH2> */}
             <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} />
             <ProductInformation
               product={product}
               selectedStyle={selectedStyle}
               styles={styles}
               changeStyle={this.changeStyle}
+              scroll={scroll}
+              id={id}
             />
           </>
         ) : null}

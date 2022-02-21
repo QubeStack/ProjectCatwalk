@@ -9,12 +9,18 @@ const StyledCart = styled.div`
 const Add = styled.button`
   border-color: #1F513F;
   background-color: white;
-  border-radius: 12px;`;
+  border-radius: 12px;
+  &:hover{
+    cursor: pointer;
+    };`;
 
 const Fav = styled.button`
   border-color: #1F513F;
   background-color: white;
-  border-radius: 12px;`;
+  border-radius: 12px;
+  &:hover{
+    cursor: pointer;
+    };`;
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -46,22 +52,15 @@ class AddToCart extends React.Component {
   }
 
   handleCart() {
-    // e.preventDefault();
     const {
       currentSku, currentQuantity, skus, currentSize,
     } = this.state;
-    // eslint-disable-next-line camelcase
-    // const cart = `${count}, ${sku_id}`;
-    // alert(cart);
-    if (currentSize !== "Select Size") {
-      // alert(currentSize);
-      // eslint-disable-next-line camelcase
+    if (currentSize !== 'Select Size') {
       const sku_id = skus[currentSku][0];
       const count = currentQuantity;
       // eslint-disable-next-line camelcase
       axios.post('/api/cart', { sku_id, count });
     } else {
-      // alert(currentSize);
       this.setState({ sizeSelected: false });
     }
   }
@@ -69,7 +68,6 @@ class AddToCart extends React.Component {
   getSkus(style) {
     if (style) {
       this.parseSkus(style.skus);
-      // this.setState({ skus: style.skus });
     }
   }
 
@@ -116,12 +114,10 @@ class AddToCart extends React.Component {
     const {
       skus, currentSku, quantity, noStock, currentSize, sizeSelected,
     } = this.state;
-    // const size = Array.from(Array(quantity).keys());
     const size = [];
     for (let i = 1; i <= quantity; i += 1) {
       size.push(i);
     }
-    // console.log(size);
     let disabled = true;
     if (currentSku.length > 0) {
       disabled = false;
@@ -158,10 +154,7 @@ class AddToCart extends React.Component {
         <select onChange={this.changeQuantity} disabled={disabled}>
           <option value="-">-</option>
           {size.map((num) => (
-            // sku[1].quantity > 0 ? (
             <option value={num}>{num}</option>
-            // )
-            // : null)
           ))}
         </select>
         {!noStock ? <Add type="button" onClick={this.handleCart}>Add To Cart</Add> : null}
