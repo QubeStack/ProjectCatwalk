@@ -77,7 +77,6 @@ class QuestionsView extends React.Component {
     const { count } = this.state;
     const { questions, product_id } = this.props;
     let QuestionsDiv;
-    console.log(count);
     if (count >= 4) {
       QuestionsDiv = QuestionsDiv1;
     } else {

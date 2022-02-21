@@ -183,6 +183,7 @@ class AskQuestion extends React.Component {
     } = this.state;
     const { reRender } = this.props;
     e.preventDefault();
+    const newproduct_id = Number(product_id);
     axios({
       method: 'post',
       url: '/api/product/questions',
@@ -191,11 +192,10 @@ class AskQuestion extends React.Component {
          body: question,
          name: nickname,
          email,
-         product_id,
+         product_id: newproduct_id,
        },
     })
-      .then((response) => {
-        // console.log('res', response.data);
+      .then(() => {
         reRender();
       });
     this.setState({

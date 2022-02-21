@@ -8,24 +8,6 @@ const SearchBar = styled.input`
   margin-bottom: 10px;
 `;
 
-const SearchButton = styled.input`
-border-style: solid;
-border-color: #1f513f;
-padding: 10px;
-width: auto;
-background-color: white;
-margin-left: 1%;
-border-radius: 12px;
-&: active {
-  -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
-   -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
-        box-shadow: inset 0px 0px 15px #c1c1c1;
-};
-&: hover {
-  cursor: pointer;
-}
-`;
-
 class SearchQuestions extends React.Component {
   constructor(props) {
     super(props);
@@ -49,10 +31,10 @@ class SearchQuestions extends React.Component {
 
   handleSearch() {
     const { input } = this.state;
-    const { questions, handleSubmit } = this.props;
+    const { questions, handleSubmit, product_id } = this.props;
     const search = input.toLowerCase();
     let searchedQuestions;
-    console.log(search);
+    console.log('search', input);
     if (search.length >= 2) {
       searchedQuestions = questions.filter((question) => {
         return question.question_body.toLowerCase().includes(search);
@@ -63,7 +45,7 @@ class SearchQuestions extends React.Component {
         method: 'get',
         url: '/api/product/questions',
         params: {
-          product_id: 40412,
+          product_id,
         },
       })
         .then((response) => {
@@ -75,9 +57,8 @@ class SearchQuestions extends React.Component {
   render() {
     const { input } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <SearchBar className="search" placeholder="Have a question? Search for answers..." type="text" value={input} onChange={this.handleChange} />
-        {/* <SearchButton type="submit" value="Search" /> */}
       </form>
     );
   }
