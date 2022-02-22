@@ -17,8 +17,11 @@ import {
 } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 
+import RelatedItems from '../client/src/components/RelatedItems/RelatedItems';
 import CarouselItem from '../client/src/components/RelatedItems/CarouselItem';
 import MultiDisplayCarousel from '../client/src/components/RelatedItems/MultiDisplayCarousel';
+import SimilarItems from '../client/src/components/RelatedItems/SimilarItems';
+import OutfitItems from '../client/src/components/RelatedItems/OutfitItems';
 
 let container;
 
@@ -55,12 +58,34 @@ it('renders multiple CarouselItems into the document', () => {
   expect(container.getElementsByClassName('card').length).toBe(2);
 });
 
-it('renders multiple CarouselItems into the document', () => {
+it('renders a carousel for similar items into the document', () => {
   act(() => {
     render(
       <Router>
-        <MultiDisplayCarousel products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
+        <SimilarItems id={40348} products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
       </Router>, container);
   });
-  expect(container.getElementsByClassName('card').length).toBe(2);
+  expect(container.getElementsByClassName('similarItems')[0]).toBeDefined();
+});
+
+it('renders a carousel for outfit items into the document', () => {
+  act(() => {
+    render(
+      <Router>
+        <OutfitItems id={40348} products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
+      </Router>, container);
+  });
+  expect(container.getElementsByClassName('outfitItems')[0]).toBeDefined();
+});
+
+it('renders two carousels into the document', () => {
+  act(() => {
+    render(
+      <Router>
+        <RelatedItems id={40348} products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
+      </Router>, container);
+  });
+  expect(container.getElementsByClassName('similarItems')[0]).toBeDefined();
+  expect(container.getElementsByClassName('outfitItems')[0]).toBeDefined();
+  expect(container.getElementsByClassName('carousel').length).toBe(2);
 });

@@ -17,7 +17,7 @@ class CarouselItem extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      salePrice: null,
+      // salePrice: null,
       photo: '',
       currentProduct: {},
       avgRating: 0,
@@ -27,9 +27,44 @@ class CarouselItem extends React.Component {
     this.clickRoute = this.clickRoute.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.apiCall = this.apiCall.bind(this);
   }
 
   componentDidMount() {
+    this.apiCall();
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.setState({
+      showModal: true,
+    });
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    this.setState({
+      showModal: false,
+    });
+  }
+
+  setStorage() {
+    if (localStorage.getItem('myOutfit') === null) {
+      localStorage.setItem('myOutfit', JSON.stringify([this.state.currentProduct]));
+    } else {
+      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+      if (!Array.isArray(outfit)) {
+        outfit = [outfit];
+      }
+      if (outfit.every((item) => item.id !== this.state.currentProduct.id)) {
+        outfit.push(this.state.currentProduct);
+      }
+      localStorage.setItem('myOutfit', JSON.stringify(outfit));
+      this.props.render();
+    }
+  }
+
+  apiCall() {
     if (!this.props.addCard) {
       axios({
         method: 'get',
@@ -44,7 +79,7 @@ class CarouselItem extends React.Component {
             const photo = styles.data.results[0].photos[0].thumbnail_url;
             // const { name } = styles.data.results[0];
             this.setState({
-              salePrice,
+              // salePrice,
               photo,
               // name,
             });
@@ -85,36 +120,6 @@ class CarouselItem extends React.Component {
       })
       .catch(() => {
       });
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this.setState({
-      showModal: true,
-    });
-  }
-
-  handleClose(e) {
-    e.preventDefault();
-    this.setState({
-      showModal: false,
-    });
-  }
-
-  setStorage() {
-    if (localStorage.getItem('myOutfit') === null) {
-      localStorage.setItem('myOutfit', JSON.stringify([this.state.currentProduct]));
-    } else {
-      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
-      if (!Array.isArray(outfit)) {
-        outfit = [outfit];
-      }
-      if (outfit.every((item) => item.id !== this.state.currentProduct.id)) {
-        outfit.push(this.state.currentProduct);
-      }
-      localStorage.setItem('myOutfit', JSON.stringify(outfit));
-      this.props.render();
-    }
   }
 
   removeItemFromStorage() {
@@ -214,22 +219,12 @@ class CarouselItem extends React.Component {
         );
       }
 
-      let price;
-      if (this.state.salePrice === null) {
-        price = (
-          <Price>
-            $
-            {this.props.product.default_price}
-          </Price>
-        );
-      } else {
-        price = (
-          <Price>
-            $
-            {this.state.salePrice}
-          </Price>
-        );
-      }
+      const price = (
+        <Price>
+          $
+          {this.props.product.default_price}
+        </Price>
+      );
 
       card = (
         <Wrapper className="card">

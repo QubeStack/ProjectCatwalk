@@ -34,21 +34,17 @@ class SimilarItems extends React.Component {
             const data = products.map((product) => product.data);
             this.setState({
               products: data,
-              finished: true,
             });
           });
       });
   }
 
   render() {
-    if (!this.state.finished) {
-      return <div />;
-    }
     return (
-      <>
+      <div className="similarItems">
         <Label>Similar Items</Label>
         <MultiDisplayCarousel id={this.props.id} render={this.props.render} products={this.state.products} actionButton="+" offset={0} />
-      </>
+      </div>
     );
   }
 }
