@@ -1,5 +1,5 @@
 node_modules
+coverage/
 bundle.js
 package-lock.json
 config.js
-coverage
