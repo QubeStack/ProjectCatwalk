@@ -35,7 +35,11 @@ class SimilarItems extends React.Component {
             this.setState({
               products: data,
             });
+          })
+          .catch(() => {
           });
+      })
+      .catch(() => {
       });
   }
 
