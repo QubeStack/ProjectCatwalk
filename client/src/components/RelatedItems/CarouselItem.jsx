@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import axios from 'axios';
@@ -47,7 +48,7 @@ class CarouselItem extends React.Component {
             });
           }
         })
-        .catch((error) => {
+        .catch(() => {
         });
     }
     axios({
@@ -63,7 +64,7 @@ class CarouselItem extends React.Component {
           // finished: true,
         });
       })
-      .catch((error) => {
+      .catch(() => {
       });
   }
 
