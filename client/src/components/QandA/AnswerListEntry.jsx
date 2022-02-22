@@ -79,7 +79,7 @@ class AnswerListEntry extends React.Component {
           method: 'get',
           url: '/api/product/questions/answers',
           params: {
-            product_id: question_id,
+            question_id,
           },
         })
           .then((response) => {
@@ -95,7 +95,6 @@ class AnswerListEntry extends React.Component {
     if (reported) {
       return;
     }
-    console.log('reported');
     axios({
       method: 'put',
       url: '/api/product/questions/answers/report',

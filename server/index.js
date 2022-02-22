@@ -38,7 +38,7 @@ app.get('/api/product/questions', (req, res) => {
 app.get('/api/product/questions/answers', (req, res) => {
   axios({
     method: 'get',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.product_id}/answers?count=100`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.query.question_id}/answers?count=100`,
     headers: { Authorization: API_KEY },
   })
     .then((results) => {
@@ -87,7 +87,6 @@ app.put('/api/product/questions/report', (req, res) => {
 });
 // report an answer
 app.put('/api/product/questions/answers/report', (req, res) => {
-  console.log('req', req.query);
   axios({
     method: 'put',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.query.answer_id}/report`,
@@ -133,11 +132,15 @@ app.put('/api/product/questions/helpful', (req, res) => {
     .then(() => {
       console.log('success');
       res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
 // increase helpful count of answer
 app.put('/api/product/questions/answers/helpful', (req, res) => {
+  console.log('helpful answer id', req.query.answer_id);
   axios({
     method: 'put',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.query.answer_id}/helpful`,
@@ -146,6 +149,9 @@ app.put('/api/product/questions/answers/helpful', (req, res) => {
     .then(() => {
       console.log('success');
       res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 

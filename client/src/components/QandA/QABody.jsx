@@ -30,6 +30,7 @@ class QABody extends React.Component {
 
     this.state = {
       questions: [],
+      search: '',
     };
     this.reRender = this.reRender.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,10 +52,41 @@ class QABody extends React.Component {
       });
   }
 
-  handleSubmit(searched) {
+  handleSubmit(input) {
+    const { search, questions } = this.state;
+    const { id } = this.props;
+    let searchedQuestions;
+    if (input.length < 2 && input.length > 0) {
+      return;
+    }
+    if (input === search) {
+      return;
+    }
     this.setState({
-      questions: searched,
+      search: input,
     });
+    if (input.length >= 3) {
+      searchedQuestions = questions.filter((question) => {
+        return question.question_body.toLowerCase().includes(input);
+      });
+      // console.log('searched', searchedQuestions);
+      this.setState({
+        questions: searchedQuestions,
+      });
+    } else if (input.length === 0) {
+      axios({
+        method: 'get',
+        url: '/api/product/questions',
+        params: {
+          product_id: id,
+        },
+      })
+        .then((response) => {
+          this.setState({
+            questions: response.data.results,
+          });
+        });
+    }
   }
 
   reRender() {
