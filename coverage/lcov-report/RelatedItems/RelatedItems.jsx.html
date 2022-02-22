@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for QandA/SearchQuestions.jsx</title>
+    <title>Code coverage report for RelatedItems/RelatedItems.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">QandA</a> SearchQuestions.jsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">RelatedItems</a> RelatedItems.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>11/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">50% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -108,7 +108,14 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -118,26 +125,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,51 +158,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
+import React from 'react';
 import styled from 'styled-components';
+import OutfitItems from './OutfitItems';
+import SimilarItems from './SimilarItems';
 &nbsp;
-const SearchBar = styled.input`
-  width: 80%;
-  height: 50px;
-  margin-bottom: 10px;
-`;
+const StyledDiv = styled.div`
+    color: #1f513f;
+    margin: 50px 25px;
+  `;
 &nbsp;
-class SearchQuestions extends React.Component {
+class RelatedItems extends React.Component {
   constructor(props) {
     super(props);
-&nbsp;
     this.state = {
-      input: '',
+      products: [],
     };
-&nbsp;
-    this.handleChange = this.handleChange.bind(this);
+    this.reRender = this.reRender.bind(this);
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  co</span>mponentDidUpdate() {
-    const { handleSubmit } = <span class="cstat-no" title="statement not covered" >this.props;</span>
-    const { input } = <span class="cstat-no" title="statement not covered" >this.state;</span>
-    const newInput = <span class="cstat-no" title="statement not covered" >input.toLowerCase();</span>
-<span class="cstat-no" title="statement not covered" >    handleSubmit(newInput);</span>
+  componentDidMount() {
+    this.reRender();
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  ha</span>ndleChange(e) {
-<span class="cstat-no" title="statement not covered" >    e.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >    this.setState({</span>
-      input: e.target.value,
-    });
+  reRender() {
+    const outfit = [];
+    const newOutfit = JSON.parse(localStorage.getItem('myOutfit'));
+    outfit.push(JSON.parse(localStorage.getItem('myOutfit')));
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (newOutfit !== null) {
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        products: newOutfit,
+      });
+    }
   }
 &nbsp;
   render() {
-    const { input } = this.state;
+    const { id } = this.props;
     return (
-      &lt;form&gt;
-        &lt;SearchBar className="search" placeholder="Have a question? Search for answers..." type="text" value={input} onChange={this.handleChange} /&gt;
-      &lt;/form&gt;
+      &lt;StyledDiv className="relatedItems"&gt;
+        &lt;SimilarItems id={id} render={this.reRender} /&gt;
+        &lt;OutfitItems id={id} render={this.reRender} products={this.state.products} /&gt;
+      &lt;/StyledDiv&gt;
     );
   }
 }
 &nbsp;
-export default SearchQuestions;
+export default RelatedItems;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

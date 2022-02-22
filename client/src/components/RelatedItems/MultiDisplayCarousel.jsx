@@ -52,7 +52,7 @@ class MultiDisplayCarousel extends React.Component {
     }
 
     return (
-      <HideOverflowContainer>
+      <HideOverflowContainer className="carousel">
         <CarouselContainer
           slide={this.state.slide}
           direction={this.state.direction}

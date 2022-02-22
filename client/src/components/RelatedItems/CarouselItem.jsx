@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import axios from 'axios';
@@ -9,81 +10,29 @@ import {
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import Star from '../RatingsAndReviews/ReviewStars';
 
 class CarouselItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      salePrice: null,
+      // salePrice: null,
       photo: '',
       currentProduct: {},
+      avgRating: 0,
     };
     this.setStorage = this.setStorage.bind(this);
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
     this.clickRoute = this.clickRoute.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.apiCall = this.apiCall.bind(this);
   }
 
   componentDidMount() {
-    if (!this.props.addCard) {
-      axios({
-        method: 'get',
-        url: '/api/product/styles',
-        params: {
-          product_id: this.props.product.id,
-        },
-      })
-        .then((styles) => {
-          if (styles.data.results !== undefined) {
-            const salePrice = styles.data.results[0].sale_price;
-            const photo = styles.data.results[0].photos[0].thumbnail_url;
-            // const { name } = styles.data.results[0];
-            this.setState({
-              salePrice,
-              photo,
-              // name,
-            });
-          }
-        });
-    }
-    axios({
-      method: 'get',
-      url: '/api/product',
-      params: {
-        product_id: this.props.id,
-      },
-    })
-      .then((product) => {
-        this.setState({
-          currentProduct: product.data,
-          // finished: true,
-        });
-      });
+    this.apiCall();
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.product.id !== prevProps.product.id) {
-  //     axios({
-  //       method: 'get',
-  //       url: '/api/product/styles',
-  //       params: {
-  //         product_id: this.props.product.id,
-  //       },
-  //     })
-  //       .then((styles) => {
-  //         const salePrice = styles.data.results[0].sale_price;
-  //         const photo = styles.data.results[0].photos[0].thumbnail_url;
-  //         // const { name } = styles.data.results[0];
-  //         this.setState({
-  //           salePrice,
-  //           photo,
-  //           // name,
-  //         });
-  //       });
-  //   }
-  // }
 
   handleClick(e) {
     e.preventDefault();
@@ -113,6 +62,64 @@ class CarouselItem extends React.Component {
       localStorage.setItem('myOutfit', JSON.stringify(outfit));
       this.props.render();
     }
+  }
+
+  apiCall() {
+    if (!this.props.addCard) {
+      axios({
+        method: 'get',
+        url: '/api/product/styles',
+        params: {
+          product_id: this.props.product.id,
+        },
+      })
+        .then((styles) => {
+          if (styles.data.results !== undefined) {
+            const salePrice = styles.data.results[0].sale_price;
+            const photo = styles.data.results[0].photos[0].thumbnail_url;
+            // const { name } = styles.data.results[0];
+            this.setState({
+              // salePrice,
+              photo,
+              // name,
+            });
+          }
+        })
+        .catch(() => {
+        });
+
+      axios.get('/api/product/reviews', {
+        params: {
+          product_id: this.props.product.id,
+        },
+      })
+        .then((results) => {
+          let avgRating = 0;
+          results.data.results.forEach((review) => {
+            avgRating += review.rating;
+          });
+          avgRating /= results.data.results.length;
+          avgRating = Math.floor(avgRating / 0.25) * 0.25;
+          this.setState({ avgRating });
+        })
+        .catch(() => {
+        });
+    }
+    axios({
+      method: 'get',
+      url: '/api/product',
+      params: {
+        product_id: this.props.id,
+      },
+    })
+      .then((product) => {
+        this.setState({
+          currentProduct: product.data,
+          // finished: true,
+        });
+      })
+      .catch(() => {
+      });
   }
 
   removeItemFromStorage() {
@@ -212,22 +219,12 @@ class CarouselItem extends React.Component {
         );
       }
 
-      let price;
-      if (this.state.salePrice === null) {
-        price = (
-          <Price>
-            $
-            {this.props.product.default_price}
-          </Price>
-        );
-      } else {
-        price = (
-          <Price>
-            $
-            {this.state.salePrice}
-          </Price>
-        );
-      }
+      const price = (
+        <Price>
+          $
+          {this.props.product.default_price}
+        </Price>
+      );
 
       card = (
         <Wrapper className="card">
@@ -250,7 +247,7 @@ class CarouselItem extends React.Component {
           { modal }
           {price}
           <Stars>
-            Stars
+            <Star rating={this.state.avgRating} size="15px" />
           </Stars>
         </Wrapper>
       );
