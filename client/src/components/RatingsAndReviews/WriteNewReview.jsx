@@ -9,16 +9,21 @@ class WriteNewReview extends React.Component {
     this.state = {
       show: false,
     };
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
 
   }
 
+  handleClose() {
+    this.setState({ show: false });
+  }
+
   render() {
     return (
       <div>
-        {this.state.show ? <Modal />
+        {this.state.show ? <Modal handleClose={this.handleClose} />
           : (
             <button type="button" onClick={() => this.setState({ show: true })}>
               New Review

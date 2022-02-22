@@ -1,6 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+  Link,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 class CarouselItem extends React.Component {
@@ -51,31 +58,32 @@ class CarouselItem extends React.Component {
       .then((product) => {
         this.setState({
           currentProduct: product.data,
+          // finished: true,
         });
       });
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.product.id !== prevProps.product.id) {
-      axios({
-        method: 'get',
-        url: '/api/product/styles',
-        params: {
-          product_id: this.props.product.id,
-        },
-      })
-        .then((styles) => {
-          const salePrice = styles.data.results[0].sale_price;
-          const photo = styles.data.results[0].photos[0].thumbnail_url;
-          // const { name } = styles.data.results[0];
-          this.setState({
-            salePrice,
-            photo,
-            // name,
-          });
-        });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.product.id !== prevProps.product.id) {
+  //     axios({
+  //       method: 'get',
+  //       url: '/api/product/styles',
+  //       params: {
+  //         product_id: this.props.product.id,
+  //       },
+  //     })
+  //       .then((styles) => {
+  //         const salePrice = styles.data.results[0].sale_price;
+  //         const photo = styles.data.results[0].photos[0].thumbnail_url;
+  //         // const { name } = styles.data.results[0];
+  //         this.setState({
+  //           salePrice,
+  //           photo,
+  //           // name,
+  //         });
+  //       });
+  //   }
+  // }
 
   handleClick(e) {
     e.preventDefault();
@@ -122,6 +130,9 @@ class CarouselItem extends React.Component {
   }
 
   render() {
+    // if (!this.state.finished) {
+    //   return <div />;
+    // }
     let card;
     let modal;
     let featureArray;
@@ -167,11 +178,11 @@ class CarouselItem extends React.Component {
                   }
                 });
                 return (
-                  <tr>
+                  <TR2>
                     <td>{productFeature}</td>
                     <td>{feature}</td>
                     <td>{currentProductFeature}</td>
-                  </tr>
+                  </TR2>
                 );
               })}
             </Table>
@@ -220,15 +231,23 @@ class CarouselItem extends React.Component {
 
       card = (
         <Wrapper className="card">
-          <Image photo={this.state.photo} onClick={this.clickRoute} />
+          <ImageLink>
+            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace>
+              <Image photo={this.state.photo} onClick={this.clickRoute} />
+            </Link>
+          </ImageLink>
           {actionButton}
-          { modal }
-          <Name onClick={this.clickRoute}>
-            {this.props.product.name}
-          </Name>
+          <NameLink>
+            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace>
+              <Name onClick={this.clickRoute}>
+                {this.props.product.name}
+              </Name>
+            </Link>
+          </NameLink>
           <Category onClick={this.clickRoute}>
             {this.props.product.category}
           </Category>
+          { modal }
           {price}
           <Stars>
             Stars
@@ -240,10 +259,27 @@ class CarouselItem extends React.Component {
     return (
       <div>
         { card }
+        {/*
+        <Routes>
+          <Route exact path="products/:id" element={<DisplayApp />} />
+        </Routes> */}
       </div>
     );
   }
 }
+
+const NameLink = styled.div`
+  grid-column: 1/-1;
+  grid-row: 6;
+  &: hover {
+    cursor: pointer;
+  }
+`;
+
+const ImageLink = styled.div`
+  grid-column: 1/-1;
+  grid-row: 1/5;
+`;
 
 const AddCard = styled.div`
   width: 150px;
@@ -316,9 +352,6 @@ export const Name = styled.div`
 export const Category = styled.div`
   grid-column: 1/-1;
   grid-row: 7;
-  &: hover {
-    cursor: pointer;
-  }
 `;
 
 export const Price = styled.div`
@@ -387,7 +420,15 @@ const Table = styled.table`
 
 const TR = styled.tr`
   border: 1px solid white;
+  font-size: small;
+  color: white;
 `;
+
+const TR2 = styled.tr`
+  font-size: small;
+  color: white;
+`;
+
 // const StrikeThrough = styled.Text`
 //     text-decoration: line-through;
 // `;
