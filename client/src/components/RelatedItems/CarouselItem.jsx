@@ -10,6 +10,7 @@ import {
   Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import Star from '../RatingsAndReviews/ReviewStars';
 
 class CarouselItem extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class CarouselItem extends React.Component {
       salePrice: null,
       photo: '',
       currentProduct: {},
+      avgRating: 0,
     };
     this.setStorage = this.setStorage.bind(this);
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
@@ -50,6 +52,23 @@ class CarouselItem extends React.Component {
         })
         .catch(() => {
         });
+
+      axios.get('/api/product/reviews', {
+        params: {
+          product_id: this.props.product.id,
+        },
+      })
+        .then((results) => {
+          let avgRating = 0;
+          results.data.results.forEach((review) => {
+            avgRating += review.rating;
+          });
+          avgRating /= results.data.results.length;
+          avgRating = Math.floor(avgRating / 0.25) * 0.25;
+          this.setState({ avgRating });
+        })
+        .catch(() => {
+        });
     }
     axios({
       method: 'get',
@@ -67,28 +86,6 @@ class CarouselItem extends React.Component {
       .catch(() => {
       });
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.product.id !== prevProps.product.id) {
-  //     axios({
-  //       method: 'get',
-  //       url: '/api/product/styles',
-  //       params: {
-  //         product_id: this.props.product.id,
-  //       },
-  //     })
-  //       .then((styles) => {
-  //         const salePrice = styles.data.results[0].sale_price;
-  //         const photo = styles.data.results[0].photos[0].thumbnail_url;
-  //         // const { name } = styles.data.results[0];
-  //         this.setState({
-  //           salePrice,
-  //           photo,
-  //           // name,
-  //         });
-  //       });
-  //   }
-  // }
 
   handleClick(e) {
     e.preventDefault();
@@ -255,7 +252,7 @@ class CarouselItem extends React.Component {
           { modal }
           {price}
           <Stars>
-            Stars
+            <Star rating={this.state.avgRating} size="15px" />
           </Stars>
         </Wrapper>
       );

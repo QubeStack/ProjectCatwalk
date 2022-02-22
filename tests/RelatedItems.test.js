@@ -1,9 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-
+/* eslint-disable function-paren-newline */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -36,18 +37,20 @@ afterEach(() => {
 
 it('renders a CarouselItem into the document', () => {
   act(() => {
-    render(<Router>
-      <CarouselItem product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} />
-    </Router>, container);
+    render(
+      <Router>
+        <CarouselItem product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} />
+      </Router>, container);
   });
   expect(container.getElementsByClassName('card')[0]).toBeDefined();
 });
 
 it('renders multiple CarouselItems into the document', () => {
   act(() => {
-    render(<Router>
-      <MultiDisplayCarousel products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
-    </Router>, container);
+    render(
+      <Router>
+        <MultiDisplayCarousel products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
+      </Router>, container);
   });
   expect(container.getElementsByClassName('card').length).toBe(2);
 });
