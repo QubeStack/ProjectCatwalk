@@ -46,6 +46,8 @@ class CarouselItem extends React.Component {
               // name,
             });
           }
+        })
+        .catch((error) => {
         });
     }
     axios({
@@ -60,6 +62,8 @@ class CarouselItem extends React.Component {
           currentProduct: product.data,
           // finished: true,
         });
+      })
+      .catch((error) => {
       });
   }
 
