@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable function-paren-newline */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-undef */
