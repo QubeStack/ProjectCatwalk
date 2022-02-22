@@ -5,6 +5,7 @@ import axios from 'axios';
 // import Loader from '../Loader';
 import ImageGallery from './components/ImageGallery';
 import ProductInformation from './components/ProductInformation';
+import CarouselItem from '../RelatedItems/CarouselItem';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -25,14 +26,17 @@ class Overview extends React.Component {
       selectedStyle: [],
       stylePhotos: [],
       styleThumbnails: [],
+      favorited: false,
     };
 
     this.getProducts = this.getProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
+    this.checkFav = this.checkFav.bind(this);
+    this.addFav = this.addFav.bind(this);
+    this.removeFav = this.removeFav.bind(this);
   }
-
 
   componentDidMount() {
     this.getProducts();
@@ -43,6 +47,7 @@ class Overview extends React.Component {
     axios.get('/api/product', { params: { product_id: id } })
       .then((results) => {
         this.getStyles(results.data.id);
+        this.checkFav(results.data);
         this.setState({ product: results.data });
         //  console.log(productIDs);
       });
@@ -78,8 +83,49 @@ class Overview extends React.Component {
         photosArray.push(style[i].url);
       }
       this.setState({
-        styleThumbnails: thumbnailArray, stylePhotos: photosArray
+        styleThumbnails: thumbnailArray, stylePhotos: photosArray,
       });
+    }
+  }
+
+  checkFav(product) {
+    const outfit = JSON.parse(localStorage.myOutfit);
+    for (let i = 0; i < outfit.length; i += 1) {
+      if (outfit[i].id === product.id) {
+        this.setState({ favorited: true });
+      }
+    }
+  }
+
+  addFav() {
+    const { product } = this.state;
+    if (product) {
+      if (localStorage.getItem('myOutfit') === null) {
+        localStorage.setItem('myOutfit', JSON.stringify([product]));
+      } else {
+        let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+        if (!Array.isArray(outfit)) {
+          outfit = [outfit];
+        }
+        if (outfit.every((item) => item.id !== product.id)) {
+          outfit.push(product);
+        }
+        localStorage.setItem('myOutfit', JSON.stringify(outfit));
+        this.setState({ favorited: true });
+      }
+    }
+  }
+
+  removeFav() {
+    const { product } = this.state;
+    if (product) {
+      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+      if (!Array.isArray(outfit)) {
+        outfit = [outfit];
+      }
+      const newOutfit = outfit.filter((item) => item.id !== product.id);
+      localStorage.setItem('myOutfit', JSON.stringify(newOutfit));
+      this.setState({ favorited: false });
     }
   }
 
@@ -94,6 +140,7 @@ class Overview extends React.Component {
 
   render() {
     const {
+      favorited,
       product,
       selectedStyle,
       styles,
@@ -117,6 +164,9 @@ class Overview extends React.Component {
               changeStyle={this.changeStyle}
               scroll={scroll}
               id={id}
+              favorited={favorited}
+              addFav={this.addFav}
+              removeFav={this.removeFav}
             />
           </>
         ) : null}

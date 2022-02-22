@@ -16,7 +16,8 @@ const Add = styled.button`
 
 const Fav = styled.button`
   border-color: #1F513F;
-  background-color: white;
+  background-color:  white;
+  color: ${({ favorited }) => (favorited ? 'gold' : '#1F513F')};
   border-radius: 12px;
   &:hover{
     cursor: pointer;
@@ -34,6 +35,8 @@ class AddToCart extends React.Component {
       currentSize: 'Select Size',
       currentQuantity: null,
       sizeSelected: true,
+      // favorited: false,
+      count: 0,
     };
 
     this.getSkus = this.getSkus.bind(this);
@@ -46,10 +49,15 @@ class AddToCart extends React.Component {
 
   componentDidUpdate(previousprops) {
     if (previousprops !== this.props) {
-      const { selectedStyle } = this.props;
+      const { selectedStyle, product } = this.props;
       this.getSkus(selectedStyle);
     }
   }
+
+  // componentDidMount() {
+  //   const { selectedStyle, product } = this.props;
+  //   this.getSkus(selectedStyle);
+  // }
 
   handleCart() {
     const {
@@ -114,6 +122,12 @@ class AddToCart extends React.Component {
     const {
       skus, currentSku, quantity, noStock, currentSize, sizeSelected,
     } = this.state;
+    const {
+      product,
+      favorited,
+      addFav,
+      removeFav,
+    } = this.props;
     const size = [];
     for (let i = 1; i <= quantity; i += 1) {
       size.push(i);
@@ -121,6 +135,10 @@ class AddToCart extends React.Component {
     let disabled = true;
     if (currentSku.length > 0) {
       disabled = false;
+    }
+    let handleFav = addFav;
+    if (favorited) {
+      handleFav = removeFav;
     }
     return (
       <StyledCart>
@@ -139,8 +157,8 @@ class AddToCart extends React.Component {
             <select
               onChange={this.changeSku}
               disabled={noStock}
-              size={6}
-              ref={this.myRef}
+              size={size}
+              // ref={this.myRef}
             >
               <option value="Select Size">Select Size</option>
               {skus.map((sku, i) => (
@@ -158,7 +176,7 @@ class AddToCart extends React.Component {
           ))}
         </select>
         {!noStock ? <Add type="button" onClick={this.handleCart}>Add To Cart</Add> : null}
-        <Fav type="button">&#9733;</Fav>
+        <Fav type="button" onClick={() => { handleFav(); }} favorited={favorited}>&#9734;</Fav>
       </StyledCart>
     );
   }
