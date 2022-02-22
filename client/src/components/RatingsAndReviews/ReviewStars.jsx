@@ -7,7 +7,7 @@ display: flex;
 
 const Star = styled.span`
   color: #a6a6a6;
-  font-size: 24px;
+  font-size: ${props => props.size ? props.size : "24px"};
   position: relative;
   margin-bottom: 5px;
   &:before {
@@ -41,22 +41,22 @@ class ReviewStars extends React.Component {
     const stars = [];
     for (let i = 5; i > 0; i -= 1) {
       if (rating >= 1) {
-        stars.push(<Star />);
+        stars.push(<Star size={this.props.size} />);
         rating -= 1;
       } else if (rating < 1 && rating > 0) {
         if (rating > 0.75) {
-          stars.push(<Star />);
+          stars.push(<Star size={this.props.size} />);
         } else if (rating > 0.5 || rating === 0.75) {
-          stars.push(<Star threeforths />);
+          stars.push(<Star size={this.props.size} threeforths />);
         } else if (rating > 0.25 || rating === 0.5) {
-          stars.push(<Star half />);
+          stars.push(<Star size={this.props.size} half />);
         } else if (rating > 0 || rating === 0.25) {
-          stars.push(<Star quarter />);
+          stars.push(<Star size={this.props.size} quarter />);
         }
         // stars.push(<Star width={rating * 100} />);
         rating = 0;
       } else if (rating === 0) {
-        stars.push(<Star empty />);
+        stars.push(<Star size={this.props.size} empty />);
       }
     }
     return (
