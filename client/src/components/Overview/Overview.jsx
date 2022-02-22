@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-
-// import Loader from '../Loader';
 import ImageGallery from './components/ImageGallery';
 import ProductInformation from './components/ProductInformation';
-import CarouselItem from '../RelatedItems/CarouselItem';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -21,15 +17,15 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      product: [],
-      styles: [],
+      // product: [],
+      // styles: [],
       selectedStyle: [],
       stylePhotos: [],
       styleThumbnails: [],
       favorited: false,
     };
 
-    this.getProducts = this.getProducts.bind(this);
+    // this.getProducts = this.getProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
@@ -38,40 +34,51 @@ class Overview extends React.Component {
     this.removeFav = this.removeFav.bind(this);
   }
 
-  componentDidMount() {
-    this.getProducts();
+  // componentDidMount() {
+  //   this.getProducts();
+  // }
+
+  componentDidUpdate(previousprops) {
+    if (previousprops !== this.props) {
+      const { product, styles } = this.props;
+      // this.getReview(reviews);
+      if (styles) {
+        //this.getPhotos(styles[0]);
+        this.getStyles(styles);
+        this.checkFav(product);
+      }
+    }
   }
 
-  getProducts() {
-    const { id } = this.props;
-    axios.get('/api/product', { params: { product_id: id } })
-      .then((results) => {
-        this.getStyles(results.data.id);
-        this.checkFav(results.data);
-        this.setState({ product: results.data });
-        //  console.log(productIDs);
-      });
-  }
+  // getProducts() {
+  //   const { id } = this.props;
+  //   axios.get('/api/product', { params: { product_id: id } })
+  //     .then((results) => {
+  //       this.getStyles(results.data.id);
+  //       this.checkFav(results.data);
+  //       this.setState({ product: results.data });
+  //     });
+  // }
 
-  getStyles(id) {
-    axios({
-      method: 'get',
-      url: '/api/product/styles',
-      params: {
-        product_id: id,
-      },
-    })
-      .then((response) => {
-        const stylesArray = response.data.results;
-        const defaultStyle = stylesArray[0];
+  getStyles(styles) {
+    // axios({
+    //   method: 'get',
+    //   url: '/api/product/styles',
+    //   params: {
+    //     product_id: id,
+    //   },
+    // })
+    //   .then((response) => {
+        //const stylesArray = response.data.results;
+        const defaultStyle = styles[0];
         this.setState({
-          styles: stylesArray, selectedStyle: defaultStyle,
+          selectedStyle: defaultStyle,
         });
         const { selectedStyle } = this.state;
         if (selectedStyle) {
           this.getPhotos(selectedStyle.photos);
         }
-      });
+      // });
   }
 
   getPhotos(style) {
@@ -98,7 +105,7 @@ class Overview extends React.Component {
   }
 
   addFav() {
-    const { product } = this.state;
+    const { product } = this.props;
     if (product) {
       if (localStorage.getItem('myOutfit') === null) {
         localStorage.setItem('myOutfit', JSON.stringify([product]));
@@ -117,7 +124,7 @@ class Overview extends React.Component {
   }
 
   removeFav() {
-    const { product } = this.state;
+    const { product } = this.props;
     if (product) {
       let outfit = JSON.parse(localStorage.getItem('myOutfit'));
       if (!Array.isArray(outfit)) {
@@ -141,14 +148,12 @@ class Overview extends React.Component {
   render() {
     const {
       favorited,
-      product,
       selectedStyle,
-      styles,
       styleThumbnails,
       stylePhotos,
     } = this.state;
 
-    const { scroll, id } = this.props;
+    const { scroll, id, reviews, product, styles } = this.props;
 
     // const renderLoader = () => <StyledLoader>Loading...</StyledLoader>;
 
@@ -167,6 +172,7 @@ class Overview extends React.Component {
               favorited={favorited}
               addFav={this.addFav}
               removeFav={this.removeFav}
+              reviews={reviews}
             />
           </>
         ) : null}

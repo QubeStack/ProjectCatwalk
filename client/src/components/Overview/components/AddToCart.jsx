@@ -99,9 +99,16 @@ class AddToCart extends React.Component {
 
   changeSku(e) {
     e.preventDefault();
-    const { skus } = this.state;
+    const { skus, currentSize } = this.state;
     const selected = skus[e.target.value];
-    if (selected) {
+    if (e.target.value === 'Select Size') {
+      this.setState({
+        currentSku: [],
+        quantity: [],
+        currentSize: 'Select Size',
+        sizeSelected: true,
+      });
+    } else {
       const amount = selected[1].quantity;
       const { size } = selected[1];
       this.setState({
@@ -144,7 +151,7 @@ class AddToCart extends React.Component {
       <StyledCart>
         {sizeSelected ? (
           <select onChange={this.changeSku} disabled={noStock} selected={currentSize}>
-            <option value="Select Size">Select Size</option>
+            <option value={'Select Size'}>Select Size</option>
             {skus.map((sku, i) => (
               sku[1].quantity > 0 ? (
                 <option value={i}>{sku[1].size}</option>
@@ -157,7 +164,7 @@ class AddToCart extends React.Component {
             <select
               onChange={this.changeSku}
               disabled={noStock}
-              size={size}
+              size={2}
               // ref={this.myRef}
             >
               <option value="Select Size">Select Size</option>

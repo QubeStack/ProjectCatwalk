@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import facebook from '../icons/iconmonstr-facebook-4-24.png';
 import twitter from '../icons/iconmonstr-twitter-4-24.png';
 import pinterest from '../icons/iconmonstr-pinterest-1-24.png';
@@ -80,28 +79,19 @@ class ProductInformation extends React.Component {
     this.getReview = this.getReview.bind(this);
   }
 
-  componentDidMount() {
-    const { id } = this.props;
-    if (id) {
-      this.getReview(id);
+  componentDidUpdate(previousprops) {
+    if (previousprops !== this.props) {
+      const { reviews } = this.props;
+      this.getReview(reviews);
     }
   }
 
-  getReview(id) {
-    axios.get('/api/product/reviews', {
-      params: {
-        product_id: id,
-      },
-    })
-      .then((results) => {
-        let avgRating = 0;
-        results.data.results.map((review) => avgRating += review.rating);
-        avgRating /= results.data.results.length;
-        avgRating = Math.floor(avgRating / 0.25) * 0.25;
-        console.log(avgRating);
-        console.log(results.data.results);
-        this.setState({ reviews: results.data.results.length, avgRating });
-      });
+  getReview(reviews) {
+    let avgRating = 0;
+    reviews.map((review) => avgRating += review.rating);
+    avgRating /= reviews.length;
+    avgRating = Math.floor(avgRating / 0.25) * 0.25;
+    this.setState({ reviews: reviews.length, avgRating });
   }
 
   render() {
@@ -120,7 +110,7 @@ class ProductInformation extends React.Component {
               </RatingsContainer>
             ) : (
               <RatingsContainer>
-                <Stars rating={avgRating} />
+                <Stars rating={avgRating} size={16} />
                 <ReviewLink role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { scroll(); }} style={{ textDecoration: 'underline' }}>
                   Read all {reviews} reviews
                 </ReviewLink>
