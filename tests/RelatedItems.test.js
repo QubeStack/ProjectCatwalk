@@ -17,6 +17,7 @@ import {
 import { act } from 'react-dom/test-utils';
 
 import CarouselItem from '../client/src/components/RelatedItems/CarouselItem';
+import MultiDisplayCarousel from '../client/src/components/RelatedItems/MultiDisplayCarousel';
 
 let container;
 
@@ -40,4 +41,13 @@ it('renders a CarouselItem into the document', () => {
     </Router>, container);
   });
   expect(container.getElementsByClassName('card')[0]).toBeDefined();
+});
+
+it('renders multiple CarouselItems into the document', () => {
+  act(() => {
+    render(<Router>
+      <MultiDisplayCarousel products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
+    </Router>, container);
+  });
+  expect(container.getElementsByClassName('card').length).toBe(2);
 });
