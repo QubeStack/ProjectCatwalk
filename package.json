@@ -6,7 +6,7 @@
   "scripts": {
     "react-dev": "webpack --watch",
     "server-dev": "npx nodemon server/index.js",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
