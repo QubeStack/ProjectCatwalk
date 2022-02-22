@@ -126,7 +126,7 @@ class QAListEntry extends React.Component {
       method: 'get',
       url: '/api/product/questions/answers',
       params: {
-        product_id: question_id,
+        question_id,
       },
     })
       .then((response) => {
@@ -203,7 +203,7 @@ class QAListEntry extends React.Component {
       method: 'get',
       url: '/api/product/questions/answers',
       params: {
-        product_id: question_id,
+        question_id,
       },
     })
       .then((response) => {
@@ -281,8 +281,8 @@ class QAListEntry extends React.Component {
                 helpful={answer.helpfulness}
                 photos={answer.photos}
                 username={answer.answerer_name}
-                handle={this.handleHelpfulA}
                 question_id={question_id}
+                handle={this.handleHelpfulA}
                 reRender={reRender}
               />
             ))}
@@ -319,6 +319,9 @@ class QAListEntry extends React.Component {
               helpful={answer.helpfulness}
               photos={answer.photos}
               username={answer.answerer_name}
+              question_id={question_id}
+              handle={this.handleHelpfulA}
+              reRender={reRender}
             />
           ))}
         </AnswersDiv>

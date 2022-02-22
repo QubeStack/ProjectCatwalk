@@ -179,7 +179,6 @@ class AddAnswer extends React.Component {
     const {
       answer, nickname, email, question_id,
     } = this.state;
-    console.log(question_id);
     axios({
       method: 'post',
       url: '/api/product/questions/answers',
@@ -192,8 +191,11 @@ class AddAnswer extends React.Component {
         email,
       },
     })
-      .then((response) => {
+      .then(() => {
         reRender();
+      })
+      .catch((error) => {
+        console.log(error);
       });
     this.setState({
       showModal: false,
