@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -16,7 +17,7 @@ function DisplayApp() {
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/:id" element={<DisplayApp />} />
+      <Route exact path="/products/:id" element={<DisplayApp />} />
     </Routes>
   </Router>,
   document.getElementById('app'),

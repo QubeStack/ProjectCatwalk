@@ -31,7 +31,7 @@ class App extends React.Component {
         <Overview id={id} scroll={this.scrollTo} />
         <RatingsAndReviews setRef={(el) => (this.ratingsRef = el)} />
         <QABody id={id} />
-        <RelatedItems id={id} />
+        <RelatedItems key={id} id={id} />
       </div>
     );
   }
