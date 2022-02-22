@@ -116,8 +116,8 @@ class QAListEntry extends React.Component {
     this.handleHelpfulA = this.handleHelpfulA.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.reRenderView = this.reRenderView.bind(this);
-    // this.handleAddAnswer = this.handleAddAnswer.bind(this);
     this.handleReport = this.handleReport.bind(this);
+    this.findSeller = this.findSeller.bind(this);
   }
 
   componentDidMount() {
@@ -133,6 +133,9 @@ class QAListEntry extends React.Component {
         this.setState({
           answers: response.data.results,
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -156,6 +159,9 @@ class QAListEntry extends React.Component {
           disabledQ: true,
           helpful: helpful + 1,
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -194,6 +200,9 @@ class QAListEntry extends React.Component {
       })
       .then(() => {
         this.reRenderView();
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -210,7 +219,20 @@ class QAListEntry extends React.Component {
         this.setState({
           answers: response.data.results,
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
+  }
+
+  findSeller(a, b) {
+    if (a.answerer_name === 'Seller' && b.answerer_name !== 'Seller') {
+      return -1;
+    }
+    if (a.answerer_name !== 'Seller' && b.answerer_name === 'Seller') {
+      return 1;
+    }
+    return 0;
   }
 
   render() {
@@ -219,6 +241,7 @@ class QAListEntry extends React.Component {
     const {
       answers, disabled, helpful, count, reported,
     } = this.state;
+    answers.sort(this.findSeller);
     let reportText = 'Report';
     if (reported) {
       reportText = 'Reported';
