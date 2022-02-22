@@ -54,3 +54,13 @@ it('renders multiple CarouselItems into the document', () => {
   });
   expect(container.getElementsByClassName('card').length).toBe(2);
 });
+
+it('renders multiple CarouselItems into the document', () => {
+  act(() => {
+    render(
+      <Router>
+        <MultiDisplayCarousel products={[{ name: 'air force 1', category: 'shoes', default_price: 90 }, { name: 'summer shoes', category: 'shoes', default_price: 110 }]} />
+      </Router>, container);
+  });
+  expect(container.getElementsByClassName('card').length).toBe(2);
+});
