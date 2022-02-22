@@ -197,6 +197,9 @@ class AskQuestion extends React.Component {
     })
       .then(() => {
         reRender();
+      })
+      .catch((error) => {
+        console.log(error);
       });
     this.setState({
       showModal: false,

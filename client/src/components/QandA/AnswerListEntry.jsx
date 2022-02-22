@@ -84,7 +84,13 @@ class AnswerListEntry extends React.Component {
         })
           .then((response) => {
             handle(response.data.results);
+          })
+          .catch((error) => {
+            console.log(error);
           });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -106,6 +112,9 @@ class AnswerListEntry extends React.Component {
         this.setState({
           reported: true,
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 

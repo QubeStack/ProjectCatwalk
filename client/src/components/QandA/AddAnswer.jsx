@@ -111,6 +111,14 @@ const EmailLabel = styled.label`
   padding-left: 10px;
 `;
 
+const PhotoLabel = styled.label`
+
+`;
+
+const PhotoField = styled.input`
+
+`;
+
 const ModalSubmit = styled.input`
   grid-row-start: 5;
   grid-column-start: 1;
@@ -238,6 +246,10 @@ class AddAnswer extends React.Component {
                   <EmailField type="text" value={email} placeholder="Example: jack@email.com" name="email" onChange={this.handleChange} />
                   <FormText>For authentication reasons, you will not be emailed.</FormText>
                 </EmailLabel>
+                <PhotoLabel>
+                  Add a photo:
+                  <PhotoField type="file" />
+                </PhotoLabel>
                 <ModalSubmit type="submit" value="Submit" />
               </ModalForm>
             </Content>
