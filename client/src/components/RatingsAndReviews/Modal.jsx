@@ -125,7 +125,7 @@ class Modal extends React.Component {
   render() {
     return (
       <>
-        <Body />
+        <Body className="modal" />
         <ModalBody>
           <PushRight>
             <H2 type="button" onClick={this.props.handleClose}>[X]</H2>

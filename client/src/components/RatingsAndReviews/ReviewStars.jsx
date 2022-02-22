@@ -60,7 +60,7 @@ class ReviewStars extends React.Component {
       }
     }
     return (
-      <Inline>
+      <Inline className="stars">
         {stars}
       </Inline>
     );

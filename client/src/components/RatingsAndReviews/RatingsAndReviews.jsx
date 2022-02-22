@@ -91,7 +91,7 @@ class RatingsAndReviews extends React.Component {
   render() {
     return (
       <>
-        <Inline ref={this.props.setRef}>
+        <Inline ref={this.props.setRef} className="ratingsAndReviews">
           <Border>
             <RatingBreakdown reviews={this.state.reviews} />
             <ProductBreakdown meta={this.state.meta} />

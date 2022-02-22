@@ -89,7 +89,7 @@ class RatingBreakdown extends React.Component {
     const ratingSummary = this.AverageRating(this.props.reviews);
     return (
       <>
-        <BigText>
+        <BigText className="ratingBreakdown">
           <Stars rating={ratingSummary.rating / totalReviews} />
           <div>{ratingSummary.rating / totalReviews}</div>
         </BigText>
