@@ -72,7 +72,7 @@ class ProductInformation extends React.Component {
     super(props);
 
     this.state = {
-      products: [],
+      // products: [],
       reviews: null,
       avgRating: null,
     };
@@ -106,20 +106,26 @@ class ProductInformation extends React.Component {
 
   render() {
     const {
-      product, styles, selectedStyle, changeStyle, scroll,
+      product, styles, selectedStyle, changeStyle, scroll, favorited, addFav, removeFav,
     } = this.props;
     const { reviews, avgRating } = this.state;
     return (
       <ProductContainer>
         {product && styles && selectedStyle && changeStyle ? (
           <>
-            <RatingsContainer>
-              {/* <Info>⭐⭐⭐⭐⭐</Info> */}
-              <Stars rating={avgRating} />
-              <ReviewLink role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { scroll(); }} style={{ textDecoration: 'underline' }}>
-                Read all {reviews} reviews
-              </ReviewLink>
-            </RatingsContainer>
+            {reviews <= 0 ? (
+              <RatingsContainer>
+                <div />
+                <div />
+              </RatingsContainer>
+            ) : (
+              <RatingsContainer>
+                <Stars rating={avgRating} />
+                <ReviewLink role="link" tabIndex="0" onKeyDown={this.handleKeyDown} onClick={() => { scroll(); }} style={{ textDecoration: 'underline' }}>
+                  Read all {reviews} reviews
+                </ReviewLink>
+              </RatingsContainer>
+            )}
             <Info>
               Category
               /
@@ -147,7 +153,13 @@ class ProductInformation extends React.Component {
               selectedStyle={selectedStyle}
               changeStyle={changeStyle}
             />
-            <AddToCart selectedStyle={selectedStyle} />
+            <AddToCart
+              selectedStyle={selectedStyle}
+              product={product}
+              favorited={favorited}
+              addFav={addFav}
+              removeFav={removeFav}
+            />
           </>
         ) : null }
       </ProductContainer>
