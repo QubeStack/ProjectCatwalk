@@ -49,11 +49,6 @@ const PictureContainer = styled.div`
   animation-name: ${({ zoomed, firstClick }) => (firstClick ? (zoomed ? expand : contract) : 'none')};
   animation-duration: 1.5s;`;
 
-const ImageWrapper = styled.div`
-  width: 70vw;
-  height: 88%;
-  position: relative;`;
-
 const MainImage = styled.img`
 
   position: absolute;
@@ -109,7 +104,6 @@ class ImageGallery extends React.Component {
   handleClick(e) {
     let { index } = this.state;
     const words = e.target.className.split(' ');
-    // alert(words[(words.length -1)]);
     if (words[(words.length - 1)] === 'previous') {
       this.setState({ index: index -= 1 });
     } else if (words[(words.length - 1)] === 'next') {
