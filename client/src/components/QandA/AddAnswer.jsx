@@ -42,18 +42,18 @@ const Content = styled.div`
   background-color: #f4f2ed;
   margin: auto;
   border: 1px solid black;
-  width: 80%;
+  width: 50%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: 5% 70% 10% 10% 5%;
+  color:black;
 `;
 
 const ModalHeader = styled.div`
   grid-column-start: 1;
   grid-column-end: 4;
-  background-color: black;
-  color: white;
-  align-self: start;
+  background-color: #f4f2ed;
+  align-self: center;
 `;
 
 const CloseButton = styled.span`
@@ -112,11 +112,11 @@ const EmailLabel = styled.label`
 `;
 
 const PhotoLabel = styled.label`
-
+  margin-left: 10px;
 `;
 
 const PhotoField = styled.input`
-
+  padding: 10px;
 `;
 
 const ModalSubmit = styled.input`
@@ -217,6 +217,7 @@ class AddAnswer extends React.Component {
     const {
       showModal, answer, nickname, email,
     } = this.state;
+    const { question, product } = this.props;
     if (showModal) {
       return (
         <AskDiv>
@@ -226,7 +227,10 @@ class AddAnswer extends React.Component {
           <Modal className="modal">
             <Content>
               <ModalHeader>
-                Submit your Answer - Product Name: Question Body
+                Submit your Answer -&nbsp;
+                {product}
+                :&nbsp;
+                { question }
               </ModalHeader>
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <ModalForm onSubmit={this.handleSubmit}>

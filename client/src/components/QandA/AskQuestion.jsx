@@ -43,7 +43,7 @@ const Content = styled.div`
   background-color: #f4f2ed;
   margin: auto;
   border: 1px solid black;
-  width: 80%;
+  width: 50%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: 5% 70% 10% 10% 5%;
@@ -52,8 +52,7 @@ const Content = styled.div`
 const ModalHeader = styled.div`
   grid-column-start: 1;
   grid-column-end: 4;
-  background-color: black;
-  color: white;
+  background-color: #f4f2ed;
   align-self: start;
 `;
 
@@ -211,8 +210,9 @@ class AskQuestion extends React.Component {
 
   render() {
     const {
-      showModal, question, nickname, email, product_id,
+      showModal, question, nickname, email,
     } = this.state;
+    const { product } = this.props;
     if (showModal) {
       return (
         <AskDiv>
@@ -222,8 +222,8 @@ class AskQuestion extends React.Component {
           <Modal className="modal">
             <Content>
               <ModalHeader>
-                Ask Your Question - About the Product ID&nbsp;
-                {product_id}
+                Ask Your Question - About the&nbsp;
+                {product}
               </ModalHeader>
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <ModalForm onSubmit={this.handleSubmit}>

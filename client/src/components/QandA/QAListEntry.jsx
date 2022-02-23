@@ -237,7 +237,9 @@ class QAListEntry extends React.Component {
 
   render() {
     let AnswersDiv;
-    const { question, question_id, reRender } = this.props;
+    const {
+      question, question_id, reRender, product_id, product,
+    } = this.props;
     const {
       answers, disabled, helpful, count, reported,
     } = this.state;
@@ -268,7 +270,7 @@ class QAListEntry extends React.Component {
             </YesButton>
           </HelpfulDiv>
           <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
-          <AddAnswer question_id={question_id} />
+          <AddAnswer product={product} question={question} reRender={this.reRenderView} product_id={product_id} question_id={question_id} />
           <AnswersDiv>
             <strong>A:&#160;</strong>
             No answers yet!
@@ -293,7 +295,7 @@ class QAListEntry extends React.Component {
             </YesButton>
           </HelpfulDiv>
           <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
-          <AddAnswer reRender={this.reRenderView} question_id={question_id} />
+          <AddAnswer product={product} product_id={product_id} question={question} reRender={this.reRenderView} question_id={question_id} />
           <AnswersDiv>
             {answers.slice(0, count).map((answer) => (
               <AnswerListEntry
@@ -331,7 +333,13 @@ class QAListEntry extends React.Component {
           </YesButton>
         </HelpfulDiv>
         <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
-        <AddAnswer reRender={this.reRenderView} question_id={question_id} />
+        <AddAnswer
+          product={product}
+          product_id={product_id}
+          question={question}
+          reRender={this.reRenderView}
+          question_id={question_id}
+        />
         <AnswersDiv>
           {answers.slice(0, count).map((answer) => (
             <AnswerListEntry

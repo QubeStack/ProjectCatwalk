@@ -113,13 +113,18 @@ class QABody extends React.Component {
   }
 
   render() {
-    const { id } = this.props;
+    const { id, product } = this.props;
     const { questions } = this.state;
     return (
       <BodyDiv className="body">
         <Title className="title">Questions and Answers</Title>
         <SearchQuestions handleSubmit={this.handleSubmit} questions={questions} product_id={id} />
-        <QuestionsView reRender={this.reRender} product_id={id} questions={questions} />
+        <QuestionsView
+          product={product.name}
+          reRender={this.reRender}
+          product_id={id}
+          questions={questions}
+        />
       </BodyDiv>
     );
   }
