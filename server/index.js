@@ -61,6 +61,7 @@ app.post('/api/product/questions', (req, res) => {
       console.log(error);
     });
 });
+
 // post a new answer
 app.post('/api/product/questions/answers', (req, res) => {
   axios({

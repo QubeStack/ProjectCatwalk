@@ -306,6 +306,7 @@ class QAListEntry extends React.Component {
                 helpful={answer.helpfulness}
                 photos={answer.photos}
                 username={answer.answerer_name}
+                wholeAnswer={answer}
                 question_id={question_id}
                 handle={this.handleHelpfulA}
                 reRender={reRender}

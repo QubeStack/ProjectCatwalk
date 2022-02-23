@@ -117,12 +117,27 @@ const PhotoLabel = styled.label`
 
 const PhotoField = styled.input`
   padding: 10px;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const ModalSubmit = styled.input`
+  border-style: solid;
+  border-color: #1f513f;
   grid-row-start: 5;
   grid-column-start: 1;
   margin-left: 10px;
+  &: hover {
+    cursor: pointer;
+  }
+  background-color: white;
+  border-radius: 12px;
+  &: active {
+    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+          box-shadow: inset 0px 0px 15px #c1c1c1;
+  };
 `;
 
 const ModalForm = styled.form`
@@ -148,6 +163,7 @@ class AddAnswer extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
   }
 
   componentDidMount() {
@@ -187,6 +203,23 @@ class AddAnswer extends React.Component {
     const {
       answer, nickname, email, question_id,
     } = this.state;
+    const newEmail = this.validateEmail(email);
+    if (answer.length === 0) {
+      alert('You must enter an answer');
+      return;
+    }
+    if (nickname.length === 0) {
+      alert('You must enter a nickname');
+      return;
+    }
+    if (email.length === 0) {
+      alert('You must enter an email');
+      return;
+    }
+    if (!newEmail) {
+      alert('You must enter a valid email');
+      return;
+    }
     axios({
       method: 'post',
       url: '/api/product/questions/answers',
@@ -213,6 +246,11 @@ class AddAnswer extends React.Component {
     });
   }
 
+  validateEmail(email) {
+    const checkEmail = /\S+@\S+\.\S+/;
+    return checkEmail.test(email);
+  }
+
   render() {
     const {
       showModal, answer, nickname, email,
@@ -235,24 +273,30 @@ class AddAnswer extends React.Component {
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <ModalForm onSubmit={this.handleSubmit}>
                 <QuestionLabel>
-                  Your Answer*:
+                  Your Answer
+                  <span style={{ color: 'red' }}>*</span>
+                  :
                   <QuestionField type="text" value={answer} name="answer" placeholder="Your Answer Here" maxlength="1000" onChange={this.handleChange} />
                 </QuestionLabel>
                 <NicknameLabel>
-                  What is your nickname*:
+                  What is your nickname
+                  <span style={{ color: 'red' }}>*</span>
+                  :
                   <NicknameField type="text" value={nickname} placeholder="Example: jack543!" name="nickname" onChange={this.handleChange} />
                   <FormText>
                     For privacy reasons, do not use your full name or email address.
                   </FormText>
                 </NicknameLabel>
                 <EmailLabel>
-                  Your Email*:
+                  Your Email
+                  <span style={{ color: 'red' }}>*</span>
+                  :
                   <EmailField type="text" value={email} placeholder="Example: jack@email.com" name="email" onChange={this.handleChange} />
                   <FormText>For authentication reasons, you will not be emailed.</FormText>
                 </EmailLabel>
                 <PhotoLabel>
                   Add a photo:
-                  <PhotoField type="file" />
+                  <PhotoField type="file" onChange={this.handleFile} />
                 </PhotoLabel>
                 <ModalSubmit type="submit" value="Submit" />
               </ModalForm>
