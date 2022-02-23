@@ -17,15 +17,12 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      // product: [],
-      // styles: [],
       selectedStyle: [],
       stylePhotos: [],
       styleThumbnails: [],
       favorited: false,
     };
 
-    // this.getProducts = this.getProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
@@ -34,51 +31,25 @@ class Overview extends React.Component {
     this.removeFav = this.removeFav.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getProducts();
-  // }
-
   componentDidUpdate(previousprops) {
     if (previousprops !== this.props) {
       const { product, styles } = this.props;
-      // this.getReview(reviews);
       if (styles) {
-        //this.getPhotos(styles[0]);
         this.getStyles(styles);
         this.checkFav(product);
       }
     }
   }
 
-  // getProducts() {
-  //   const { id } = this.props;
-  //   axios.get('/api/product', { params: { product_id: id } })
-  //     .then((results) => {
-  //       this.getStyles(results.data.id);
-  //       this.checkFav(results.data);
-  //       this.setState({ product: results.data });
-  //     });
-  // }
-
   getStyles(styles) {
-    // axios({
-    //   method: 'get',
-    //   url: '/api/product/styles',
-    //   params: {
-    //     product_id: id,
-    //   },
-    // })
-    //   .then((response) => {
-        //const stylesArray = response.data.results;
-        const defaultStyle = styles[0];
-        this.setState({
-          selectedStyle: defaultStyle,
-        });
-        const { selectedStyle } = this.state;
-        if (selectedStyle) {
-          this.getPhotos(selectedStyle.photos);
-        }
-      // });
+    const defaultStyle = styles[0];
+    this.setState({
+      selectedStyle: defaultStyle,
+    });
+    const { selectedStyle } = this.state;
+    if (selectedStyle) {
+      this.getPhotos(selectedStyle.photos);
+    }
   }
 
   getPhotos(style) {
@@ -153,12 +124,16 @@ class Overview extends React.Component {
       stylePhotos,
     } = this.state;
 
-    const { scroll, id, reviews, product, styles } = this.props;
-
-    // const renderLoader = () => <StyledLoader>Loading...</StyledLoader>;
+    const {
+      scroll,
+      id,
+      reviews,
+      product,
+      styles,
+    } = this.props;
 
     return (
-      <StyledContainer>
+      <StyledContainer className="Overview">
         { product && selectedStyle && styles ? (
           <>
             <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} />

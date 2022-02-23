@@ -100,7 +100,7 @@ class ProductInformation extends React.Component {
     } = this.props;
     const { reviews, avgRating } = this.state;
     return (
-      <ProductContainer>
+      <ProductContainer className="ProductInfo">
         {product && styles && selectedStyle && changeStyle ? (
           <>
             {reviews <= 0 ? (

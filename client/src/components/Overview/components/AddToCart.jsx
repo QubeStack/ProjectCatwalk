@@ -148,7 +148,7 @@ class AddToCart extends React.Component {
       handleFav = removeFav;
     }
     return (
-      <StyledCart>
+      <StyledCart className="Cart">
         {sizeSelected ? (
           <select onChange={this.changeSku} disabled={noStock} selected={currentSize}>
             <option value={'Select Size'}>Select Size</option>

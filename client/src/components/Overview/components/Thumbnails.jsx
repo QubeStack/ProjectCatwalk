@@ -92,33 +92,38 @@ class Thumbnails extends React.Component {
     let leftHide = false;
     let rightHide = false;
     let currentThumbs = [];
-    if (index <= 7) {
-      leftHide = true;
-      currentThumbs = thumbnails.slice(0, 7);
-    }
-    if (index >= thumbnails.length - 1 || thumbnails.length < 7) {
-      rightHide = true;
-    }
-    if (index > 7) {
-      currentThumbs = thumbnails.slice(index - 7, index);
+    if (thumbnails) {
+      if (index <= 7) {
+        leftHide = true;
+        currentThumbs = thumbnails.slice(0, 7);
+      }
+      if (index >= thumbnails.length - 1 || thumbnails.length < 7) {
+        rightHide = true;
+      }
+      if (index > 7) {
+        currentThumbs = thumbnails.slice(index - 7, index);
+      }
     }
     return (
-      <PictureContainer index={thumbnails.length <= 7 ? thumbnails.length + 2 : 9}>
-        <LeftButton disabled={leftHide} hide={leftHide} type="button">
-          &lt;
-        </LeftButton>
-        {currentThumbs.map(
-          (thumb, i) => (
-            <ImageWrapper>
-              {zoomed ? (<Dot onClick={() => handleThumbClick(i)} context={i === index} />) : (<Thumbnail onClick={() => handleThumbClick(i)} context={i === index} src={thumb} alt="" />)}
-            </ImageWrapper>
-          ),
-        )}
-        <RightButton disabled={rightHide} hide={rightHide} zoomed={zoomed} type="button">
-          &gt;
-        </RightButton>
-
-      </PictureContainer>
+      <div>
+        {thumbnails ? (
+          <PictureContainer index={thumbnails.length <= 7 ? thumbnails.length + 2 : 9} className="Thumbnails">
+            <LeftButton disabled={leftHide} hide={leftHide} type="button">
+              &lt;
+            </LeftButton>
+            {currentThumbs.map(
+              (thumb, i) => (
+                <ImageWrapper>
+                  {zoomed ? (<Dot onClick={() => handleThumbClick(i)} context={i === index} />) : (<Thumbnail onClick={() => handleThumbClick(i)} context={i === index} src={thumb} alt="" />)}
+                </ImageWrapper>
+              ),
+            )}
+            <RightButton disabled={rightHide} hide={rightHide} zoomed={zoomed} type="button">
+              &gt;
+            </RightButton>
+          </PictureContainer>
+        ) : null}
+      </div>
     );
   }
 }
