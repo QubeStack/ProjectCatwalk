@@ -16,6 +16,7 @@ import {
   Link,
 } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
+import userEvent from '@testing-library/user-event';
 
 import RelatedItems from '../client/src/components/RelatedItems/RelatedItems';
 import CarouselItem from '../client/src/components/RelatedItems/CarouselItem';
@@ -42,7 +43,7 @@ it('renders a CarouselItem into the document', () => {
   act(() => {
     render(
       <Router>
-        <CarouselItem product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} />
+        <CarouselItem id={40348} product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} />
       </Router>, container);
   });
   expect(container.getElementsByClassName('card')[0]).toBeDefined();

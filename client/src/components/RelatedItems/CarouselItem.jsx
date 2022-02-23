@@ -137,9 +137,6 @@ class CarouselItem extends React.Component {
   }
 
   render() {
-    // if (!this.state.finished) {
-    //   return <div />;
-    // }
     let card;
     let modal;
     let featureArray;
@@ -201,19 +198,19 @@ class CarouselItem extends React.Component {
     }
 
     if (this.props.addCard) {
-      card = <AddCard onClick={this.setStorage}>+</AddCard>;
+      card = <AddCard onClick={this.setStorage} className="card">+</AddCard>;
       modal = <> </>;
     } else {
       let actionButton;
       if (this.props.actionButton === '+') {
         actionButton = (
-          <ActionButton onClick={this.handleClick}>
+          <ActionButton id="button" onClick={this.handleClick}>
             &#9733;
           </ActionButton>
         );
       } else {
         actionButton = (
-          <ActionButton onClick={this.removeItemFromStorage}>
+          <ActionButton id="button" onClick={this.removeItemFromStorage}>
             &times;
           </ActionButton>
         );
