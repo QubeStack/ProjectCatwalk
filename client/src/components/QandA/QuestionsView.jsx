@@ -75,7 +75,7 @@ class QuestionsView extends React.Component {
 
   render() {
     const { count } = this.state;
-    const { questions, product_id } = this.props;
+    const { questions, product_id, product } = this.props;
     let QuestionsDiv;
     if (count >= 4) {
       QuestionsDiv = QuestionsDiv1;
@@ -90,9 +90,11 @@ class QuestionsView extends React.Component {
               <QAListEntry
                 key={question.question_id}
                 question_id={question.question_id}
+                product_id={product_id}
                 question={question.question_body}
                 helpful={question.question_helpfulness}
                 reRender={this.reRenderView}
+                product={product}
               />
             ))}
           </QuestionsDiv>
@@ -100,7 +102,7 @@ class QuestionsView extends React.Component {
             <MoreQuestions onClick={this.showMoreQuestions}>
               More Answered Questions
             </MoreQuestions>
-            <AskQuestion reRender={this.reRenderView} product_id={product_id} />
+            <AskQuestion product={product} reRender={this.reRenderView} product_id={product_id} />
           </Container>
         </div>
       );
@@ -114,12 +116,14 @@ class QuestionsView extends React.Component {
               question_id={question.question_id}
               question={question.question_body}
               helpful={question.question_helpfulness}
+              product_id={product_id}
               reRender={this.reRenderView}
+              product={product}
             />
           ))}
         </QuestionsDiv>
         <Container>
-          <AskQuestion reRender={this.reRenderView} product_id={product_id} />
+          <AskQuestion product={product} reRender={this.reRenderView} product_id={product_id} />
         </Container>
       </div>
     );

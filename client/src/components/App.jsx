@@ -87,7 +87,7 @@ class App extends React.Component {
           styles={styles}
         />
         <RatingsAndReviews setRef={(el) => (this.ratingsRef = el)} />
-        <QABody id={id} />
+        <QABody product={product} id={id} />
         <RelatedItems key={id} id={id} />
       </div>
     );
