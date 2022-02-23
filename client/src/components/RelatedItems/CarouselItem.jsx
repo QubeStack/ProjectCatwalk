@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
@@ -11,6 +12,7 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 import Star from '../RatingsAndReviews/ReviewStars';
+import Modals from './Modal';
 
 class CarouselItem extends React.Component {
   constructor(props) {
@@ -137,83 +139,31 @@ class CarouselItem extends React.Component {
   }
 
   render() {
-    // if (!this.state.finished) {
-    //   return <div />;
-    // }
     let card;
     let modal;
-    let featureArray;
-    let featureArray2;
-    let allFeatures;
-
-    if (this.props.product.features !== undefined
-      && this.state.currentProduct.features !== undefined) {
-      featureArray = this.props.product.features.map((feature) => feature.feature);
-      featureArray2 = this.state.currentProduct.features.map((feature) => feature.feature);
-      allFeatures = featureArray.concat(featureArray2);
-    }
-
-    const uniqueFeatures = Array.from(new Set(allFeatures));
 
     if (this.state.showModal) {
       modal = (
-        <Modal>
-          <Content>
-            <CloseButton onClick={this.handleClose}>&times;</CloseButton>
-            <ModalTitle>Comparing</ModalTitle>
-            <Table>
-              <TR>
-                <th>{this.props.product.name}</th>
-                <th> </th>
-                <th>{this.state.currentProduct.name}</th>
-              </TR>
-              {uniqueFeatures.map((feature) => {
-                let productFeature = '';
-                let currentProductFeature = '';
-                this.props.product.features.forEach((one) => {
-                  if (one.feature === feature) {
-                    if (one.value === null) {
-                      productFeature = '\u2713';
-                    } else {
-                      productFeature = one.value;
-                    }
-                  }
-                });
-                this.state.currentProduct.features.forEach((two) => {
-                  if (two.feature === feature) {
-                    currentProductFeature = two.value;
-                  }
-                });
-                return (
-                  <TR2>
-                    <td>{productFeature}</td>
-                    <td>{feature}</td>
-                    <td>{currentProductFeature}</td>
-                  </TR2>
-                );
-              })}
-            </Table>
-          </Content>
-        </Modal>
+        <Modals product={this.props.product} currentProduct={this.state.currentProduct} handleClose={this.handleClose} />
       );
     } else {
       modal = <> </>;
     }
 
     if (this.props.addCard) {
-      card = <AddCard onClick={this.setStorage}>+</AddCard>;
+      card = <AddCard onClick={this.setStorage} className="card">+</AddCard>;
       modal = <> </>;
     } else {
       let actionButton;
       if (this.props.actionButton === '+') {
         actionButton = (
-          <ActionButton onClick={this.handleClick}>
+          <ActionButton id="button" onClick={this.handleClick}>
             &#9733;
           </ActionButton>
         );
       } else {
         actionButton = (
-          <ActionButton onClick={this.removeItemFromStorage}>
+          <ActionButton id="button" onClick={this.removeItemFromStorage}>
             &times;
           </ActionButton>
         );

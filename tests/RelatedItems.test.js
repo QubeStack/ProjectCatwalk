@@ -7,7 +7,7 @@
 /* eslint-disable no-unused-vars */
 
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { ReactDom, render, unmountComponentAtNode } from 'react-dom';
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,12 +16,14 @@ import {
   Link,
 } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
+import { fireEvent } from '@testing-library/react';
 
 import RelatedItems from '../client/src/components/RelatedItems/RelatedItems';
 import CarouselItem from '../client/src/components/RelatedItems/CarouselItem';
 import MultiDisplayCarousel from '../client/src/components/RelatedItems/MultiDisplayCarousel';
 import SimilarItems from '../client/src/components/RelatedItems/SimilarItems';
 import OutfitItems from '../client/src/components/RelatedItems/OutfitItems';
+import Modal from '../client/src/components/RelatedItems/Modal';
 
 let container;
 
@@ -42,10 +44,19 @@ it('renders a CarouselItem into the document', () => {
   act(() => {
     render(
       <Router>
-        <CarouselItem product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} />
+        <CarouselItem id={40348} product={{ name: 'air force 1', category: 'shoes', default_price: 90 }} actionButton="+" />
       </Router>, container);
   });
   expect(container.getElementsByClassName('card')[0]).toBeDefined();
+});
+
+it('renders the modal', () => {
+  act(() => {
+    render(
+      <Modal product={{ features: [{ feature: 'sole', value: 'rubber' }] }} currentProduct={{ features: [{ feature: 'sole', value: 'rubber' }] }} />, container);
+  });
+
+  expect(container.getElementsByClassName('modal')[0]).toBeDefined();
 });
 
 it('renders multiple CarouselItems into the document', () => {
