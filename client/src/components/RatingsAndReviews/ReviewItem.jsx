@@ -49,7 +49,7 @@ class ReviewItem extends React.Component {
   render() {
     return (
       <>
-        <Inline>
+        <Inline className="reviewItem">
           <Stars rating={this.props.rating} />
           <Bold>{this.props.summary}</Bold>
         </Inline>

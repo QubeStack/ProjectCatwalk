@@ -22,7 +22,7 @@ class WriteNewReview extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="newReview">
         {this.state.show ? <Modal handleClose={this.handleClose} />
           : (
             <button type="button" onClick={() => this.setState({ show: true })}>
