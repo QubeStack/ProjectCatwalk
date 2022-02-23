@@ -64,7 +64,7 @@ const Bar = styled.span`
   margin-bottom: 3px;
   &:after {
     content: "\\25BC";
-    color: ${props => props.empty ? "#a6a6a6" : "black"};
+    color: "black";
     position: absolute;
     height: 5px;
     top: -6px;
@@ -81,7 +81,7 @@ class ProductBreakdown extends React.Component {
 
   render() {
     return (
-      <Center>
+      <Center  className="productBreakdown">
         <Border>
           <Factor>
             Size

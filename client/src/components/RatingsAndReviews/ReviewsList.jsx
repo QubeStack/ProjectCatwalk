@@ -30,7 +30,7 @@ class ReviewList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="reviewsList">
         {this.props.reviews.map(
           (review) => (
             <Div>
