@@ -135,7 +135,7 @@ class QAListEntry extends React.Component {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -258,16 +258,16 @@ class QAListEntry extends React.Component {
             Q:&#160;
             {question}
           </Question>
-          <HelpfulDiv>
+          <HelpfulDiv className="helpful">
             Helpful?
-            <YesButton disabled={disabled} onClick={this.handleHelpfulQ}>
+            <YesButton className="yes" disabled={disabled} onClick={this.handleHelpfulQ}>
               <u>Yes</u>
               &#40;
               {helpful}
               &#41;
             </YesButton>
           </HelpfulDiv>
-          <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
+          <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer question_id={question_id} />
           <AnswersDiv>
             <strong>A:&#160;</strong>
@@ -283,16 +283,16 @@ class QAListEntry extends React.Component {
             Q:&#160;
             {question}
           </Question>
-          <HelpfulDiv>
+          <HelpfulDiv className="helpful">
             Helpful?
-            <YesButton onClick={this.handleHelpfulQ}>
+            <YesButton className="yes" onClick={this.handleHelpfulQ}>
               <u>Yes</u>
               &#40;
               {helpful}
               &#41;
             </YesButton>
           </HelpfulDiv>
-          <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
+          <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer reRender={this.reRenderView} question_id={question_id} />
           <AnswersDiv>
             {answers.slice(0, count).map((answer) => (
@@ -321,16 +321,16 @@ class QAListEntry extends React.Component {
           Q:&#160;
           {question}
         </Question>
-        <HelpfulDiv>
+        <HelpfulDiv className="helpful">
           Helpful?
-          <YesButton onClick={this.handleHelpfulQ}>
+          <YesButton className="yes" onClick={this.handleHelpfulQ}>
             <u>Yes</u>
             &#40;
             {helpful}
             &#41;
           </YesButton>
         </HelpfulDiv>
-        <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
+        <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
         <AddAnswer reRender={this.reRenderView} question_id={question_id} />
         <AnswersDiv>
           {answers.slice(0, count).map((answer) => (

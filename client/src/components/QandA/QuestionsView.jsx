@@ -84,7 +84,7 @@ class QuestionsView extends React.Component {
     }
     if (questions.length > questions.slice(0, count).length) {
       return (
-        <div>
+        <div className="questions">
           <QuestionsDiv>
             {questions.slice(0, count).map((question) => (
               <QAListEntry
@@ -106,7 +106,7 @@ class QuestionsView extends React.Component {
       );
     }
     return (
-      <div>
+      <div className="questions">
         <QuestionsDiv>
           {questions.slice(0, count).map((question) => (
             <QAListEntry

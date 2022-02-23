@@ -116,8 +116,8 @@ class QABody extends React.Component {
     const { id } = this.props;
     const { questions } = this.state;
     return (
-      <BodyDiv>
-        <Title>Questions and Answers</Title>
+      <BodyDiv className="body">
+        <Title className="title">Questions and Answers</Title>
         <SearchQuestions handleSubmit={this.handleSubmit} questions={questions} product_id={id} />
         <QuestionsView reRender={this.reRender} product_id={id} questions={questions} />
       </BodyDiv>

@@ -216,10 +216,10 @@ class AskQuestion extends React.Component {
     if (showModal) {
       return (
         <AskDiv>
-          <AskAQuestion onClick={this.handleClick}>
+          <AskAQuestion className="ask" onClick={this.handleClick}>
             Ask a Question
           </AskAQuestion>
-          <Modal>
+          <Modal className="modal">
             <Content>
               <ModalHeader>
                 Ask Your Question - About the Product ID&nbsp;
@@ -252,7 +252,7 @@ class AskQuestion extends React.Component {
     }
     return (
       <AskDiv>
-        <AskAQuestion onClick={this.handleClick}>
+        <AskAQuestion className="ask" onClick={this.handleClick}>
           Ask a Question
         </AskAQuestion>
       </AskDiv>

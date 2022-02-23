@@ -220,10 +220,10 @@ class AddAnswer extends React.Component {
     if (showModal) {
       return (
         <AskDiv>
-          <AddAnswerButton onClick={this.handleClick}>
+          <AddAnswerButton className="add" onClick={this.handleClick}>
             Add Answer!
           </AddAnswerButton>
-          <Modal>
+          <Modal className="modal">
             <Content>
               <ModalHeader>
                 Submit your Answer - Product Name: Question Body
@@ -258,7 +258,7 @@ class AddAnswer extends React.Component {
       );
     }
     return (
-      <AddAnswerButton onClick={this.handleClick}>
+      <AddAnswerButton className="add" onClick={this.handleClick}>
         Add Answer!
       </AddAnswerButton>
     );
