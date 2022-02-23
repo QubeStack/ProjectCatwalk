@@ -131,7 +131,7 @@ class AnswerListEntry extends React.Component {
     const newDate = `${months[monthStr]} ${date.substring(8, 10)},${date.substring(0, 4)}`;
     if (username === 'Seller') {
       return (
-        <AnswerDiv>
+        <AnswerDiv className="answer">
           <strong>A:&nbsp;</strong>
           {answer}
           <AnswerInfo>
@@ -140,7 +140,7 @@ class AnswerListEntry extends React.Component {
             &nbsp;&nbsp;on:&nbsp;&nbsp;
             {newDate}
             &nbsp;&nbsp;Helpful?
-            <AnswerYesButton onClick={this.handleHelpfulA}>
+            <AnswerYesButton className="yesbutton" onClick={this.handleHelpfulA}>
               <u>Yes</u>
               &#40;
               {helpful}
@@ -152,7 +152,7 @@ class AnswerListEntry extends React.Component {
       );
     }
     return (
-      <AnswerDiv>
+      <AnswerDiv className="answer">
         <strong>A:&nbsp;</strong>
         {answer}
         <AnswerInfo>
@@ -161,7 +161,7 @@ class AnswerListEntry extends React.Component {
           &nbsp;&nbsp;on:&nbsp;&nbsp;
           {newDate}
           &nbsp;&nbsp;Helpful?
-          <AnswerYesButton onClick={this.handleHelpfulA}>
+          <AnswerYesButton className="yesbutton" onClick={this.handleHelpfulA}>
             <u>Yes</u>
             &#40;
             {helpful}
