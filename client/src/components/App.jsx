@@ -38,6 +38,9 @@ class App extends React.Component {
     })
       .then((results) => {
         this.setState({ reviews: results.data.results });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -46,6 +49,9 @@ class App extends React.Component {
     axios.get('/api/product', { params: { product_id: id } })
       .then((results) => {
         this.setState({ product: results.data });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -63,6 +69,9 @@ class App extends React.Component {
         this.setState({
           styles: stylesArray,
         });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 

@@ -126,31 +126,38 @@ class ImageGallery extends React.Component {
     // const thumbArr = thumbnails.slice(index, index + 7);
     let hideLeft = true;
     let hideRight = false;
-    if (index <= 0) {
-      hideLeft = true;
-    } else if (index > 0) {
-      hideLeft = false;
-    }
-    if (index < photos.length - 1) {
-      hideRight = false;
-    } else if (index >= photos.length - 1) {
-      hideRight = true;
+    if (photos) {
+      if (index <= 0) {
+        hideLeft = true;
+      } else if (index > 0) {
+        hideLeft = false;
+      }
+      if (index < photos.length - 1) {
+        hideRight = false;
+      } else if (index >= photos.length - 1) {
+        hideRight = true;
+      }
     }
     return (
-      <PictureContainer zoomed={zoomed} firstClick={firstClick}>
-        <MainImage src={photos[index]} onClick={this.handleZoom} tabIndex="0" alt="" />
-        <LeftButton disabled={hideLeft} hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
-          &lt;
-        </LeftButton>
-        <RightButton disabled={hideRight} hide={hideRight} className="next" type="button" onClick={this.handleClick}>
-          &gt;
-        </RightButton>
-        <Thumbnails
-          handleThumbClick={this.handleThumbClick}
-          index={index}
-          thumbnails={thumbnails}
-          zoomed={zoomed}
-        />
+
+      <PictureContainer zoomed={zoomed} firstClick={firstClick} className="ImageGallery">
+        { photos && thumbnails ? (
+          <>
+            <MainImage src={photos[index]} onClick={this.handleZoom} tabIndex="0" alt="" />
+            <LeftButton disabled={hideLeft} hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
+              &lt;
+            </LeftButton>
+            <RightButton disabled={hideRight} hide={hideRight} className="next" type="button" onClick={this.handleClick}>
+              &gt;
+            </RightButton>
+            <Thumbnails
+              handleThumbClick={this.handleThumbClick}
+              index={index}
+              thumbnails={thumbnails}
+              zoomed={zoomed}
+            />
+          </>
+        ) : null}
       </PictureContainer>
     );
   }
