@@ -71,29 +71,37 @@ class Overview extends React.Component {
   }
 
   checkFav(product) {
-    const outfit = JSON.parse(localStorage.getItem('myOutfit'));
-    for (let i = 0; i < outfit.length; i += 1) {
-      if (outfit[i].id === product.id) {
-        this.setState({ favorited: true });
+    try {
+      const outfit = JSON.parse(localStorage.getItem('myOutfit'));
+      for (let i = 0; i < outfit.length; i += 1) {
+        if (outfit[i].id === product.id) {
+          this.setState({ favorited: true });
+        }
       }
+    } catch (err) {
+      console.log(err);
     }
   }
 
   addFav() {
     const { product } = this.props;
     if (product) {
-      if (localStorage.getItem('myOutfit') === null) {
-        localStorage.setItem('myOutfit', JSON.stringify([product]));
-      } else {
-        let outfit = JSON.parse(localStorage.getItem('myOutfit'));
-        if (!Array.isArray(outfit)) {
-          outfit = [outfit];
+      try {
+        if (localStorage.getItem('myOutfit') === null) {
+          localStorage.setItem('myOutfit', JSON.stringify([product]));
+        } else {
+          let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+          if (!Array.isArray(outfit)) {
+            outfit = [outfit];
+          }
+          if (outfit.every((item) => item.id !== product.id)) {
+            outfit.push(product);
+          }
+          localStorage.setItem('myOutfit', JSON.stringify(outfit));
+          this.setState({ favorited: true });
         }
-        if (outfit.every((item) => item.id !== product.id)) {
-          outfit.push(product);
-        }
-        localStorage.setItem('myOutfit', JSON.stringify(outfit));
-        this.setState({ favorited: true });
+      } catch (err) {
+        console.log(err);
       }
     }
   }
@@ -101,13 +109,17 @@ class Overview extends React.Component {
   removeFav() {
     const { product } = this.props;
     if (product) {
-      let outfit = JSON.parse(localStorage.getItem('myOutfit'));
-      if (!Array.isArray(outfit)) {
-        outfit = [outfit];
+      try {
+        let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+        if (!Array.isArray(outfit)) {
+          outfit = [outfit];
+        }
+        const newOutfit = outfit.filter((item) => item.id !== product.id);
+        localStorage.setItem('myOutfit', JSON.stringify(newOutfit));
+        this.setState({ favorited: false });
+      } catch (err) {
+        console.log(err);
       }
-      const newOutfit = outfit.filter((item) => item.id !== product.id);
-      localStorage.setItem('myOutfit', JSON.stringify(newOutfit));
-      this.setState({ favorited: false });
     }
   }
 
