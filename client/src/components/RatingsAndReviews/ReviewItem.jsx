@@ -6,7 +6,6 @@ import HelpfulCount from './HelpfulCount';
 const Div = styled.div`
 border-style: solid;
 border-color: white;
-padding: 1px;
 `;
 
 const Bold = styled.div`
@@ -22,9 +21,6 @@ const Underline = styled.div`
 const Inline = styled.div`
 display: flex;
 align-items: center;
-border-style: solid;
-border-color: black;
-border-width: 0px;
 `;
 
 const Small = styled.div`
@@ -33,9 +29,7 @@ const Small = styled.div`
   color: grey;
 }
 display: flex;
-border-style: solid;
-border-color: white;
-padding: 1px;
+align-items: flex-end;
 `;
 
 class ReviewItem extends React.Component {
@@ -53,6 +47,11 @@ class ReviewItem extends React.Component {
           <Stars rating={this.props.rating} />
           <Bold>{this.props.summary}</Bold>
         </Inline>
+        <Small>
+          <div>{this.props.username} | </div>
+          <div>{this.props.date.slice(0, 10)}</div>
+          <Bold>{this.props.recommend ? ' | I recommend this product ✔' : null}</Bold>
+        </Small>
         <Div>
           {this.props.body.length > 250
             ? (
@@ -70,12 +69,7 @@ class ReviewItem extends React.Component {
             <img src={photo.url} width={60} height={60} />
           ))}
         </Inline>
-        <Small>
-          <Div>{this.props.username} | </Div>
-          <Div>{this.props.date.slice(0, 10)}</Div>
-          <Bold>{this.props.recommend ? ' | I recommend this product ✔' : null}</Bold>
-        </Small>
-        <Div>{this.props.response ? `Response from Seller: ${this.props.response}` : null}</Div>
+        <div>{this.props.response ? `Response from Seller: ${this.props.response}` : null}</div>
         <HelpfulCount />
       </>
     );
