@@ -11,25 +11,23 @@ justify-content: center;
 `;
 
 const Border = styled.div`
-border-style: solid;
-border-color: #1f513f;
 margin: 4px;
 height: 550px;
 width: 300px;
 `;
 
 const Border2 = styled.div`
-border-style: solid;
-border-color: #1f513f;
 margin: 4px;
 height: 550px;
 width: 700px;
 `;
 
+// border-style: solid;
+// border-color: #1f513f;
+
 const Header = styled.div`
 font-size: 20px;
-background-color: #1f513f;
-color: white;
+color: #1f513f;
 font-weight: bold;
 `;
 
@@ -85,7 +83,8 @@ class RatingsAndReviews extends React.Component {
       .then((results) => {
         this.setState({ meta: results.data });
         console.log("meta:", this.state.meta);
-      });
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {

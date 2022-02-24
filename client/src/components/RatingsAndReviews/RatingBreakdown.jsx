@@ -8,9 +8,9 @@ justify-content: center;
 align-items: center;
 font-size: 20px;
 font-weight: bold;
-font-family:verdana;
-color: white;
-background-color: #1f513f;
+font-family: verdana;
+color: black;
+background-color: #f4f2ed;
 `;
 
 const Inline = styled.div`

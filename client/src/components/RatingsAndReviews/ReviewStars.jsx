@@ -17,7 +17,7 @@ const Star = styled.span`
   }
   &:after {
     content: "\\2605";
-    color: ${props => props.empty ? "#a6a6a6" : "gold"};
+    color: ${props => props.empty ? "#a6a6a6" : "#1f513f"};
     position: absolute;
     top: 0;
     left: 0;
