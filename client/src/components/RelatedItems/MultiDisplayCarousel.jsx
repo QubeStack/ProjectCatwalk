@@ -33,9 +33,9 @@ class MultiDisplayCarousel extends React.Component {
   }
 
   render() {
-    let prevButton = <button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}> &lt; </button>;
+    let prevButton = <Button type="button" onClick={() => this.doSlide('left', this.state.position - 1)}> &lt; </Button>;
 
-    let nextButton = <button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}> &gt; </button>;
+    let nextButton = <Button type="button" onClick={() => this.doSlide('right', this.state.position + 1)}> &gt; </Button>;
 
     if (this.state.position === 0 || this.props.products.length === 0) {
       prevButton = <> </>;
@@ -71,15 +71,14 @@ class MultiDisplayCarousel extends React.Component {
 }
 
 const HideOverflowContainer = styled.div`
-  margin: 0 20px 120px 0;
+  margin: 0 0 120px 0;
   font-size: small;
   display: grid;
-  grid-template-columns: 5% 95% 5%;
+  grid-template-columns: 5% 90% 5%;
   grid-template-rows: 24px 24px 24px 24px 24px 24px;
 `;
 
 const CarouselContainer = styled.div`
-  // overflow: hidden;
   grid-column: 1/-1;
   grid-row: 1/11;
   position: absolute;
@@ -95,7 +94,18 @@ const CarouselContainer = styled.div`
     }
     return `translateX(-${180 * props.position}px)`;
   }
+
 }};
+`;
+
+const Button = styled.button`
+  background-color: #1f513f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+  border-radius: 50%;
 `;
 
 const LeftButton = styled.div`
