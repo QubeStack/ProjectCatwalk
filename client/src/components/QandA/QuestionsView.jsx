@@ -20,19 +20,25 @@ const MoreQuestions = styled.button`
   grid-row-start:4;
   background-color: white;
   border-radius: 12px;
+  &: hover {
+    background-color: #1f513f;
+    cursor: pointer;
+    border-color: #f4f2ed;
+    color: #f4f2ed;
+  };
   &: active {
+    background-color: white;
+    color: black;
+    border-color: #1f513f;
     -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;
   };
-  &: hover {
-    cursor: pointer;
-  }
 `;
 
 const QuestionsDiv1 = styled.div`
   overflow-y: scroll;
-  height: 400px;
+  height: 500px;
   &::-webkit-scrollbar {
     display: none;
   }

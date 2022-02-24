@@ -20,8 +20,8 @@ grid-template-areas:
 
 const Title = styled.h1`
   color: #1f513f;
-  background-color: #f4f2ed;
   grid-area: header;
+  font-family: verdana;
 `;
 
 class QABody extends React.Component {

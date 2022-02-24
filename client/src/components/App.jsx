@@ -5,6 +5,7 @@ import QABody from './QandA/QABody';
 import RelatedItems from './RelatedItems/RelatedItems';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews';
 import Overview from './Overview/Overview';
+import Header from './Header';
 
 class App extends React.Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class App extends React.Component {
     const { reviews, product, styles } = this.state;
     return (
       <div>
+        <Header />
         <GlobalCSS />
         <Overview
           id={id}

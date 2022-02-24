@@ -128,12 +128,18 @@ const ModalSubmit = styled.input`
   grid-row-start: 5;
   grid-column-start: 1;
   margin-left: 10px;
-  &: hover {
-    cursor: pointer;
-  }
   background-color: white;
   border-radius: 12px;
+  &: hover {
+    background-color: #1f513f;
+    cursor: pointer;
+    border-color: #f4f2ed;
+    color: #f4f2ed;
+  };
   &: active {
+    background-color: white;
+    color: black;
+    border-color: #1f513f;
     -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;

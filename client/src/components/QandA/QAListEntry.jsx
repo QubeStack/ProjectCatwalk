@@ -5,6 +5,7 @@ import AddAnswer from './AddAnswer';
 import AnswerListEntry from './AnswerListEntry';
 
 const QuestionDiv = styled.div`
+  font-family: verdana;
   color: #1f513f;
   background-color: #f4f2ed;
   padding: 10px;
@@ -36,6 +37,7 @@ const HelpfulDiv = styled.div`
 `;
 
 const ReportButton = styled.button`
+  font-family: verdana;
   grid-row-start: 1;
   grid-column-start: 3;
   grid-column-end: 3;
@@ -49,6 +51,7 @@ const ReportButton = styled.button`
 `;
 
 const YesButton = styled.button`
+  font-family: verdana;
   color: #1f513f;
   margin-left: 1%;
   margin-right: 1%;
@@ -82,6 +85,7 @@ const AnswerDivScroll = styled.div`
 `;
 
 const MoreAnswersButton = styled.button`
+  font-family: verdana;
   border-style: solid;
   border-color: #1f513f;
   width: 200px;
@@ -90,14 +94,20 @@ const MoreAnswersButton = styled.button`
   grid-row-start: 3;
   background-color: white;
   border-radius: 12px;
+  &: hover {
+    background-color: #1f513f;
+    cursor: pointer;
+    border-color: #f4f2ed;
+    color: #f4f2ed;
+  };
   &: active {
+    background-color: white;
+    color: black;
+    border-color: #1f513f;
     -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;
   };
-  &: hover {
-    cursor: pointer;
-  }
 
 `;
 

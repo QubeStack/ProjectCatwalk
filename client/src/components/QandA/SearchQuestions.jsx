@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SearchBar = styled.input`
-  width: 80%;
+  width: 100%;
   height: 50px;
   margin-bottom: 10px;
 `;
