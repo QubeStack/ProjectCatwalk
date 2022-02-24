@@ -87,7 +87,9 @@ class App extends React.Component {
     const { id } = this.props;
     const { reviews, product, styles } = this.state;
     return (
-      <div>
+      <div
+        //key={id}
+      >
         <Header />
         <GlobalCSS />
         <Overview

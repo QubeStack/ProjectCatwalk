@@ -8,6 +8,7 @@ import SimilarItems from './SimilarItems';
 const StyledDiv = styled.div`
     color: #1f513f;
     margin: 50px 25px;
+    overflow-x: hidden;
   `;
 
 class RelatedItems extends React.Component {

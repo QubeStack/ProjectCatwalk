@@ -19,6 +19,9 @@ app.get('/api/products', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -31,6 +34,9 @@ app.get('/api/product/questions', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -43,6 +49,9 @@ app.get('/api/product/questions/answers', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -72,6 +81,9 @@ app.post('/api/product/questions/answers', (req, res) => {
   })
     .then(() => {
       res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 // report a question
@@ -84,6 +96,9 @@ app.put('/api/product/questions/report', (req, res) => {
     .then(() => {
       console.log('success');
       res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 // report an answer
@@ -96,6 +111,9 @@ app.put('/api/product/questions/answers/report', (req, res) => {
     .then(() => {
       console.log('success');
       res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -108,6 +126,9 @@ app.get('/api/product/reviews', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -120,6 +141,9 @@ app.get('/api/product/reviews/meta', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -165,6 +189,9 @@ app.get('/api/product/styles', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -177,6 +204,9 @@ app.get('/api/product', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -189,6 +219,9 @@ app.get('/api/product/related', (req, res) => {
   })
     .then((results) => {
       res.send(results.data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -203,6 +236,9 @@ app.post('/api/cart', (req, res) => {
     .then(() => {
       console.log('success');
       res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 

@@ -206,10 +206,6 @@ class CarouselItem extends React.Component {
     return (
       <div>
         { card }
-        {/*
-        <Routes>
-          <Route exact path="products/:id" element={<DisplayApp />} />
-        </Routes> */}
       </div>
     );
   }
@@ -274,14 +270,15 @@ export const ActionButton = styled.div`
   grid-column: 5;
   grid-row: 1;
   margin-top: 5px;
+  margin-left: 5px;
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   background: #f4f2ed;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 16px;
   &: hover {
     cursor: pointer;
     background: yellow;
