@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import facebook from '../icons/iconmonstr-facebook-4-24.png';
 import twitter from '../icons/iconmonstr-twitter-4-24.png';
 import pinterest from '../icons/iconmonstr-pinterest-1-24.png';
@@ -7,12 +7,29 @@ import Stars from '../../RatingsAndReviews/ReviewStars';
 import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 
+const shake = keyframes`
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(0);
+  }`;
+
 const ProductContainer = styled.div`
   display: grid;
   border-style: hidden;
   border-color: #1F513F;
-  background-color: #f4f2ed;
-  border-radius: 5px;
+
+  border-radius: 10px;
   color: #1F513F;
   grid-column: span 3;
   grid-template-columns: 1fr;
@@ -22,12 +39,24 @@ const ProductContainer = styled.div`
   margin: 5px;
   height: 87vh;
   position: relative;
+
+
 `;
 
 const Info = styled.div`
   width: 100%;
   font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
   `;
+
+const Price = styled.div`
+  width: 100%
+  font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+  text-decoration: ${({ sale }) => (sale ? 'line-through' : '')}`;
+
+const Sale = styled.div`
+  width: 30%;
+  font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+  color: red`;
 
 const ReviewLink = styled.div`
   width: 100%;
@@ -55,9 +84,14 @@ const Icon = styled.img`
   padding-right: 1em;
   width: 30px;
   height: 30px;
-  &:hover{
+  &:hover, :focus{
     cursor: pointer;
-    };`;
+    animation-name: ${shake};
+    animation-duration: 1s;
+    animation-iteration-count: 2;
+    animation-timing-function: ease-in-out;
+    };
+  `;
 
 const Style = styled.span`
 font-weight: bold;
@@ -74,6 +108,7 @@ class ProductInformation extends React.Component {
       // products: [],
       reviews: null,
       avgRating: null,
+      // sale: false,
     };
 
     this.getReview = this.getReview.bind(this);
@@ -123,15 +158,29 @@ class ProductInformation extends React.Component {
               {product.category}
             </Info>
             <Name>{product.name}</Name>
-            <Info>
-              $
-              {selectedStyle.original_price}
-            </Info>
+            {selectedStyle.sale_price
+              ? (
+                <>
+                  <Sale sale={selectedStyle.sale_price}>
+                    $
+                    {selectedStyle.sale_price}
+                  </Sale>
+                  <Price sale={selectedStyle.sale_price}>
+                    $
+                    {selectedStyle.original_price}
+                  </Price>
+                </>
+              ) : (
+                <Price sale={selectedStyle.sale_price}>
+                  $
+                  {selectedStyle.original_price}
+                </Price>
+              )}
             <Info>{product.description}</Info>
             <IconContainer>
-              <Icon src={facebook} alt="" />
-              <Icon src={twitter} alt="" />
-              <Icon src={pinterest} alt="" />
+              <Icon src={facebook} alt="" tabIndex={0} />
+              <Icon src={twitter} alt="" tabIndex={0} />
+              <Icon src={pinterest} alt="" tabIndex={0} />
             </IconContainer>
             <StyleInfo>
               <span>Current style: </span>
