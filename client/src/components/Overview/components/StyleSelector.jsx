@@ -12,15 +12,17 @@ const Style = styled.img`
   border-radius: 15px;
   width: 100%;
   height: 110px;
-  object-fit: fill;
-  &:hover{
-    color: white;
-  }`;
+  object-fit: cover;
+  &:hover, :focus{
+    box-shadow: 2.5px 5px 2.5px #1F513F;
+  }
+  `;
 
 const StyleCheck = styled.span`
   position: absolute;
   top: 5%;
-  left: 5%;`;
+  left: 5%;
+  text-shadow: ${({ hide }) => (hide ? '' : '0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);')};`;
 
 const CheckBox = styled.div`
   display: grid;
@@ -80,9 +82,11 @@ class StyleSelector extends React.Component {
                   <StyleCheck>
                     &#10003;
                   </StyleCheck>
-                  <Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />
+                  <Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} onKeyPress={() => this.handleSelect(style)}
+                  tabIndex={0} />
                 </CheckBox>
-              ) : (<Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)} />)
+              ) : (<Style src={style.photos[0].thumbnail_url} alt="" onClick={() => this.handleSelect(style)}
+              onKeyPress={() => this.handleSelect(style)}tabIndex={0} />)
             ))}
           </>
         ) : null}

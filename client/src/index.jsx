@@ -11,7 +11,7 @@ import App from './components/App';
 
 function DisplayApp() {
   const { id } = useParams();
-  return <App id={id} />;
+  return <App key={id} id={id} />;
 }
 
 ReactDOM.render(

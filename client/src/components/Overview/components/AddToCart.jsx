@@ -10,6 +10,7 @@ const Add = styled.button`
   border-color: #1F513F;
   background-color: white;
   border-radius: 12px;
+  box-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);
   &:hover{
     cursor: pointer;
     };`;
@@ -19,9 +20,14 @@ const Fav = styled.button`
   background-color:  white;
   color: ${({ favorited }) => (favorited ? 'gold' : '#1F513F')};
   border-radius: 12px;
+  box-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);
   &:hover{
     cursor: pointer;
     };`;
+
+const Size = styled.select``;
+
+const Quantity = styled.select``;
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -150,21 +156,22 @@ class AddToCart extends React.Component {
     return (
       <StyledCart className="Cart">
         {sizeSelected ? (
-          <select onChange={this.changeSku} disabled={noStock} selected={currentSize}>
-            <option value={'Select Size'}>Select Size</option>
+          <Size onChange={this.changeSku} disabled={noStock} selected={currentSize}>
+            <option value={currentSize} hidden>{currentSize}</option>
             {skus.map((sku, i) => (
               sku[1].quantity > 0 ? (
                 <option value={i}>{sku[1].size}</option>
               )
                 : <option value={i}>OUT OF STOCK</option>))}
-          </select>
+          </Size>
         ) : (
           <>
             <span>Please select size</span>
-            <select
+            <Size
               onChange={this.changeSku}
               disabled={noStock}
-              size={2}
+              size={6}
+              selected={currentSize}
               // ref={this.myRef}
             >
               <option value="Select Size">Select Size</option>
@@ -173,7 +180,7 @@ class AddToCart extends React.Component {
                   <option value={i}>{sku[1].size}</option>
                 )
                   : <option value={i}>OUT OF STOCK</option>))}
-            </select>
+            </Size>
           </>
         )}
         <select onChange={this.changeQuantity} disabled={disabled}>

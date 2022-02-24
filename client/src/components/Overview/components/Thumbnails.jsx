@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -27,7 +28,7 @@ const Thumbnail = styled.img`
   object-fit: fill;
   border-radius: 10px;
   opacity: ${({ context }) => (context ? '1' : '.5')};
-  &:hover {
+  &:hover, :focus {
     opacity: 1;
   };`;
 
@@ -42,7 +43,7 @@ const Dot = styled.div`
   height: 25%;
   width: 18%;
   opacity: ${({ context }) => (context ? '1' : '.5')};
-  &:hover {
+  &:hover, :focus {
     opacity: 1;
   };`;
 
@@ -56,6 +57,7 @@ const LeftButton = styled.button`
   color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
   grid-column span 1;
   align-self: center;
+  text-shadow: ${({ hide }) => (hide ? '' : '0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);')};
   &:hover{
     cursor: pointer;
   };`;
@@ -71,6 +73,7 @@ const RightButton = styled.button`
   color: ${({ hide, zoomed }) => (zoomed ? (hide ? 'transparent' : 'white') : (hide ? 'transparent' : '#1F513F'))};
   grid-column span 1;
   align-self: center;
+  text-shadow: ${({ hide }) => (hide ? '' : '0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);')};
   &:hover{
     cursor: pointer;
   };`;
@@ -105,7 +108,7 @@ class Thumbnails extends React.Component {
       }
     }
     return (
-      <div>
+      <>
         {thumbnails ? (
           <PictureContainer index={thumbnails.length <= 7 ? thumbnails.length + 2 : 9} className="Thumbnails">
             <LeftButton disabled={leftHide} hide={leftHide} type="button">
@@ -114,7 +117,14 @@ class Thumbnails extends React.Component {
             {currentThumbs.map(
               (thumb, i) => (
                 <ImageWrapper>
-                  {zoomed ? (<Dot onClick={() => handleThumbClick(i)} context={i === index} />) : (<Thumbnail onClick={() => handleThumbClick(i)} context={i === index} src={thumb} alt="" />)}
+                  {zoomed ? (
+                    <Dot
+                      onClick={() => handleThumbClick(i)}
+                      context={i === index}
+                      onKeyPress={() => handleThumbClick(i)}
+                      tabIndex={0}
+                    />
+                  ) : (<Thumbnail onClick={() => handleThumbClick(i)} onKeyPress={() => handleThumbClick(i)} context={i === index} src={thumb} alt="" tabIndex={0} />)}
                 </ImageWrapper>
               ),
             )}
@@ -123,7 +133,7 @@ class Thumbnails extends React.Component {
             </RightButton>
           </PictureContainer>
         ) : null}
-      </div>
+      </>
     );
   }
 }

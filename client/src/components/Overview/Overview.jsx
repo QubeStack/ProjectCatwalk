@@ -5,7 +5,6 @@ import ProductInformation from './components/ProductInformation';
 
 const StyledContainer = styled.div`
   display: grid;
-  border: solid;
   padding: 5px;
   margin: 1em;
   height: 90vh;
@@ -17,6 +16,9 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
+      // product: [],
+      // styles: [],
+      id: [],
       selectedStyle: [],
       stylePhotos: [],
       styleThumbnails: [],
@@ -33,10 +35,12 @@ class Overview extends React.Component {
 
   componentDidUpdate(previousprops) {
     if (previousprops !== this.props) {
+      //console.log('Overview');
       const { product, styles } = this.props;
       if (styles) {
         this.getStyles(styles);
         this.checkFav(product);
+        // this.props.render();
       }
     }
   }
@@ -67,7 +71,7 @@ class Overview extends React.Component {
   }
 
   checkFav(product) {
-    const outfit = JSON.parse(localStorage.myOutfit);
+    const outfit = JSON.parse(localStorage.getItem('myOutfit'));
     for (let i = 0; i < outfit.length; i += 1) {
       if (outfit[i].id === product.id) {
         this.setState({ favorited: true });
@@ -124,16 +128,10 @@ class Overview extends React.Component {
       stylePhotos,
     } = this.state;
 
-    const {
-      scroll,
-      id,
-      reviews,
-      product,
-      styles,
-    } = this.props;
+    const { scroll, id, reviews, product, styles } = this.props;
 
     return (
-      <StyledContainer className="Overview">
+      <StyledContainer>
         { product && selectedStyle && styles ? (
           <>
             <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} />

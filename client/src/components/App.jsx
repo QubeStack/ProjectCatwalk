@@ -28,6 +28,7 @@ class App extends React.Component {
     this.getReviews();
     this.getProduct();
     this.getStyles();
+    console.log('App');
   }
 
   getReviews() {

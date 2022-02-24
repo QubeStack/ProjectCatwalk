@@ -10,7 +10,6 @@ const expand = keyframes`
     width: 70vw;
     z-index: auto;
   }
-
   to {
     position: absolute;
     background-color: black;
@@ -27,7 +26,6 @@ const contract = keyframes`
     width: 95vw;
     z-index: 1;
   }
-
   to {
     position: relative;
     background-color: #f4f2ed;
@@ -39,22 +37,23 @@ const contract = keyframes`
 const PictureContainer = styled.div`
   display: flex;
   position: ${({ zoomed }) => (zoomed ? 'absolute' : 'relative')};
-  border-radius: 5px;
-  background-color: ${({ zoomed }) => (zoomed ? 'black' : '#f4f2ed')};
+  border-radius: 10px;
+  background-color: ${({ zoomed }) => (zoomed ? 'black' : 'white')};
   grid-column: ${({ zoomed }) => (zoomed ? 'span 10' : 'span 7')};
   width: ${({ zoomed }) => (zoomed ? '95vw' : '70vw')};
   z-index: ${({ zoomed }) => (zoomed ? '1' : 'auto')};
   height: 88vh;
   margin: 5px;
   animation-name: ${({ zoomed, firstClick }) => (firstClick ? (zoomed ? expand : contract) : 'none')};
-  animation-duration: 1.5s;`;
+  animation-duration: 1.5s;
+  `;
 
 const MainImage = styled.img`
-
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: scale-down;
+
   &:hover {
     cursor: zoom-in;
   }`;
@@ -69,6 +68,7 @@ color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
 position: absolute;
 bottom: 45%;
 right: 95%;
+text-shadow: ${({ hide }) => (hide ? '' : '0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);')};
 &:hover{
   cursor: pointer;
 };`;
@@ -83,6 +83,7 @@ color: ${({ hide }) => (hide ? 'transparent' : '#1F513F')};
 position: absolute;
 bottom: 45%;
 right: 5%;
+text-shadow: ${({ hide }) => (hide ? '' : '0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);')};
 &:hover{
   cursor: pointer;
 }`;
@@ -126,38 +127,31 @@ class ImageGallery extends React.Component {
     // const thumbArr = thumbnails.slice(index, index + 7);
     let hideLeft = true;
     let hideRight = false;
-    if (photos) {
-      if (index <= 0) {
-        hideLeft = true;
-      } else if (index > 0) {
-        hideLeft = false;
-      }
-      if (index < photos.length - 1) {
-        hideRight = false;
-      } else if (index >= photos.length - 1) {
-        hideRight = true;
-      }
+    if (index <= 0) {
+      hideLeft = true;
+    } else if (index > 0) {
+      hideLeft = false;
+    }
+    if (index < photos.length - 1) {
+      hideRight = false;
+    } else if (index >= photos.length - 1) {
+      hideRight = true;
     }
     return (
-
-      <PictureContainer zoomed={zoomed} firstClick={firstClick} className="ImageGallery">
-        { photos && thumbnails ? (
-          <>
-            <MainImage src={photos[index]} onClick={this.handleZoom} tabIndex="0" alt="" />
-            <LeftButton disabled={hideLeft} hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
-              &lt;
-            </LeftButton>
-            <RightButton disabled={hideRight} hide={hideRight} className="next" type="button" onClick={this.handleClick}>
-              &gt;
-            </RightButton>
-            <Thumbnails
-              handleThumbClick={this.handleThumbClick}
-              index={index}
-              thumbnails={thumbnails}
-              zoomed={zoomed}
-            />
-          </>
-        ) : null}
+      <PictureContainer zoomed={zoomed} firstClick={firstClick}>
+        <MainImage src={photos[index]} onClick={this.handleZoom} onKeyPress={this.handleZoom} tabIndex={0} alt="" />
+        <LeftButton disabled={hideLeft} hide={hideLeft} className="previous" type="button" onClick={this.handleClick}>
+          &lt;
+        </LeftButton>
+        <RightButton disabled={hideRight} hide={hideRight} className="next" type="button" onClick={this.handleClick}>
+          &gt;
+        </RightButton>
+        <Thumbnails
+          handleThumbClick={this.handleThumbClick}
+          index={index}
+          thumbnails={thumbnails}
+          zoomed={zoomed}
+        />
       </PictureContainer>
     );
   }
