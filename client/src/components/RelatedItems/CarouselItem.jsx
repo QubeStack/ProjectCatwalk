@@ -179,13 +179,13 @@ class CarouselItem extends React.Component {
       card = (
         <Wrapper className="card">
           <ImageLink>
-            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace>
+            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace onClick={() => window.scrollTo(0, 0)}>
               <Image photo={this.state.photo} onClick={this.clickRoute} />
             </Link>
           </ImageLink>
           {actionButton}
           <NameLink>
-            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace>
+            <Link to={`/products/${this.props.product.id}`} style={{ textDecoration: 'none', color: '#1f513f' }} replace onClick={() => window.scrollTo(0, 0)}>
               <Name onClick={this.clickRoute}>
                 {this.props.product.name}
               </Name>
@@ -267,6 +267,8 @@ export const Image = styled.div`
 `;
 
 export const ActionButton = styled.div`
+  padding: 0;
+  font-size: 15px;
   grid-column: 5;
   grid-row: 1;
   margin-top: 5px;
@@ -276,9 +278,9 @@ export const ActionButton = styled.div`
   height: 20px;
   background: #f4f2ed;
   display: flex;
+  text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
   &: hover {
     cursor: pointer;
     background: yellow;
