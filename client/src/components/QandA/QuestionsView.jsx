@@ -45,7 +45,6 @@ const QuestionsDiv1 = styled.div`
 `;
 
 const QuestionsDiv2 = styled.div`
-
 `;
 
 class QuestionsView extends React.Component {
@@ -53,7 +52,7 @@ class QuestionsView extends React.Component {
     super(props);
 
     this.state = {
-      count: 2,
+      count: 4,
     };
     this.showMoreQuestions = this.showMoreQuestions.bind(this);
     this.showLessQuestions = this.showLessQuestions.bind(this);
