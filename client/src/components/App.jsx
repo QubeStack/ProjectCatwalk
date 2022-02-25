@@ -89,7 +89,7 @@ class App extends React.Component {
     const { reviews, product, styles } = this.state;
     return (
       <div
-        //key={id}
+        key={id}
       >
         <Header />
         <GlobalCSS />
