@@ -43,6 +43,11 @@ const AnswerInfo = styled.div`
   grid-column-start: 1;
 `;
 
+const AnswerImage = styled.img`
+  &: hover {
+    cursor: pointer;
+  }
+`;
 const months = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 class AnswerListEntry extends React.Component {
@@ -120,15 +125,65 @@ class AnswerListEntry extends React.Component {
 
   render() {
     const {
-      username, answer, date, helpful,
+      username, answer, date, helpful, photos,
     } = this.props;
     const { reported } = this.state;
     let reportText = 'Report';
+    let photoURL;
     if (reported) {
       reportText = 'Reported';
     }
     const monthStr = Number(date.substring(5, 7));
     const newDate = `${months[monthStr]} ${date.substring(8, 10)},${date.substring(0, 4)}`;
+    if (photos.length === 0) {
+      photoURL = null;
+    } else {
+      photoURL = photos[0].url;
+    }
+    if (photoURL === null) {
+      if (username === 'Seller') {
+        return (
+          <AnswerDiv className="answer">
+            <strong>A:&nbsp;</strong>
+            {answer}
+            <AnswerInfo>
+              by:&nbsp;&nbsp;
+              <strong>{username}</strong>
+              &nbsp;&nbsp;on:&nbsp;&nbsp;
+              {newDate}
+              &nbsp;&nbsp;Helpful?
+              <AnswerYesButton className="yesbutton" onClick={this.handleHelpfulA}>
+                <u>Yes</u>
+                &#40;
+                {helpful}
+                &#41;
+              </AnswerYesButton>
+              <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
+            </AnswerInfo>
+          </AnswerDiv>
+        );
+      }
+      return (
+        <AnswerDiv className="answer">
+          <strong>A:&nbsp;</strong>
+          {answer}
+          <AnswerInfo>
+            by:&nbsp;&nbsp;
+            {username}
+            &nbsp;&nbsp;on:&nbsp;&nbsp;
+            {newDate}
+            &nbsp;&nbsp;Helpful?
+            <AnswerYesButton className="yesbutton" onClick={this.handleHelpfulA}>
+              <u>Yes</u>
+              &#40;
+              {helpful}
+              &#41;
+            </AnswerYesButton>
+            <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
+          </AnswerInfo>
+        </AnswerDiv>
+      );
+    }
     if (username === 'Seller') {
       return (
         <AnswerDiv className="answer">
@@ -148,6 +203,9 @@ class AnswerListEntry extends React.Component {
             </AnswerYesButton>
             <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           </AnswerInfo>
+          <div>
+            <AnswerImage src={photoURL} alt="" width={60} height={60} />
+          </div>
         </AnswerDiv>
       );
     }
@@ -169,6 +227,9 @@ class AnswerListEntry extends React.Component {
           </AnswerYesButton>
           <ReportButton onClick={this.handleReport}><u>{reportText}</u></ReportButton>
         </AnswerInfo>
+        <div>
+          <AnswerImage src={photoURL} alt="" width={60} height={60} />
+        </div>
       </AnswerDiv>
     );
   }
