@@ -56,9 +56,9 @@ align-items: center;
 
 const Bar = styled.span`
   background-color: #a6a6a6;
-  height: 5px;
+  height: 3px;
   width: 250px;
-  border-radius: 5px;
+  border-radius: 1px;
   position: relative;
   display: block;
   margin-bottom: 3px;
@@ -67,7 +67,7 @@ const Bar = styled.span`
     color: "black";
     position: absolute;
     height: 5px;
-    top: -6px;
+    top: -8px;
     left: 47%;
   }`;
 
@@ -78,117 +78,133 @@ class ProductBreakdown extends React.Component {
 
     };
   }
+  componentDidMount() {
+    console.log("characteristics:", this.props.meta)
+  }
 
   render() {
+    const characteristics = this.props.meta.characteristics;
     return (
-      <Center  className="productBreakdown">
-        <Border>
-          <Factor>
-            Size
-          </Factor>
-          <Bar />
-          <Inline>
-            <Text1>
-              Too Small
-            </Text1>
-            <Text2>
-              Perfect
-            </Text2>
-            <Text3>
-              Too Big
-            </Text3>
-          </Inline>
-        </Border>
+      <Center className="productBreakdown">
+        {characteristics.Size ? (
+          <Border>
+            <Factor>
+              Size
+            </Factor>
+            <Bar />
+            <Inline>
+              <Text1>
+                Too Small
+              </Text1>
+              <Text2>
+                Perfect
+              </Text2>
+              <Text3>
+                Too Big
+              </Text3>
+            </Inline>
+          </Border>
+        ) : null}
 
-        <Border>
-          <Factor>
-            Width
-          </Factor>
-          <Bar />
-          <Inline>
-            <Text1>
-              Too Narrow
-            </Text1>
-            <Text2>
-              Perfect
-            </Text2>
-            <Text3>
-              Too Wide
-            </Text3>
-          </Inline>
-        </Border>
+        {characteristics.Width ? (
+          <Border>
+            <Factor>
+              Width
+            </Factor>
+            <Bar />
+            <Inline>
+              <Text1>
+                Too Narrow
+              </Text1>
+              <Text2>
+                Perfect
+              </Text2>
+              <Text3>
+                Too Wide
+              </Text3>
+            </Inline>
+          </Border>
+        ) : null}
 
-        <Border>
-          <Factor>
-            Comfort
-          </Factor>
-          <Bar />
-          <Inline>
-            <Text1>
-              Uncomfortable
-            </Text1>
-            <Text2>
-              Ok
-            </Text2>
-            <Text3>
-              Perfect
-            </Text3>
-          </Inline>
-        </Border>
+        {characteristics.Comfort ? (
+          <Border>
+            <Factor>
+              Comfort
+            </Factor>
+            <Bar />
+            <Inline>
+              <Text1>
+                Uncomfortable
+              </Text1>
+              <Text2>
+                Ok
+              </Text2>
+              <Text3>
+                Perfect
+              </Text3>
+            </Inline>
+          </Border>
+        ) : null}
 
-        <Border>
-          <Factor>
-            Quality
-          </Factor>
-          <Bar />
-          <Inline>
-            <Text1>
-              Poor
-            </Text1>
-            <Text2>
-              Ok
-            </Text2>
-            <Text3>
-              Perfect
-            </Text3>
-          </Inline>
-        </Border>
+        {characteristics.Quality ? (
+          <Border>
+            <Factor>
+              Quality
+            </Factor>
+            <Bar />
+            <Inline>
+              <Text1>
+                Poor
+              </Text1>
+              <Text2>
+                Ok
+              </Text2>
+              <Text3>
+                Perfect
+              </Text3>
+            </Inline>
+          </Border>
+        ) : null}
 
-        <Border>
-          <Factor>
-            Length
-          </Factor>
-          <Bar />
-          <Inline>
-            <Text1>
-              Runs Short
-            </Text1>
-            <Text2>
-              Perfect
-            </Text2>
-            <Text3>
-              Runs Long
-            </Text3>
-          </Inline>
-        </Border>
+        {characteristics.Length ? (
+          <Border>
+            <Factor>
+              Length
+            </Factor>
+            <Bar />
+            <Inline>
+              <Text1>
+                Runs Short
+              </Text1>
+              <Text2>
+                Perfect
+              </Text2>
+              <Text3>
+                Runs Long
+              </Text3>
+            </Inline>
+          </Border>
+        ) : null}
 
-        <Border>
-          <Factor>
-            Fit
-          </Factor>
-          <Bar />
-          <Inline>
-            <Text1>
-              Runs Tight
-            </Text1>
-            <Text2>
-              Perfect
-            </Text2>
-            <Text3>
-              Runs Long
-            </Text3>
-          </Inline>
-        </Border>
+        {characteristics.Fit ? (
+          <Border>
+            <Factor>
+              Fit
+            </Factor>
+            <Bar />
+            <Inline>
+              <Text1>
+                Runs Tight
+              </Text1>
+              <Text2>
+                Perfect
+              </Text2>
+              <Text3>
+                Runs Long
+              </Text3>
+            </Inline>
+          </Border>
+        ) : null}
 
       </Center>
     );

@@ -10,7 +10,6 @@ font-size: 20px;
 font-weight: bold;
 font-family: verdana;
 color: black;
-background-color: #f4f2ed;
 `;
 
 const Inline = styled.div`
@@ -35,7 +34,7 @@ const Bar = styled.span`
   background-color: #a6a6a6;
   height: 10px;
   width: 150px;
-  border-radius: 5px;
+  border-radius: 2px;
   position: relative;
   display: block;
   margin-bottom: 10px;
@@ -48,10 +47,10 @@ const Bar = styled.span`
   }
   &:after {
     content: '';
-    background-color: ${props => props.empty ? "#a6a6a6" : "green"};
+    background-color: ${props => props.empty ? "#a6a6a6" : "#1f513f"};
     position: absolute;
     height: 10px;
-    border-radius: 5px;
+    border-radius: 2px;
     top: 0;
     left: 0;
     overflow: hidden;
