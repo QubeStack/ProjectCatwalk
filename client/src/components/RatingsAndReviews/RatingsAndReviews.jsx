@@ -74,7 +74,8 @@ class RatingsAndReviews extends React.Component {
     })
       .then((results) => {
         this.setState({ reviews: results.data.results });
-      });
+      })
+      .catch((err) => console.log(err));
     axios({
       method: 'get',
       url: '/api/product/reviews/meta',
