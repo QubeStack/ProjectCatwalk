@@ -14,9 +14,11 @@ const Add = styled.button`
   bottom: -350%;
   height: 200%;
   width: 30%;
-  box-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);
-  &:hover{
+
+  &:hover, :focus{
     cursor: pointer;
+    background-color: #1F513F;
+    color: white;
     };`;
 
 const Fav = styled.button`
@@ -29,9 +31,10 @@ const Fav = styled.button`
   height: 200%;
   color: ${({ favorited }) => (favorited ? 'gold' : '#1F513F')};
   border-radius: 12px;
-  box-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,  0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),  0 0 5px rgba(0,0,0,.1),  0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),  0 20px 20px rgba(0,0,0,.15);
-  &:hover{
+  &:hover, :focus{
     cursor: pointer;
+    background-color: #1F513F;
+    color: white;
     };`;
 
 const Size = styled.select`
@@ -164,7 +167,7 @@ class AddToCart extends React.Component {
       removeFav,
     } = this.props;
     const size = [];
-    for (let i = 1; i <= quantity; i += 1) {
+    for (let i = 1; i <= quantity && i <= 15; i += 1) {
       size.push(i);
     }
     let disabled = true;

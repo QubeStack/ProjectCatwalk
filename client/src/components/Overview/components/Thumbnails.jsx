@@ -18,14 +18,15 @@ const PictureContainer = styled.div`
 const ImageWrapper = styled.div`
   grid-column: span 1;
   align-content: center;
-  position: relative;`;
+  position: relative;
+  height: 15vh;`;
 
 const Thumbnail = styled.img`
   border: solid;
   border-color: ${({ context }) => (context ? 'white' : 'transparent')};
-  height: 90%;
+  height: 100%;
   width: 100%;
-  object-fit: fill;
+  object-fit: cover;
   border-radius: 10px;
   opacity: ${({ context }) => (context ? '1' : '.5')};
   &:hover, :focus {
@@ -36,7 +37,7 @@ const Dot = styled.div`
   position: absolute;
   border: solid;
   right: 40%;
-  bottom: -50%;
+  bottom: 0%;
   border-color: ${({ context }) => (context ? 'white' : 'transparent')};
   background-color: white;
   border-radius: 50%;
@@ -64,7 +65,7 @@ const LeftButton = styled.button`
 
 const RightButton = styled.button`
   position: relative;
-  bottom: ${({ zoomed }) => (zoomed ? '-74%' : '0%')};
+  bottom: ${({ zoomed }) => (zoomed ? '-33%' : '0%')};
   background-color: transparent;
   border: none;
   font-weight: bold;
@@ -92,18 +93,19 @@ class Thumbnails extends React.Component {
       handleThumbClick,
       zoomed,
     } = this.props;
-    let leftHide = false;
+    let leftHide = true;
     let rightHide = false;
     let currentThumbs = [];
     if (thumbnails) {
-      if (index <= 7) {
-        leftHide = true;
+      if (index <= 7 && thumbnails.length > 1) {
+        // leftHide = true;
         currentThumbs = thumbnails.slice(0, 7);
       }
       if (index >= thumbnails.length - 1 || thumbnails.length < 7) {
         rightHide = true;
       }
       if (index > 7) {
+        leftHide = false;
         currentThumbs = thumbnails.slice(index - 7, index);
       }
     }

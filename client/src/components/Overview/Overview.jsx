@@ -23,6 +23,7 @@ class Overview extends React.Component {
       stylePhotos: [],
       styleThumbnails: [],
       favorited: false,
+      zoomed: false,
     };
 
     this.getStyles = this.getStyles.bind(this);
@@ -31,6 +32,7 @@ class Overview extends React.Component {
     this.checkFav = this.checkFav.bind(this);
     this.addFav = this.addFav.bind(this);
     this.removeFav = this.removeFav.bind(this);
+    this.handleZoom = this.handleZoom.bind(this);
   }
 
   componentDidUpdate(previousprops) {
@@ -43,6 +45,11 @@ class Overview extends React.Component {
         // this.props.render();
       }
     }
+  }
+
+  handleZoom() {
+    const { zoomed } = this.state;
+    this.setState({ zoomed: !zoomed });
   }
 
   getStyles(styles) {
@@ -138,6 +145,7 @@ class Overview extends React.Component {
       selectedStyle,
       styleThumbnails,
       stylePhotos,
+      zoomed,
     } = this.state;
 
     const { scroll, id, reviews, product, styles } = this.props;
@@ -146,7 +154,7 @@ class Overview extends React.Component {
       <StyledContainer>
         { product && selectedStyle && styles ? (
           <>
-            <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} />
+            <ImageGallery photos={stylePhotos} thumbnails={styleThumbnails} handleZoom={this.handleZoom} />
             <ProductInformation
               product={product}
               selectedStyle={selectedStyle}
@@ -158,6 +166,7 @@ class Overview extends React.Component {
               addFav={this.addFav}
               removeFav={this.removeFav}
               reviews={reviews}
+              zoomed={zoomed}
             />
           </>
         ) : null}
