@@ -84,7 +84,7 @@ class RatingsAndReviews extends React.Component {
     this.state = {
       reviews: [],
       slice: 2,
-      meta: {},
+      meta: null,
     };
   }
 
@@ -117,7 +117,7 @@ class RatingsAndReviews extends React.Component {
         <Inline ref={this.props.setRef} className="ratingsAndReviews">
           <Border>
             <RatingBreakdown reviews={this.state.reviews} />
-            <ProductBreakdown meta={this.state.meta} />
+            {this.state.meta ? <ProductBreakdown meta={this.state.meta} /> : null}
           </Border>
           <Border2>
             <Header>

@@ -18,13 +18,18 @@ const Body = styled.div`
 `;
 
 const PushRight = styled.div`
-margin left: auto;
+display: inline;
+`;
+
+const Center = styled.div`
+display: flex;
+justify-content: center;
 `;
 
 const ModalBody = styled.div`
   position: fixed;
-  top: 5%;
-  left: 25%;
+  top: 10%;
+  left: 35%;
   width: 400px;
   height: 450px;
   background: white;
@@ -36,8 +41,23 @@ const ModalBody = styled.div`
 `;
 
 const H2 = styled.div`
-  color: black;
-  margin-left: 85%;
+  color: "#1f513f";
+  background-color: #f4f2ed;
+  position: relative;
+  padding: none;
+  margin-bottom: 10px;
+`;
+
+const X = styled.div`
+  color: grey;
+  position: absolute;
+  height: 5px;
+  top: 0px;
+  left: 95%;
+  &:hover {
+    cursor: pointer;
+    color: black;
+  }
 `;
 
 const YesNo = styled.div`
@@ -91,8 +111,13 @@ color: black;
 `;
 
 const SummaryField = styled.textarea`
-width: 250px;
-height: 20px;
+width: 350px;
+height: 25px;
+`;
+
+const BigField = styled.textarea`
+width: 350px;
+height: 100px;
 `;
 
 const Scroll = styled.div`
@@ -151,7 +176,8 @@ class Modal extends React.Component {
         <Body className="modal" />
         <ModalBody>
           <PushRight>
-            <H2 type="button" onClick={this.props.handleClose}>X</H2>
+            <H2>Write Your Review</H2>
+            <X type="button" onClick={this.props.handleClose}> ⨉ </X>
           </PushRight>
 
           <Scroll>
@@ -316,7 +342,7 @@ class Modal extends React.Component {
             <Mandatory>
               Review Body
             </Mandatory>
-            <SummaryField type="text" name="body" placeholder="Why did you like the product or not?" maxlength="1000" onChange={this.onChangeValue} />
+            <BigField type="text" name="body" placeholder="Why did you like the product or not?" maxlength="1000" onChange={this.onChangeValue} />
 
             <Mandatory>
               What is your nickname?
@@ -327,7 +353,10 @@ class Modal extends React.Component {
             </Mandatory>
             <SummaryField type="text" name="email" maxlength="60" onChange={this.onChangeValue} />
             <div />
-            <Button type="button">Submit</Button>
+            <Center>
+              <Button type="button">Submit</Button>
+            </Center>
+
           </Scroll>
         </ModalBody>
       </>
