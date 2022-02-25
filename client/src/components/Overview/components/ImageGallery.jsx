@@ -118,6 +118,8 @@ class ImageGallery extends React.Component {
 
   handleZoom() {
     const { zoomed } = this.state;
+    const { handleZoom } = this.props;
+    handleZoom();
     this.setState({ zoomed: !zoomed, firstClick: true });
   }
 

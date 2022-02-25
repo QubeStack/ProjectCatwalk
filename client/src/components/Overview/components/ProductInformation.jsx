@@ -25,10 +25,9 @@ const shake = keyframes`
   }`;
 
 const ProductContainer = styled.div`
-  display: grid;
+  display: ${({ zoomed }) => (zoomed ? 'none' : 'grid')};
   border-style: hidden;
   border-color: #1F513F;
-
   border-radius: 10px;
   color: #102920;
   grid-column: span 3;
@@ -39,8 +38,6 @@ const ProductContainer = styled.div`
   margin: 5px;
   height: 87vh;
   position: relative;
-  overflow: hidden;
-
 `;
 
 const Info = styled.div`
@@ -131,11 +128,11 @@ class ProductInformation extends React.Component {
 
   render() {
     const {
-      product, styles, selectedStyle, changeStyle, scroll, favorited, addFav, removeFav,
+      product, styles, selectedStyle, changeStyle, scroll, favorited, addFav, removeFav, zoomed,
     } = this.props;
     const { reviews, avgRating } = this.state;
     return (
-      <ProductContainer className="ProductInfo">
+      <ProductContainer className="ProductInfo" zoomed={zoomed}>
         {product && styles && selectedStyle && changeStyle ? (
           <>
             {reviews <= 0 ? (
