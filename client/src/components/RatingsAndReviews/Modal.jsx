@@ -149,6 +149,22 @@ const Button = styled.button`
  };
 `;
 
+const HoverStars = styled.span`
+color: grey;
+font-size: 24px;
+position: relative;
+unicode-bidi: bidi-override;
+direction: rtl;
+`;
+
+const Span = styled.span`
+&:hover:before {
+  color: #1f513f;
+  content: "\\2605";
+  position: absolute;
+}
+`;
+
 class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -182,7 +198,10 @@ class Modal extends React.Component {
 
           <Scroll>
             <Mandatory>Overall Rating</Mandatory>
-            <Stars rating={0} />
+            <HoverStars>
+              <Span>★</Span><Span>★</Span><Span>★</Span><Span>★</Span><Span>★</Span>
+            </HoverStars>
+            {/* <Stars rating={0} /> */}
             <Mandatory>Do you Recommend this Product?</Mandatory>
             <YesNo onChange={this.onChangeValue}>
               Yes

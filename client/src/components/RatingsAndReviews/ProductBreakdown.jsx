@@ -68,7 +68,7 @@ const Bar = styled.span`
     position: absolute;
     height: 5px;
     top: -8px;
-    left: 47%;
+    left: ${props => props.width}%;
   }`;
 
 class ProductBreakdown extends React.Component {
@@ -91,7 +91,7 @@ class ProductBreakdown extends React.Component {
             <Factor>
               Size
             </Factor>
-            <Bar />
+            <Bar width={characteristics.Size.value * 15.6} />
             <Inline>
               <Text1>
                 Too Small
@@ -111,7 +111,7 @@ class ProductBreakdown extends React.Component {
             <Factor>
               Width
             </Factor>
-            <Bar />
+            <Bar width={characteristics.Width.value * 15.6} />
             <Inline>
               <Text1>
                 Too Narrow
@@ -131,7 +131,7 @@ class ProductBreakdown extends React.Component {
             <Factor>
               Comfort
             </Factor>
-            <Bar />
+            <Bar width={characteristics.Comfort.value * 15.6} />
             <Inline>
               <Text1>
                 Uncomfortable
@@ -151,7 +151,7 @@ class ProductBreakdown extends React.Component {
             <Factor>
               Quality
             </Factor>
-            <Bar />
+            <Bar width={characteristics.Quality.value * 15.6} />
             <Inline>
               <Text1>
                 Poor
@@ -171,7 +171,7 @@ class ProductBreakdown extends React.Component {
             <Factor>
               Length
             </Factor>
-            <Bar />
+            <Bar width={characteristics.Length.value * 15.6} />
             <Inline>
               <Text1>
                 Runs Short
@@ -191,7 +191,7 @@ class ProductBreakdown extends React.Component {
             <Factor>
               Fit
             </Factor>
-            <Bar />
+            <Bar width={characteristics.Fit.value * 15.6} />
             <Inline>
               <Text1>
                 Runs Tight

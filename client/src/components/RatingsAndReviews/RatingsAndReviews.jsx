@@ -45,7 +45,7 @@ display: flex;
 `;
 
 const PushRight = styled.div`
-margin left: auto;
+display: flex;
 `;
 
 const Scroll = styled.div`
@@ -59,9 +59,10 @@ overflow-y: scroll;
 const Button = styled.button`
   border-style: solid;
   border-color: #1f513f;
-  margin-left: 10px;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 7px;
+  padding: 4px;
+  margin-left: -5px;
   &: hover {
     background-color: #1f513f;
     cursor: pointer;
@@ -89,11 +90,11 @@ class RatingsAndReviews extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = 40355;
+    let id = this.props.id;
     axios({
       method: 'get',
       url: '/api/product/reviews',
-      params: { product_id: 40355 },
+      params: { product_id: id },
     })
       .then((results) => {
         this.setState({ reviews: results.data.results });
@@ -102,7 +103,7 @@ class RatingsAndReviews extends React.Component {
     axios({
       method: 'get',
       url: '/api/product/reviews/meta',
-      params: { product_id: 40357 },
+      params: { product_id: id },
     })
       .then((results) => {
         this.setState({ meta: results.data });
@@ -125,6 +126,9 @@ class RatingsAndReviews extends React.Component {
                 <div>Ratings and Reviews</div>
                 <PushRight>
                   <WriteNewReview />
+                  <Button type="button" onClick={() => this.setState({ slice: this.state.slice + 2 })}>
+                    See More Reviews
+                  </Button>
                 </PushRight>
 
               </Inline>
@@ -139,9 +143,7 @@ class RatingsAndReviews extends React.Component {
               </Div>
             }
             <Center>
-              <Button type="button" onClick={() => this.setState({ slice: this.state.slice + 2 })}>
-                See More Reviews
-              </Button>
+
             </Center>
 
           </Border2>

@@ -40,6 +40,7 @@ class App extends React.Component {
     })
       .then((results) => {
         this.setState({ reviews: results.data.results });
+        console.log("reviews1", this.state.reviews)
       })
       .catch((err) => {
         console.log(err);
@@ -100,7 +101,7 @@ class App extends React.Component {
           product={product}
           styles={styles}
         />
-        <RatingsAndReviews setRef={(el) => (this.ratingsRef = el)} />
+        <RatingsAndReviews id={id} reviews={reviews} setRef={(el) => (this.ratingsRef = el)} />
         <QABody product={product} id={id} />
         <RelatedItems key={id} id={id} />
       </div>
