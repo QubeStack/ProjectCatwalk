@@ -114,7 +114,6 @@ class CarouselItem extends React.Component {
       .then((product) => {
         this.setState({
           currentProduct: product.data,
-          // finished: true,
         });
       })
       .catch(() => {
@@ -287,6 +286,7 @@ export const ActionButton = styled.div`
 export const Name = styled.div`
   grid-column: 1/-1;
   grid-row: 6;
+  font-size: 11px;
   &: hover {
     cursor: pointer;
   }
@@ -295,11 +295,13 @@ export const Name = styled.div`
 export const Category = styled.div`
   grid-column: 1/-1;
   grid-row: 7;
+  font-size: 11px;
 `;
 
 export const Price = styled.div`
   grid-column: 1/-1;
   grid-row: 8;
+  font-size: 11px;
 `;
 
 export const Stars = styled.div`
@@ -319,6 +321,7 @@ const Modal = styled.div`
   transform: translate(-50px, -10px);
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.8);
+  font-size: 12px;
 `;
 
 const Content = styled.div`
