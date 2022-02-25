@@ -49,6 +49,9 @@ class QABody extends React.Component {
         this.setState({
           questions: response.data.results,
         });
+      })
+      .catch((err) => {
+
       });
   }
 

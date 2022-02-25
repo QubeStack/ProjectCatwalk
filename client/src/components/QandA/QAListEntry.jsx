@@ -8,7 +8,6 @@ const QuestionDiv = styled.div`
   font-family: verdana;
   color: #1f513f;
   background-color: #f4f2ed;
-  padding: 10px;
   grid-area: main;
   display: grid;
   grid-template-columns: 75% 0% 15% 5%;
@@ -63,25 +62,32 @@ const YesButton = styled.button`
   }
 `;
 
+const NoAnswerDiv = styled.div`
+  background-color: white;
+  grid-area: footer;
+  grid-row-start: 7;
+  grid-column-start: 1;
+  width: 110%
+  padding:10px;
+`;
+
 const AnswerDivNoScroll = styled.div`
   grid-area: footer;
   grid-row-start: 7;
   grid-column-start: 1;
-  padding: 10px;
-  background-color: white;
+  width: 110%
 `;
 
 const AnswerDivScroll = styled.div`
   grid-area: footer;
   grid-row-start: 7;
   grid-column-start: 1;
-  padding: 10px;
-  background-color: white;
   overflow-y: scroll;
   height: 200px;
   &::-webkit-scrollbar {
     display: none;
   }
+  width: 110%
 `;
 
 const MoreAnswersButton = styled.button`
@@ -281,10 +287,10 @@ class QAListEntry extends React.Component {
           </HelpfulDiv>
           <ReportButton className="report" onClick={this.handleReport}><u>{reportText}</u></ReportButton>
           <AddAnswer product={product} question={question} reRender={this.reRenderView} product_id={product_id} question_id={question_id} />
-          <AnswersDiv>
-            <strong>A:&#160;</strong>
+          <NoAnswerDiv>
+            <strong>&nbsp;&nbsp;A:&#160;</strong>
             No answers yet!
-          </AnswersDiv>
+          </NoAnswerDiv>
         </QuestionDiv>
       );
     }

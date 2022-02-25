@@ -45,16 +45,16 @@ const Modal = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 `;
 
 const Content = styled.div`
-  background-color: #f4f2ed;
+  background-color: white;
+  font-family: verdana;
   margin: auto;
   border: 1px solid black;
-  width: 50%;
+  width: 30%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: 5% 70% 10% 10% 5%;
@@ -62,7 +62,9 @@ const Content = styled.div`
 
 const ModalHeader = styled.div`
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: span 4;
+  color: #1f513f;
+  grid-row-start: 1;
   background-color: #f4f2ed;
   align-self: start;
 `;
@@ -99,14 +101,19 @@ const QuestionLabel = styled.label`
 const NicknameField = styled.input`
   grid-row-start: 3;
   grid-column-start: 1;
+  grid-column-end: span 4;
   width: 200px;
   margin-left: 10px;
+  margin-top: 10px;
 `;
 
 const NicknameLabel = styled.label`
   grid-row-start: 3;
   grid-column-start: 1;
+  grid-column-end: 4;
   padding-left: 10px;
+  white-space: nowrap;
+
 `;
 
 const EmailField = styled.input`
@@ -120,13 +127,12 @@ const EmailLabel = styled.label`
   grid-row-start: 4;
   grid-column-start: 1;
   padding-left: 10px;
+  white-space: nowrap;
 `;
 
 const ModalSubmit = styled.input`
   border-style: solid;
   border-color: #1f513f;
-  grid-row-start: 5;
-  grid-column-start: 1;
   margin-left: 10px;
   background-color: white;
   border-radius: 12px;
@@ -144,6 +150,8 @@ const ModalSubmit = styled.input`
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;
   };
+  width: 150px;
+  padding: 10px;
 `;
 
 const ModalForm = styled.form`
@@ -152,6 +160,9 @@ const ModalForm = styled.form`
 
 const FormText = styled.p`
   padding-left: 10px;
+  font-size: 10px;
+  grid-column-start: 1;
+  grid-column-end:span 4;
 `;
 
 class AskQuestion extends React.Component {
@@ -277,13 +288,13 @@ class AskQuestion extends React.Component {
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <ModalForm onSubmit={this.handleSubmit}>
                 <QuestionLabel>
-                  Your question
+                  Question
                   <span style={{ color: 'red' }}>*</span>
                   :
                   <QuestionField type="text" value={question} name="question" placeholder="What is your question?" maxlength="1000" onChange={this.handleChange} />
                 </QuestionLabel>
                 <NicknameLabel>
-                  What is your nickname
+                  Nickname
                   <span style={{ color: 'red' }}>*</span>
                   :
                   <NicknameField type="text" value={nickname} placeholder="Example: jackson11!" name="nickname" onChange={this.handleChange} />
@@ -292,7 +303,7 @@ class AskQuestion extends React.Component {
                   </FormText>
                 </NicknameLabel>
                 <EmailLabel>
-                  Your Email
+                  Email
                   <span style={{ color: 'red' }}>*</span>
                   :
                   <EmailField type="text" value={email} placeholder="Example: jackson@email.com" name="email" onChange={this.handleChange} />
