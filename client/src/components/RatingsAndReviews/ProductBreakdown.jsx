@@ -56,9 +56,9 @@ align-items: center;
 
 const Bar = styled.span`
   background-color: #a6a6a6;
-  height: 5px;
+  height: 3px;
   width: 250px;
-  border-radius: 5px;
+  border-radius: 1px;
   position: relative;
   display: block;
   margin-bottom: 3px;
@@ -67,7 +67,7 @@ const Bar = styled.span`
     color: "black";
     position: absolute;
     height: 5px;
-    top: -6px;
+    top: -8px;
     left: 47%;
   }`;
 
