@@ -6,6 +6,7 @@ const AddAnswerButton = styled.button`
   grid-row-start: 1;
   grid-column-start: 4;
   justify-self: end;
+  font-family: verdana;
   text-decoration: underline;
   color: #1f513f;
   margin-left: 1%;
@@ -39,21 +40,25 @@ const Modal = styled.div`
 `;
 
 const Content = styled.div`
-  background-color: #f4f2ed;
+  background-color: white;
   margin: auto;
   border: 1px solid black;
-  width: 50%;
+  font-family: verdana;
+  width: 30%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 5% 70% 10% 10% 5%;
+  grid-template-rows: 10% 70% 10% 5% 5%;
   color:black;
 `;
 
 const ModalHeader = styled.div`
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: span 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
   background-color: #f4f2ed;
-  align-self: center;
+  color: #1f513f;
+  align-self: start;
 `;
 
 const CloseButton = styled.span`
@@ -88,14 +93,18 @@ const QuestionLabel = styled.label`
 const NicknameField = styled.input`
   grid-row-start: 3;
   grid-column-start: 1;
+  grid-column-end: span 4;
   width: 200px;
   margin-left: 10px;
+  margin-top: 10px;
 `;
 
 const NicknameLabel = styled.label`
   grid-row-start: 3;
   grid-column-start: 1;
+  grid-column-end: 4;
   padding-left: 10px;
+  white-space: nowrap;
 `;
 
 const EmailField = styled.input`
@@ -109,6 +118,7 @@ const EmailLabel = styled.label`
   grid-row-start: 4;
   grid-column-start: 1;
   padding-left: 10px;
+  white-space: nowrap;
 `;
 
 const PhotoLabel = styled.label`
@@ -144,14 +154,18 @@ const ModalSubmit = styled.input`
      -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
           box-shadow: inset 0px 0px 15px #c1c1c1;
   };
+  width: 150px;
+  padding: 10px;
 `;
 
 const ModalForm = styled.form`
   grid-row-start:2;
+  padding-bottom: 10px;
 `;
 
 const FormText = styled.p`
   padding-left: 10px;
+  font-size: 10px;
 `;
 
 class AddAnswer extends React.Component {
@@ -266,7 +280,7 @@ class AddAnswer extends React.Component {
       return (
         <AskDiv>
           <AddAnswerButton className="add" onClick={this.handleClick}>
-            Add Answer!
+            Add Answer
           </AddAnswerButton>
           <Modal className="modal">
             <Content>
@@ -279,13 +293,13 @@ class AddAnswer extends React.Component {
               <CloseButton onClick={this.handleClose}>&times;</CloseButton>
               <ModalForm onSubmit={this.handleSubmit}>
                 <QuestionLabel>
-                  Your Answer
+                  Answer
                   <span style={{ color: 'red' }}>*</span>
                   :
                   <QuestionField type="text" value={answer} name="answer" placeholder="Your Answer Here" maxlength="1000" onChange={this.handleChange} />
                 </QuestionLabel>
                 <NicknameLabel>
-                  What is your nickname
+                  Nickname
                   <span style={{ color: 'red' }}>*</span>
                   :
                   <NicknameField type="text" value={nickname} placeholder="Example: jack543!" name="nickname" onChange={this.handleChange} />
@@ -294,7 +308,7 @@ class AddAnswer extends React.Component {
                   </FormText>
                 </NicknameLabel>
                 <EmailLabel>
-                  Your Email
+                  Email
                   <span style={{ color: 'red' }}>*</span>
                   :
                   <EmailField type="text" value={email} placeholder="Example: jack@email.com" name="email" onChange={this.handleChange} />
@@ -313,7 +327,7 @@ class AddAnswer extends React.Component {
     }
     return (
       <AddAnswerButton className="add" onClick={this.handleClick}>
-        Add Answer!
+        Add Answer
       </AddAnswerButton>
     );
   }
