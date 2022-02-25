@@ -30,7 +30,7 @@ const ProductContainer = styled.div`
   border-color: #1F513F;
 
   border-radius: 10px;
-  color: #1F513F;
+  color: #102920;
   grid-column: span 3;
   grid-template-columns: 1fr;
   grid-auto-rows: max-content;
@@ -39,7 +39,7 @@ const ProductContainer = styled.div`
   margin: 5px;
   height: 87vh;
   position: relative;
-
+  overflow: hidden;
 
 `;
 
@@ -66,7 +66,7 @@ const ReviewLink = styled.div`
   };`;
 
 const Name = styled.div`
-  font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
+  font-size: calc(14px + (28 - 14) * ((100vw - 300px) / (1600 - 300)));
   font-weight: bold;`;
 
 const RatingsContainer = styled.div`
@@ -77,11 +77,11 @@ const RatingsContainer = styled.div`
 
 const IconContainer = styled.div`
   justify-self:center;
-  margin-bottom: 30px;
-  margin-top: 30px;`;
+  margin-bottom: 20px;
+  margin-top: 20px;`;
 
 const Icon = styled.img`
-  padding-right: 1em;
+  padding-right: 3em;
   width: 30px;
   height: 30px;
   &:hover, :focus{
@@ -98,7 +98,7 @@ font-weight: bold;
 font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));`;
 
 const StyleInfo = styled.div`
-  margin-bottom: 40px;`;
+  margin-bottom: 20px;`;
 
 class ProductInformation extends React.Component {
   constructor(props) {
