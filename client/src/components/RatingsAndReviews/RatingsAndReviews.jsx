@@ -7,6 +7,7 @@ import ReviewsList from './ReviewsList';
 import WriteNewReview from './WriteNewReview';
 
 const Center = styled.div`
+display: flex;
 justify-content: center;
 `;
 
@@ -32,7 +33,7 @@ font-weight: bold;
 `;
 
 const Div = styled.div`
-height: 550px;
+height: 500px;
 width: 700px;
 `;
 
@@ -53,6 +54,28 @@ border-color: white;
 height: 500px;
 width: 700px;
 overflow-y: scroll;
+`;
+
+const Button = styled.button`
+  border-style: solid;
+  border-color: #1f513f;
+  margin-left: 10px;
+  background-color: white;
+  border-radius: 2px;
+  &: hover {
+    background-color: #1f513f;
+    cursor: pointer;
+    border-color: #f4f2ed;
+    color: #f4f2ed;
+  };
+  &: active {
+    background-color: white;
+    color: black;
+    border-color: #1f513f;
+    -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+          box-shadow: inset 0px 0px 15px #c1c1c1;
+  };
 `;
 
 class RatingsAndReviews extends React.Component {
@@ -90,8 +113,8 @@ class RatingsAndReviews extends React.Component {
 
   render() {
     return (
-      <>
-        <Inline ref={this.props.setRef}  className="ratingsAndReviews">
+      <Center>
+        <Inline ref={this.props.setRef} className="ratingsAndReviews">
           <Border>
             <RatingBreakdown reviews={this.state.reviews} />
             <ProductBreakdown meta={this.state.meta} />
@@ -115,16 +138,15 @@ class RatingsAndReviews extends React.Component {
                 <ReviewsList reviews={this.state.reviews.slice(0, this.state.slice)} />
               </Div>
             }
+            <Center>
+              <Button type="button" onClick={() => this.setState({ slice: this.state.slice + 2 })}>
+                See More Reviews
+              </Button>
+            </Center>
+
           </Border2>
         </Inline>
-        <Center>
-          <div>
-            <button type="button" onClick={() => this.setState({ slice: this.state.slice + 2 })}>
-              See More Reviews
-            </button>
-          </div>
-        </Center>
-      </>
+      </Center>
     );
   }
 }
