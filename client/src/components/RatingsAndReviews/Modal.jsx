@@ -25,23 +25,19 @@ const ModalBody = styled.div`
   position: fixed;
   top: 5%;
   left: 25%;
-  width: 700px;
-  height: 500px;
+  width: 400px;
+  height: 450px;
   background: white;
-  border: 1px solid #ccc;
-  box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
   filter: blur(0);
   opacity: 100%;
   visibility: visible;
   z-index: 11;
+  padding-left: 20px;
 `;
 
 const H2 = styled.div`
   color: black;
-  margin-left: auto;
-  border-bottom: 1px solid #ccc;
-  padding: 1rem;
-  margin: 0;
+  margin-left: 85%;
 `;
 
 const YesNo = styled.div`
@@ -49,6 +45,7 @@ font-size: 12px;
 color: black;
 font-weight: normal;
 display: flex;
+margin-bottom: 5px;
 `;
 
 const Characteristics = styled.div`
@@ -56,6 +53,7 @@ font-size: 12px;
 color: black;
 font-weight: normal;
 display: flex;
+margin-bottom: 10px;
 `;
 
 const Bold = styled.div`
@@ -70,6 +68,7 @@ const RadioDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  margin-bottom: 3px;
 `;
 
 // border-size: 1px;
@@ -93,29 +92,37 @@ color: black;
 
 const SummaryField = styled.textarea`
 width: 250px;
-height: 16px;
+height: 20px;
 `;
 
 const Scroll = styled.div`
-width: 700px;
+width: 400px;
 height: 400px;
 overflow-y: scroll;
 `;
 
-const Footer = styled.div`
-  border-top: 1px solid #ccc;
-  background: #eee;
-  padding: 0.5rem 1rem;
- `;
-
 const Button = styled.button`
-  border: 0;
-  background: #78f89f;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  line-height: 1;
- `;
+ border-style: solid;
+ border-color: #1f513f;
+ margin-left: 10px;
+ margin-top: 10px;
+ background-color: white;
+ border-radius: 2px;
+ &: hover {
+   background-color: #1f513f;
+   cursor: pointer;
+   border-color: #f4f2ed;
+   color: #f4f2ed;
+ };
+ &: active {
+   background-color: white;
+   color: black;
+   border-color: #1f513f;
+   -webkit-box-shadow: inset 0px 0px 15px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 15px #c1c1c1;
+         box-shadow: inset 0px 0px 15px #c1c1c1;
+ };
+`;
 
 class Modal extends React.Component {
   constructor(props) {
@@ -144,7 +151,7 @@ class Modal extends React.Component {
         <Body className="modal" />
         <ModalBody>
           <PushRight>
-            <H2 type="button" onClick={this.props.handleClose}>[X]</H2>
+            <H2 type="button" onClick={this.props.handleClose}>X</H2>
           </PushRight>
 
           <Scroll>
@@ -311,19 +318,17 @@ class Modal extends React.Component {
             </Mandatory>
             <SummaryField type="text" name="body" placeholder="Why did you like the product or not?" maxlength="1000" onChange={this.onChangeValue} />
 
-          <Mandatory>
-            What is your nickname?
-          </Mandatory>
-          <SummaryField type="text" name="nickname" placeholder="Example: Jackson11!" maxlength="60" onChange={this.onChangeValue} />
-          <Mandatory>
-            Your E-mail
-          </Mandatory>
-          <SummaryField type="text" name="email" maxlength="60" onChange={this.onChangeValue} />
-          </Scroll>
-
-          <Footer>
+            <Mandatory>
+              What is your nickname?
+            </Mandatory>
+            <SummaryField type="text" name="nickname" placeholder="Example: Jackson11!" maxlength="60" onChange={this.onChangeValue} />
+            <Mandatory>
+              Your E-mail
+            </Mandatory>
+            <SummaryField type="text" name="email" maxlength="60" onChange={this.onChangeValue} />
+            <div />
             <Button type="button">Submit</Button>
-          </Footer>
+          </Scroll>
         </ModalBody>
       </>
     );
