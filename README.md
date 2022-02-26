@@ -54,6 +54,20 @@ The Product Overview Module is comprised of 4 primary components
 
 **Add To Cart:** The add to cart component is made up of two dropdown selection boxes and two buttons. The first selection box is populated with the currently available sizes for the selected product style. If their are no sizes in stock the box displays "OUT OF STOCK". The second selection box is a quantity selection populated with an incremental list of the available quantity of the selected style and size, this is capped to display a maximium of 15. If no style size has not been selected this box remains greyed out and non-interactive. The first button, Add To Cart, when clicked adds the current SKU and quantity to the users cart. If no selections have been made the user is prompted to make selections when the button is clicked. If there is no stock available the cart button is not visible.
 
+### Ratings and Reviews
+#### Rating Breakdown
+- Visual display of the average ratings, conveyed through filled in star component
+- Breakdown of frequency of each rating type, conveyed via bars filled with green to indicate frequency percentage.
+#### Product Breakdown
+- Characteristics related to the product, with average user input indicated on each scale
+#### Review List
+- List of user reviews relevent to the product consisting of:
+  - Star component representing user rating
+  - Indicating of whether the user recommends the product or not
+  - A space for other users to indicate whether a review was helpful or not.
+- A button that allows users to generate two more reviews. Once there are more than four reviews on the screen a scroll bar appears to decrease visual clutter.
+#### Add New Review
+- Clicking the New Review button pops up a modal where the user can input their rating, recommendation, and characteristic evaluations of a product.
 
 ### Questions and Answers
 
