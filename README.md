@@ -70,7 +70,7 @@ is as follows:
   - Once 3 or more characters are typed into the bar, the questions list automatically rerenders in real time to
     display only questions that include those characters.
 
-![Q&A in action] (http://g.recordit.co/GvysfwsTcR.gif)
+![Q&A in action](http://g.recordit.co/GvysfwsTcR.gif)
 
 ### Related Items And Outfits
 ![alt text](https://i.imgur.com/NE3HxeG.png)
