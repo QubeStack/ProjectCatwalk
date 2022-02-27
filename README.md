@@ -66,6 +66,7 @@ The Product Overview Module is comprised of 4 primary components
   - Indicating of whether the user recommends the product or not
   - A space for other users to indicate whether a review was helpful or not.
 - A button that allows users to generate two more reviews. Once there are more than four reviews on the screen a scroll bar appears to decrease visual clutter.
+![more reviews click](http://g.recordit.co/xi5dxSxDOj.gif)
 #### Add New Review
 - Clicking the New Review button pops up a modal where the user can input their rating, recommendation, and characteristic evaluations of a product.
 
